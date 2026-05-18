@@ -100,8 +100,8 @@ export default function MobileNav() {
                                                     setIsOpen(false);
                                                 }}
                                                 className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 transition-all duration-200 ${activeItem === item.id
-                                                        ? "bg-[#262626]/30 border-2 border-[#262626]/70 text-white"
-                                                        : "text-white/60 hover:bg-white/5 hover:text-white"
+                                                    ? "bg-[#262626]/30 border-2 border-[#262626]/70 text-white"
+                                                    : "text-white/60 hover:bg-white/5 hover:text-white"
                                                     }`}
                                             >
                                                 <Icon size={18} />
