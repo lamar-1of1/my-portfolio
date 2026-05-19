@@ -5,6 +5,9 @@ import { ArrowUpRight, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import ScalesContainerDemo from "@/components/scales-container-demo";
+import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
+import { techStack } from "@/components/data";
+import { WorkAccordion } from "@/components/WorkAccordion";
 
 const cardContent = { title: "Hi, I'm Lamar" };
 const animatedWords = ["innovative", "proactive", "adaptable"];
@@ -87,6 +90,7 @@ export default function Home() {
         <main className="relative min-h-screen overflow-hidden bg-black text-white py-10 md:px-40 font-sans">
             {/* <PageBackground /> */}
             <div className="relative z-10 max-w-4xl space-y-8 pt-25 px-8">
+
                 <div className="inline-flex items-center gap-2 rounded-full bg-[#343434]/20 px-4 py-2.5 text-sm/tight tracking-normal font-medium text-white/70 border border-[#262626]/60 backdrop-blur-md shadow-inner">
                     <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -172,23 +176,61 @@ export default function Home() {
                         </div>
 
                         {/* Stats */}
-                        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                             {[
                                 { value: "3+", label: "Years Experience" },
                                 { value: "15+", label: "Projects Built" },
-                                { value: "100%", label: "Responsive Design" },
-                                { value: "∞", label: "Creative Ideas" },
                             ].map((item) => (
                                 <div
                                     key={item.label}
-                                    className="rounded-3xl border border-[#262626]/70 bg-[#101010]/60 p-5 backdrop-blur-xl"
+                                    className="relative overflow-hidden rounded-3xl border border-[#262626]/70 bg-[#101010]/60 p-5 backdrop-blur-xl"
                                 >
-                                    <h3 className="text-2xl font-semibold text-white">
-                                        {item.value}
-                                    </h3>
-                                    <p className="mt-2 text-sm text-zinc-500 leading-6">
-                                        {item.label}
-                                    </p>
+                                    {/* Shader Background */}
+                                    <div className="pointer-events-none absolute inset-0 opacity-70">
+                                        <ShaderGradientCanvas
+                                            style={{
+                                                position: "absolute",
+                                                inset: 0,
+                                            }}
+                                            pixelDensity={1.2}
+                                            fov={45}
+                                        >
+                                            <ShaderGradient
+                                                animate="on"
+                                                type="plane"
+                                                shader="defaults"
+                                                wireframe={false}
+                                                // bgColor1="#000000"
+                                                // bgColor2="#000000"
+                                                color1="#101010"
+                                                color2="#101010"
+                                                color3="#10B981"
+                                                cDistance={3.6}
+                                                cPolarAngle={90}
+                                                cAzimuthAngle={180}
+                                                positionX={-1.4}
+                                                rotationY={10}
+                                                rotationZ={50}
+                                                uSpeed={0.3}
+                                                uStrength={2.4}
+                                                uDensity={1.2}
+                                                uFrequency={5.5}
+                                                grain="on"
+                                                reflection={0.1}
+                                            />
+                                        </ShaderGradientCanvas>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="relative z-10">
+                                        <h3 className="text-2xl font-semibold text-white">
+                                            {item.value}
+                                        </h3>
+
+                                        <p className="mt-2 text-sm leading-6 text-zinc-400">
+                                            {item.label}
+                                        </p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -202,45 +244,96 @@ export default function Home() {
                         viewport={{ once: true }}
                         className="space-y-4"
                     >
-                        {/* Card 1 */}
-                        <div className="group rounded-[2rem] border border-[#262626]/70 bg-[#101010]/80 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-white/10">
-                            <div className="mb-6 flex items-center justify-between">
-                                <span className="text-sm uppercase tracking-[0.2em] text-white/40">
-                                    Focus
-                                </span>
-
-                                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                            </div>
-
-                            <h3 className="text-2xl font-medium text-white leading-snug">
-                                Creating premium web interfaces with smooth interactions
-                                and scalable architecture.
-                            </h3>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="rounded-[2rem] border border-[#262626]/70 bg-gradient-to-b from-[#151515] to-[#0d0d0d] p-6">
-                            <div className="space-y-5">
-                                {[
-                                    "Frontend Development",
-                                    "UI/UX Design",
-                                    "Responsive Interfaces",
-                                    "Creative Development",
-                                ].map((skill) => (
-                                    <div
-                                        key={skill}
-                                        className="flex items-center justify-between border-b border-white/5 pb-3 last:border-none last:pb-0"
-                                    >
-                                        <span className="text-zinc-300">{skill}</span>
-
-                                        <div className="h-2 w-2 rounded-full bg-white/30" />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
                     </motion.div>
                 </div>
             </section>
+
+            <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="mb-10 flex justify-center"
+            >
+                <h2 className="text-md font-medium text-emerald-500 w-fit px-3 py-1.5">
+                    My Tech Stack
+                </h2>
+            </motion.div>
+
+            <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                viewport={{ once: true }}
+                className="space-y-4"
+            >
+                {/* Marquee Rows */}
+                <div className="relative overflow-hidden border-b border-t border-[#262626]/70 py-6 mb-12">
+                    {/* Edge fades */}
+                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-black to-transparent" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-black to-transparent" />
+
+                    <div className="flex flex-col gap-4">
+                        {[
+                            {
+                                direction: "left",
+                                speed: 30,
+                                items: [...techStack].sort(() => Math.random() - 0.5),
+                            },
+                            {
+                                direction: "right",
+                                speed: 35,
+                                items: [...techStack].sort(() => Math.random() - 0.5),
+                            },
+                        ].map((row, i) => {
+                            const duplicatedItems = [
+                                ...row.items,
+                                ...row.items,
+                                ...row.items,
+                            ];
+
+                            return (
+                                <div key={i} className="flex w-max">
+                                    <motion.div
+                                        animate={{
+                                            x:
+                                                row.direction === "left"
+                                                    ? ["0%", "-33.33%"]
+                                                    : ["-33.33%", "0%"],
+                                        }}
+                                        transition={{
+                                            duration: row.speed,
+                                            ease: "linear",
+                                            repeat: Infinity,
+                                        }}
+                                        className="flex gap-3 px-4"
+                                    >
+                                        {duplicatedItems.map((tech, j) => {
+                                            const Icon = tech.icon;
+
+                                            return (
+                                                <div
+                                                    key={`${i}-${j}`}
+                                                    className="flex items-center gap-2 rounded-full border bg-[#262626]/20 border-[#262626]/60 px-4 py-2 transition-all hover:border-emerald-500/40 hover:bg-emerald-500/5"
+                                                >
+                                                    <Icon
+                                                        className={`h-4 w-4 ${tech.color}`}
+                                                    />
+                                                    <span className="whitespace-nowrap text-xs font-medium text-zinc-200">
+                                                        {tech.name}
+                                                    </span>
+                                                </div>
+                                            );
+                                        })}
+                                    </motion.div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </motion.div>
+            {/* Work / Experience Accordion */}
+            <WorkAccordion />
         </main >
     );
 }
