@@ -5,7 +5,7 @@ export default function ScalesContainerDemo() {
         <ScalesContainer
             orientation="diagonal"
             size={8}
-            containerClassName="h-18 w-full overflow-hidden bg-black border-t border-b border-[#343434]/50 flex items-center justify-center flex-col"
+            containerClassName="h-full w-full overflow-hidden bg-black bord/er-t bord/er-b bo/rder-[#343434]/50 flex items-center justify-center flex-col"
         >
         </ScalesContainer>
     );

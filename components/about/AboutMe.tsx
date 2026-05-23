@@ -12,7 +12,7 @@ const stats = [
 
 export function AboutMe() {
     return (
-        <section className={cn(contentContainer, "space-y-8 py-12")}>
+        <section className={cn(contentContainer, "space-y-8 pt-12")}>
             <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -20,7 +20,7 @@ export function AboutMe() {
                 viewport={{ once: true }}
                 className="mb-10"
             >
-                <h2 className="w-fit rounded-full border border-[#262626]/60 bg-[#262626]/20 px-3 py-1.5 text-md font-normal text-[#6c6c6c]">
+                <h2 className="w-fit rounded-full border-2 border-emerald-500/15 bg-transparent px-3 py-1.5 text-md font-normal text-emerald-500">
                     About Me
                 </h2>
             </motion.div>

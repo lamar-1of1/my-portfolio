@@ -35,9 +35,9 @@ export default function RootLayout({
             lang="en"
             className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
         >
-            <body className="min-h-full">
+            <body className="min-h-full bg-black">
                 <MobileNav />
-                <Sidebar />
+                {/* <Sidebar /> */}
 
                 <main className="min-h-screen md:p/l-25 p/t-20 md:pt-0">
                     {children}

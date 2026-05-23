@@ -12,7 +12,7 @@ export function EdgeBlur({ position = "bottom", height = 75 }: EdgeBlurProps) {
 
   return (
     <div
-      className={`fixed inset-x-0 md:ml-20 isolate z-40 pointer-events-none ${isTop ? "top-0" : "bottom-0"}`}
+      className={`fixed inset-x-0 m/d:ml-20 isolate z-40 pointer-events-none ${isTop ? "top-0" : "bottom-0"}`}
       style={{ height }}
     >
       {blurLayers.map((blur) => (

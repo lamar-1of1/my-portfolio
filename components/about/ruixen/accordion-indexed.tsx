@@ -158,14 +158,14 @@ function FillerWorkContent({ description }: { description: string }) {
 
 export default function AccordionIndexed({
     items = defaultItems,
-    defaultValue = "engineering",
+    defaultValue = "",
     value,
     onValueChange,
     collapsible = true,
     className,
 }: AccordionIndexedProps) {
     return (
-        <div className={cn("mx-auto w-full max-w-[920px]", className)}>
+        <div className={cn("mx-au/to w-full max-w-[920px]", className)}>
             <Accordion
                 type="single"
                 defaultValue={value ? undefined : defaultValue}
@@ -184,7 +184,7 @@ export default function AccordionIndexed({
                                 <span className="shrink-0 font-mono text-[22px] font-medium tabular-nums text-zinc-800 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-data-[state=open]/item:text-zinc-400">
                                     {String(index + 1).padStart(2, "0")}
                                 </span>
-                                <span className="text-[22px] font-normal text-zinc-700 transition-all duration-300 ease-out group-hover/item:text-zinc-500 group-data-[state=open]/item:text-zinc-50">
+                                <span className="text-lg font-normal text-zinc-700 transition-all duration-300 ease-out group-hover/item:text-zinc-500 group-data-[state=open]/item:text-zinc-50">
                                     {item.title}
                                 </span>
                             </div>
