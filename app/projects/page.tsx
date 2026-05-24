@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import React, { useMemo, useRef } from "react";
+import { motion } from "framer-motion";
 
+import { HoverExpand } from "./HoverExpand";
 import ScalesContainerDemo from "@/components/scales-container-demo";
 
 const projects = [
@@ -42,59 +42,26 @@ const projects = [
 ];
 
 export default function Projects() {
-    const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Mouse tracking
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    // Smooth spring
-    const springConfig = {
-        damping: 25,
-        stiffness: 150,
-        mass: 0.5,
-    };
-
-    const imageX = useSpring(mouseX, springConfig);
-    const imageY = useSpring(mouseY, springConfig);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!containerRef.current) return;
-
-        const rect = containerRef.current.getBoundingClientRect();
-
-        // Responsive image size
-        const imageWidth = window.innerWidth < 1280 ? 260 : 320;
-        const imageHeight = window.innerWidth < 1280 ? 320 : 400;
-
-        // Clamp inside container
-        const maxX = rect.width - imageWidth;
-        const maxY = rect.height - imageHeight;
-
-        const x = Math.min(
-            Math.max(e.clientX - rect.left - imageWidth / 2, 0),
-            maxX
-        );
-
-        const y = Math.min(
-            Math.max(e.clientY - rect.top - imageHeight / 2, 0),
-            maxY
-        );
-
-        mouseX.set(x);
-        mouseY.set(y);
-    };
+    const hoverItems = useMemo(
+        () =>
+            projects.map((project) => ({
+                label: project.title,
+                sublabel: project.category,
+                description: project.year,
+                image: project.image,
+            })),
+        []
+    );
 
     return (
         <section
             ref={containerRef}
-            onMouseMove={handleMouseMove}
-            className="relative w-full overflow-hidden py-32 md:py-24"
+            className="relative w-full overflow-hidden py-20 sm:py-24 md:py-28"
         >
             {/* Main Layout */}
-            <div className="relative mx-auto flex w-full max-w-[1600px]">
+            <div className="relative z-10 mx-auto flex w-full max-w-[1800px]">
                 {/* Left Scale */}
                 <aside className="relative hidd/en w-8 shrink-0 border-r border-[#343434]/50 2xl:block">
                     <div className="sticky top-0 h-screen overflow-hidden">
@@ -102,7 +69,7 @@ export default function Projects() {
                     </div>
                 </aside>
 
-                {/* Content */}
+                {/* Main Content */}
                 <div className="min-w-0 flex-1 overflow-hidden">
                     {/* Header */}
                     <motion.div
@@ -112,7 +79,7 @@ export default function Projects() {
                         viewport={{ once: true }}
                         className="mb-10"
                     >
-                        <div className="flex items-center w-fit roun/ded-full bord/er b/order-[#262626]/70 b/g-[#343434]/20 md:px-12 px-5 py-6 backdrop-blur-sm">
+                        <div className="flex items-center w-fit roun/ded-full bord/er b/order-[#262626]/70 b/g-[#343434]/20 px-5 md:px-16 p/y-2 backdrop-blur-sm">
                             <h2
                                 className="text-xl font-extrabold text-emerald-500 font-sans tracking-tight"
                             >
@@ -125,137 +92,47 @@ export default function Projects() {
                         </div>
                     </motion.div>
 
-                    {/* Project List */}
-                    <div className="border-t border-white/10">
-                        {projects.map((project) => (
-                            <a
-                                key={project.id}
-                                href="#"
-                                onMouseEnter={() =>
-                                    setHoveredProject(project.id)
-                                }
-                                onMouseLeave={() =>
-                                    setHoveredProject(null)
-                                }
-                                className="group flex flex-col gap-8 overflow-hidden border-b border-white/10 px-4 py-8 transition-colors hover:bg-white/[0.02] sm:px-6 md:flex-row md:items-center md:justify-between md:px-10 md:py-12 xl:px-16"
-                            >
-                                {/* Left */}
-                                <div className="min-w-0">
-                                    <motion.h3
-                                        className="
-                                            break-words
-                                            text-3xl
-                                            font-bold
-                                            tracking-tight
-                                            text-zinc-300
-                                            transition-colors
-                                            duration-300
-                                            group-hover:text-emerald-400
-
-                                            sm:text-4xl
-                                            md:text-5xl
-                                            lg:text-6xl
-                                            xl:text-7xl
-                                        "
-                                        initial={{ x: 0 }}
-                                        whileHover={{
-                                            x:
-                                                typeof window !== "undefined" &&
-                                                    window.innerWidth >= 768
-                                                    ? 20
-                                                    : 0,
-                                        }}
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 300,
-                                            damping: 20,
-                                        }}
-                                    >
-                                        {project.title}
-                                    </motion.h3>
-                                </div>
-
-                                {/* Right */}
-                                <div className="flex w-full items-center justify-between gap-4 md:w-auto md:flex-row md:justify-end md:gap-10">
-                                    <div className="flex flex-wrap items-center gap-3">
-                                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-zinc-400 transition-colors group-hover:border-emerald-400/30 group-hover:text-emerald-300 sm:px-4 sm:text-sm">
-                                            {project.category}
-                                        </span>
-
-                                        <span className="text-sm font-medium text-zinc-500 transition-colors group-hover:text-zinc-300 sm:text-base md:text-lg">
-                                            {project.year}
-                                        </span>
-                                    </div>
-
-                                    <div className="hidden h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:border-emerald-400/50 group-hover:bg-emerald-400/10 group-hover:text-emerald-400 lg:flex">
-                                        <ArrowUpRight size={20} />
-                                    </div>
-                                </div>
-                            </a>
-                        ))}
+                    {/* Projects */}
+                    <div
+                        className="
+                            px-4
+                            sm:px-6
+                            md:px-10
+                            lg:px-14
+                            xl:px-16
+                        "
+                    >
+                        <HoverExpand
+                            items={hoverItems}
+                            collapsedHeight={76}
+                            expandedHeight={340}
+                            className="
+                                w-full
+                                text-zinc-300
+                                [&_*]:transition-colors
+                                [&_*]:duration-300
+                            "
+                        />
                     </div>
                 </div>
 
                 {/* Right Scale */}
-                <aside className="relative hidde/n w-8 shrink-0 border-l border-[#343434]/50 block">
+                <aside
+                    className="
+                        relative
+                        hidde/n
+                        w-8
+                        shrink-0
+                        border-l
+                        border-[#343434]/50
+                        xl:block
+                    "
+                >
                     <div className="sticky top-0 h-screen overflow-hidden">
                         <ScalesContainerDemo />
                     </div>
                 </aside>
             </div>
-
-            {/* Floating Hover Image */}
-            <motion.div
-                className="
-                    pointer-events-none
-                    absolute
-                    left-0
-                    top-0
-                    z-50
-                    hidden
-                    overflow-hidden
-                    rounded-2xl
-                    border
-                    border-white/10
-                    bg-black
-                    shadow-2xl
-                    md:block
-                "
-                style={{
-                    x: imageX,
-                    y: imageY,
-                    opacity: hoveredProject ? 1 : 0,
-                    scale: hoveredProject ? 1 : 0.92,
-                    width:
-                        typeof window !== "undefined" &&
-                            window.innerWidth < 1280
-                            ? 260
-                            : 320,
-                    height:
-                        typeof window !== "undefined" &&
-                            window.innerWidth < 1280
-                            ? 320
-                            : 400,
-                }}
-                transition={{
-                    opacity: { duration: 0.2 },
-                    scale: { duration: 0.2 },
-                }}
-            >
-                {projects.map((project) => (
-                    <img
-                        key={project.id}
-                        src={project.image}
-                        alt={project.title}
-                        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${hoveredProject === project.id
-                            ? "opacity-100"
-                            : "opacity-0"
-                            }`}
-                    />
-                ))}
-
-                <div className="absolute inset-0 bg-black/20" />
-            </motion.div>
         </section>
     );
 }
