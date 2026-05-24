@@ -148,8 +148,6 @@ export default function Home() {
                         </div>
                     </section>
 
-                    {/* Footer */}
-                    <Footer />
                 </div>
 
                 {/* Right Scale Bar */}
@@ -158,6 +156,10 @@ export default function Home() {
                         <ScalesContainerDemo />
                     </div>
                 </aside>
+            </div>
+            {/* Footer */}
+            <div className="w/-48 px-4">
+                <Footer />
             </div>
         </main>
     );

@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import {
     Grip,
     X,
@@ -21,24 +24,28 @@ const navItems = [
         label: "Home",
         icon: Home,
         keybind: "H",
+        href: "/",
     },
     {
         id: "about",
         label: "About",
         icon: User,
         keybind: "A",
+        href: "/about",
     },
     {
         id: "projects",
         label: "Projects",
         icon: FolderKanban,
         keybind: "P",
+        href: "/projects",
     },
     {
         id: "contact",
         label: "Contact",
         icon: Mail,
         keybind: "C",
+        href: "/contact",
     },
 ];
 
@@ -58,10 +65,12 @@ const springConfig = {
 
 export default function MobileNav() {
     const [isOpen, setIsOpen] = useState(false);
-    const [activeItem, setActiveItem] = useState("home");
 
+    const pathname = usePathname();
+
+    // Active item based on current route
     const activeNav =
-        navItems.find((item) => item.id === activeItem) || navItems[0];
+        navItems.find((item) => item.href === pathname) || navItems[0];
 
     const ActiveIcon = activeNav.icon;
 
@@ -74,7 +83,8 @@ export default function MobileNav() {
             );
 
             if (matchedItem) {
-                setActiveItem(matchedItem.id);
+                window.location.href = matchedItem.href;
+
                 setIsOpen(false);
             }
 
@@ -145,55 +155,62 @@ export default function MobileNav() {
                                     {navItems.map((item) => {
                                         const Icon = item.icon;
 
+                                        const isActive =
+                                            pathname === item.href;
+
                                         return (
-                                            <motion.button
+                                            <Link
                                                 key={item.id}
-                                                variants={{
-                                                    open: {
-                                                        opacity: 1,
-                                                        y: 0,
-                                                    },
-                                                    closed: {
-                                                        opacity: 0,
-                                                        y: 10,
-                                                    },
-                                                }}
-                                                initial="closed"
-                                                animate="open"
-                                                exit="closed"
-                                                transition={springConfig}
+                                                href={item.href}
                                                 onClick={() => {
-                                                    setActiveItem(item.id);
                                                     setIsOpen(false);
                                                 }}
-                                                className={`flex w-full items-center justify-between rounded-xl px-3 py-3 transition-all duration-200 ${activeItem === item.id
-                                                    ? "border-2 border-[#262626]/70 bg-[#262626]/30 text-white"
-                                                    : "text-white/60 hover:bg-white/5 hover:text-white"
-                                                    }`}
                                             >
-                                                {/* Left */}
-                                                <div className="flex items-center gap-3">
-                                                    <Icon size={18} />
+                                                <motion.div
+                                                    variants={{
+                                                        open: {
+                                                            opacity: 1,
+                                                            y: 0,
+                                                        },
+                                                        closed: {
+                                                            opacity: 0,
+                                                            y: 10,
+                                                        },
+                                                    }}
+                                                    initial="closed"
+                                                    animate="open"
+                                                    exit="closed"
+                                                    transition={springConfig}
+                                                    className={`flex w-full items-center justify-between rounded-xl px-3 py-3 transition-all duration-200 ${
+                                                        isActive
+                                                            ? "border-2 border-[#262626]/70 bg-[#262626]/30 text-white"
+                                                            : "text-white/60 hover:bg-white/5 hover:text-white"
+                                                    }`}
+                                                >
+                                                    {/* Left */}
+                                                    <div className="flex items-center gap-3">
+                                                        <Icon size={18} />
 
-                                                    <span className="text-sm tracking-wide">
-                                                        {item.label}
-                                                    </span>
-                                                </div>
-
-                                                {/* Keybind */}
-                                                <div className="flex items-center">
-                                                    <div className="flex h-6 items-center gap-1.5 rounded-lg border border-[#262626]/90 bg-[#343434]/20 px-2 shadow-[0_1px_0_rgba(255,255,255,0.04),inset_0_-1px_0_rgba(0,0,0,0.3)]">
-                                                        <Command
-                                                            size={13}
-                                                            className="text-white/45"
-                                                        />
-
-                                                        <kbd className="text-xs font-medium font-sans uppercase tracking-wide text-white/55">
-                                                            {item.keybind}
-                                                        </kbd>
+                                                        <span className="text-sm tracking-wide">
+                                                            {item.label}
+                                                        </span>
                                                     </div>
-                                                </div>
-                                            </motion.button>
+
+                                                    {/* Keybind */}
+                                                    <div className="flex items-center">
+                                                        <div className="flex h-6 items-center gap-1.5 rounded-lg border border-[#262626]/90 bg-[#343434]/20 px-2 shadow-[0_1px_0_rgba(255,255,255,0.04),inset_0_-1px_0_rgba(0,0,0,0.3)]">
+                                                            <Command
+                                                                size={13}
+                                                                className="text-white/45"
+                                                            />
+
+                                                            <kbd className="text-xs font-medium font-sans uppercase tracking-wide text-white/55">
+                                                                {item.keybind}
+                                                            </kbd>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            </Link>
                                         );
                                     })}
                                 </div>
@@ -260,7 +277,7 @@ export default function MobileNav() {
                                     initial={false}
                                 >
                                     <motion.div
-                                        key={activeItem}
+                                        key={activeNav.id}
                                         initial={{
                                             opacity: 0,
                                             y: 8,

@@ -1,7 +1,13 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import {
+    motion,
+    useAnimationFrame,
+    useMotionValue,
+    useTransform,
+    wrap,
+} from "framer-motion"
 
 import {
     GithubIcon,
@@ -10,9 +16,91 @@ import {
     ArrowUp01Icon,
 } from "hugeicons-react"
 
+const MarqueeText = () => (
+    <>
+        <span
+            className="
+                text-[18vw] md:text-[12vw]
+                font-black tracking-tighter
+                text-transparent
+                bg-[length:200%_200%]
+                bg-clip-text
+                animate-[gradient_6s_ease_infinite]
+
+                md:bg-none
+                md:[-webkit-text-stroke:1px_rgba(255,255,255,0.2)]
+                md:group-hover:text-emerald-400
+                md:group-hover:[-webkit-text-stroke:1px_transparent]
+
+                bg-gradient-to-r
+                from-emerald-300
+                via-white
+                to-emerald-500
+            "
+        >
+            LET&apos;S BUILD ·&nbsp;
+        </span>
+
+        <span
+            className="
+                text-[18vw] md:text-[12vw]
+                font-black tracking-tighter
+                text-transparent
+                bg-[length:200%_200%]
+                bg-clip-text
+                animate-[gradient_6s_ease_infinite]
+
+                md:bg-none
+                md:[-webkit-text-stroke:1px_rgba(255,255,255,0.2)]
+                md:group-hover:text-emerald-400
+                md:group-hover:[-webkit-text-stroke:1px_transparent]
+
+                bg-gradient-to-r
+                from-emerald-300
+                via-white
+                to-emerald-500
+            "
+        >
+            LET&apos;S BUILD ·&nbsp;
+        </span>
+
+        <span
+            className="
+                text-[18vw] md:text-[12vw]
+                font-black tracking-tighter
+                text-transparent
+                bg-[length:200%_200%]
+                bg-clip-text
+                animate-[gradient_6s_ease_infinite]
+
+                md:bg-none
+                md:[-webkit-text-stroke:1px_rgba(255,255,255,0.2)]
+                md:group-hover:text-emerald-400
+                md:group-hover:[-webkit-text-stroke:1px_transparent]
+
+                bg-gradient-to-r
+                from-emerald-300
+                via-white
+                to-emerald-500
+            "
+        >
+            LET&apos;S BUILD ·&nbsp;
+        </span>
+    </>
+)
+
 export default function Footer() {
-    // Prevent hydration mismatch
     const [formattedTime, setFormattedTime] = useState("")
+
+    // Marquee animation
+    const baseX = useMotionValue(0)
+
+    useAnimationFrame((t, delta) => {
+        const moveBy = -0.002 * delta
+        baseX.set(baseX.get() + moveBy)
+    })
+
+    const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`)
 
     useEffect(() => {
         const formatter = new Intl.DateTimeFormat("en-US", {
@@ -42,47 +130,45 @@ export default function Footer() {
     }
 
     return (
-        <footer className="flex w-full flex-col items-center overflow-hidden bg-bla/ck px-4 pt-20 pb-8 md:px-8">
+        <footer className="flex max-w-full w-full flex-col items-center overflow-hidden bg-r/ed-500 px-4 pt-20 pb-8 md:px-8">
             {/* Top Label */}
             <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-400">
                 What&apos;s next?
             </div>
 
-            {/* Massive Headline */}
-            <div className="group relative mb-24 flex w-full cursor-pointer justify-center overflow-hidden">
-                <motion.h2
-                    className="select-none bg-clip-text text-center text-[12vw] leading-none font-black tracking-tighter text-transparent transition-all duration-500"
-                    whileHover={{
-                        backgroundImage:
-                            "linear-gradient(to right, #ffffff, #10B981)",
-                        opacity: 1,
-                    }}
-                    style={{
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundImage:
-                            "linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.2))",
-                    }}
+            {/* Animated Marquee */}
+            <div className="group relative mb-24 w-full overflow-x-hidden">
+                <motion.div
+                    className="flex min-w-max items-center whitespace-nowrap will-change-transform"
+                    style={{ x }}
                 >
-                    LET&apos;S&nbsp; BUILD
-                </motion.h2>
+                    {/* First Set */}
+                    <div className="flex items-center">
+                        <MarqueeText />
+                    </div>
+
+                    {/* Duplicate Set */}
+                    <div className="flex items-center">
+                        <MarqueeText />
+                    </div>
+                </motion.div>
             </div>
 
             {/* Bottom Bar */}
-            <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-6 border-t  border-white/10 pt-8 pb-20 md:flex-row">
+            <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 pb-20 md:flex-row">
                 {/* Left */}
                 <div className="flex flex-col items-center gap-4 text-center text-sm text-zinc-500 md:flex-row md:gap-8 md:text-left">
                     <span>© 2024 Lamar</span>
 
                     <span className="hidden h-1 w-1 rounded-full bg-zinc-700 md:block" />
 
-                    <span className="whitespace-nowrap w-42 bg-r/ed-500">
+                    <span className="whitespace-nowrap">
                         Barbados — {formattedTime || "--:--:--"}
                     </span>
                 </div>
 
                 {/* Center */}
-                <div className="flex items-center gap-3 ">
+                <div className="flex items-center gap-3">
                     <a
                         href="#"
                         className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#0A0A0A] text-white transition-colors hover:border-emerald-500/50 hover:text-emerald-400"
