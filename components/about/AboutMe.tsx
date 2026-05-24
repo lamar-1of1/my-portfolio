@@ -20,9 +20,17 @@ export function AboutMe() {
                 viewport={{ once: true }}
                 className="mb-10"
             >
-                <h2 className="w-fit rounded-full border-2 border-emerald-500/15 bg-transparent px-3 py-1.5 text-md font-normal text-emerald-500">
-                    About Me
-                </h2>
+                <div className="flex items-center w-fit roun/ded-full bord/er b/order-[#262626]/70 b/g-[#343434]/20 p/x-3 p/y-2 backdrop-blur-sm">
+                    <h2
+                        className="text-xl font-extrabold text-emerald-500 font-sans tracking-tight"
+                    >
+                        #01 &nbsp;
+                    </h2>
+                    {/* About Me Pill Badge */}
+                    <div className="text-xl font-bold text-[#474747] font-sanstext-emerald-500tracking-tight">
+                        About
+                    </div>
+                </div>
             </motion.div>
 
             <div className="grid gap-10 lg:grid-cols-[1.4fr_0.4fr]">
@@ -36,17 +44,17 @@ export function AboutMe() {
                     <div className="space-y-6 bg-yell/ow-400">
                         <h2 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl">
                             Designing and developing digital experiences that feel{" "}
-                            <span className="text-white/40">modern, intuitive and memorable.</span>
+                            <span className="fraunces font-ext/rabold text-white/40">modern, intuitive and memorable.</span>
                         </h2>
 
-                        <p className="max-w-5xl text-lg leading-9 text-zinc-400 text-justify">
+                        <p className="max-w-5xl text-base leading-9 text-zinc-400 text-just/ify">
                             I am from Barbados visually refined interfaces and performant web
                             experiences that blend creativity with functionality. My approach
                             combines clean development, thoughtful design systems, and attention
                             to detail to create products that feel seamless across every screen.
                         </p>
 
-                        <p className="max-w-3xl text-lg leading-9 text-zinc-400 text-justify">
+                        <p className="max-w-3xl text-base leading-9 text-zinc-400 text-jus/tify">
                             Whether I am developing responsive frontends, designing fluid
                             interactions, or experimenting with emerging technologies, I aim to
                             craft experiences that are both aesthetically striking and highly usable.

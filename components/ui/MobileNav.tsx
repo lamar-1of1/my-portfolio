@@ -166,11 +166,10 @@ export default function MobileNav() {
                                                     setActiveItem(item.id);
                                                     setIsOpen(false);
                                                 }}
-                                                className={`flex w-full items-center justify-between rounded-xl px-3 py-3 transition-all duration-200 ${
-                                                    activeItem === item.id
-                                                        ? "border-2 border-[#262626]/70 bg-[#262626]/30 text-white"
-                                                        : "text-white/60 hover:bg-white/5 hover:text-white"
-                                                }`}
+                                                className={`flex w-full items-center justify-between rounded-xl px-3 py-3 transition-all duration-200 ${activeItem === item.id
+                                                    ? "border-2 border-[#262626]/70 bg-[#262626]/30 text-white"
+                                                    : "text-white/60 hover:bg-white/5 hover:text-white"
+                                                    }`}
                                             >
                                                 {/* Left */}
                                                 <div className="flex items-center gap-3">
@@ -182,17 +181,17 @@ export default function MobileNav() {
                                                 </div>
 
                                                 {/* Keybind */}
-                                                <div className="flex items-center gap-1.5">
-                                                    <div className="flex h-6 w-6 items-center justify-center rounded-md border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] shadow-[0_1px_0_rgba(255,255,255,0.04),inset_0_-1px_0_rgba(0,0,0,0.3)]">
+                                                <div className="flex items-center">
+                                                    <div className="flex h-6 items-center gap-1.5 rounded-lg border border-[#262626]/90 bg-[#343434]/20 px-2 shadow-[0_1px_0_rgba(255,255,255,0.04),inset_0_-1px_0_rgba(0,0,0,0.3)]">
                                                         <Command
-                                                            size={11}
+                                                            size={13}
                                                             className="text-white/45"
                                                         />
-                                                    </div>
 
-                                                    <kbd className="flex h-6 min-w-[28px] items-center justify-center rounded-md border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] px-2 text-[11px] font-medium uppercase tracking-wide text-white/55 shadow-[0_1px_0_rgba(255,255,255,0.04),inset_0_-1px_0_rgba(0,0,0,0.3)]">
-                                                        {item.keybind}
-                                                    </kbd>
+                                                        <kbd className="text-xs font-medium font-sans uppercase tracking-wide text-white/55">
+                                                            {item.keybind}
+                                                        </kbd>
+                                                    </div>
                                                 </div>
                                             </motion.button>
                                         );
@@ -201,7 +200,7 @@ export default function MobileNav() {
 
                                 {/* Quick Links */}
                                 <div className="border-t border-[#262626]/70 p-3">
-                                    <p className="mb-3 px-1 text-[11px] uppercase tracking-[0.2em] text-white/35">
+                                    <p className="mb-3 px-1 text-sm font-medium text-white/35">
                                         Quick Links
                                     </p>
 
@@ -280,8 +279,8 @@ export default function MobileNav() {
                                         className="flex items-center gap-2"
                                     >
                                         <ActiveIcon
-                                            size={15}
-                                            className="text-white/80"
+                                            size={17}
+                                            className="text-white"
                                         />
 
                                         <span className="truncate text-sm capitalize text-white">
