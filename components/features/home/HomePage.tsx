@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import ScalesContainerDemo from "@/components/scales-container-demo";
-import { AboutSections } from "@/components/features/about/components/AboutSections";
+// import { AboutSections } from "@/components/features/about/components/AboutSections";
 import Footer from "@/components/ui/footer";
 import { heroContent } from "@/components/features/home/data/home";
 import { trackEvent } from "@/lib/analytics";
@@ -97,7 +97,7 @@ export default function HomePage() {
                             </div>
                         </div>
 
-                        <AboutSections />
+                        {/* <AboutSections /> */}
 
                         <div className="px-4 pb-20 md:px-20">
                             <motion.div
