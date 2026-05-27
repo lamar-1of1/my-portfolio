@@ -122,7 +122,7 @@ export default function MobileNav() {
                 )}
             </AnimatePresence>
 
-            <div className="fixed bottom-4 left-4 right-4 z-50 flex justify-center sm:hi/dden">
+            <div className="fixed bottom-4 left-4 right-4 z-50 flex justify-center sm:hidden">
                 <motion.div
                     layout
                     transition={springConfig}
