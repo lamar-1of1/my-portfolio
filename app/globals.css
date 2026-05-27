@@ -37,3 +37,36 @@
         background-position: 0% 50%;
     }
 }
+
+
+
+/* ---------- START CSS FOR PROJECTS PAGE ---------- */
+@layer utilities {
+    .animate-fade-in {
+        animation: fadeIn 0.4s ease-out forwards;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hide scrollbar but keep scrolling */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* ---------- END CSS FOR PROJECTS PAGE ---------- */

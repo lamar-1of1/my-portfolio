@@ -1,11 +1,13 @@
-import { cn } from "@/lib/utils";
-import React from "react";
+// scales.tsx
+
+import { cn } from "@/lib/utils"
+import React from "react"
 
 export interface ScalesProps {
-    orientation?: "horizontal" | "vertical" | "diagonal";
-    size?: number;
-    className?: string;
-    color?: string;
+    orientation?: "horizontal" | "vertical" | "diagonal"
+    size?: number
+    className?: string
+    color?: string
 }
 
 export const Scales = ({
@@ -17,14 +19,16 @@ export const Scales = ({
     const getGradientAngle = () => {
         switch (orientation) {
             case "horizontal":
-                return "0deg";
+                return "0deg"
+
             case "vertical":
-                return "90deg";
+                return "90deg"
+
             case "diagonal":
             default:
-                return "315deg";
+                return "315deg"
         }
-    };
+    }
 
     return (
         <div
@@ -32,7 +36,7 @@ export const Scales = ({
                 "absolute inset-0 h-full w-full overflow-hidden",
                 "[--pattern-scales:var(--color-neutral-950)]/10",
                 "dark:[--pattern-scales:var(--color-white)]/5",
-                className,
+                className
             )}
             style={
                 {
@@ -49,12 +53,12 @@ export const Scales = ({
                 }}
             />
         </div>
-    );
-};
+    )
+}
 
 export interface ScalesContainerProps extends ScalesProps {
-    children?: React.ReactNode;
-    containerClassName?: string;
+    children?: React.ReactNode
+    containerClassName?: string
 }
 
 export const ScalesContainer = ({
@@ -66,16 +70,24 @@ export const ScalesContainer = ({
     color,
 }: ScalesContainerProps) => {
     return (
-        <div className={cn("relative", containerClassName)}>
+        <div
+            className={cn(
+                "relative h-full w-full",
+                containerClassName
+            )}
+        >
             <Scales
                 orientation={orientation}
                 size={size}
                 className={className}
                 color={color}
             />
-            <div className="relative z-10">{children}</div>
-        </div>
-    );
-};
 
-export default Scales;
+            <div className="relative z-10">
+                {children}
+            </div>
+        </div>
+    )
+}
+
+export default Scales

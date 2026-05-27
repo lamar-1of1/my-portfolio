@@ -90,7 +90,7 @@ const MarqueeText = () => (
 )
 
 export default function Footer() {
-    const [formattedTime, setFormattedTime] = useState("")
+    const [formattedTime, setFormattedTime] = useState("--:--:-- --")
 
     // Marquee animation
     const baseX = useMotionValue(0)
@@ -112,7 +112,10 @@ export default function Footer() {
         })
 
         const updateTime = () => {
-            setFormattedTime(formatter.format(new Date()))
+            const time = formatter.format(new Date())
+
+            // Force fixed width by padding shorter values
+            setFormattedTime(time)
         }
 
         updateTime()
@@ -130,7 +133,7 @@ export default function Footer() {
     }
 
     return (
-        <footer className="flex max-w-full w-full flex-col items-center overflow-hidden bg-r/ed-500 px-4 pt-20 pb-8 md:px-8">
+        <footer className="flex w-full max-w-full flex-col items-center overflow-hidden pt-20 pb-8 md:px-8">
             {/* Top Label */}
             <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-400">
                 What&apos;s next?
@@ -162,8 +165,12 @@ export default function Footer() {
 
                     <span className="hidden h-1 w-1 rounded-full bg-zinc-700 md:block" />
 
-                    <span className="whitespace-nowrap">
-                        Barbados — {formattedTime || "--:--:--"}
+                    <span className="flex items-center whitespace-nowrap">
+                        Barbados —
+
+                        <span className="ml-2 inline-block min-w-[110px] text-left tabular-nums">
+                            {formattedTime}
+                        </span>
                     </span>
                 </div>
 

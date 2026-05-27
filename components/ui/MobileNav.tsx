@@ -117,16 +117,16 @@ export default function MobileNav() {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
                         onClick={() => setIsOpen(false)}
-                        className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm sm:hidden"
+                        className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm s/m:hidden"
                     />
                 )}
             </AnimatePresence>
 
-            <div className="fixed bottom-4 left-4 right-4 z-50 flex justify-center sm:hidden">
+            <div className="fixed bottom-4 left-4 right-4 z-50 flex justify-center sm:hi/dden">
                 <motion.div
                     layout
                     transition={springConfig}
-                    className="w-full max-w-[360px] overflow-hidden rounded-2xl border border-[#262626] bg-black/45 shadow-2xl backdrop-blur-3xl"
+                    className="w-full max-w-[360px] overflow-hidden rounded-2xl border border-[#262626] bg-black/80 shadow-2xl backdrop-blur-3xl"
                 >
                     {/* Expanded Menu */}
                     <AnimatePresence>
@@ -181,11 +181,10 @@ export default function MobileNav() {
                                                     animate="open"
                                                     exit="closed"
                                                     transition={springConfig}
-                                                    className={`flex w-full items-center justify-between rounded-xl px-3 py-3 transition-all duration-200 ${
-                                                        isActive
-                                                            ? "border-2 border-[#262626]/70 bg-[#262626]/30 text-white"
-                                                            : "text-white/60 hover:bg-white/5 hover:text-white"
-                                                    }`}
+                                                    className={`flex w-full items-center justify-between rounded-xl px-3 py-3 transition-all duration-200 ${isActive
+                                                        ? "border-2 border-[#262626]/70 bg-[#262626]/30 text-white"
+                                                        : "text-white/60 hover:bg-white/5 hover:text-white"
+                                                        }`}
                                                 >
                                                     {/* Left */}
                                                     <div className="flex items-center gap-3">
