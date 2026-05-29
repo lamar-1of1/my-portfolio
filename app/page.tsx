@@ -80,26 +80,29 @@ const CardBody = ({
     </motion.div>
 );
 
+const GuideRail = ({ side }: { side: "left" | "right" }) => (
+    <aside
+        aria-hidden="true"
+        className={`fixed top-0 z-0 h-screen w-5 overflow-hidden ${side === "left"
+            ? "left-0 border-r border-dashed border-white/15"
+            : "right-0 border-l border-dashed border-white/15"
+            }`}
+    >
+        <div className="absolute inset-0 h-full w-full">
+            <ScalesContainerDemo />
+        </div>
+    </aside>
+);
+
 export default function Home() {
     return (
         <main className="relative min-h-screen bg-black font-sans text-white">
 
-            {/* FIXED LEFT SCALE */}
-            <aside className="fixed left-0 top-0 z-0 h-screen w-[32px] overflow-hidden border-r border-[#343434]/50">
-                <div className="absolute inset-0 h-full w-full">
-                    <ScalesContainerDemo />
-                </div>
-            </aside>
-
-            {/* FIXED RIGHT SCALE */}
-            <aside className="fixed right-0 top-0 z-0 h-screen w-[32px] overflow-hidden border-l border-[#343434]/50">
-                <div className="absolute inset-0 h-full w-full">
-                    <ScalesContainerDemo />
-                </div>
-            </aside>
+            <GuideRail side="left" />
+            <GuideRail side="right" />
 
             {/* MAIN CONTENT */}
-            <div className="ml-[32px] mr-[32px] min-h-screen">
+            <div className="ml-5 mr-5 min-h-screen">
 
                 <section className="space-y-8 pt-25">
                     <div className="px-4 md:px-20">
@@ -183,7 +186,7 @@ export default function Home() {
 
             </div>
             {/* FOOTER */}
-            <div className="md:mx-0 mx-8 border-t border-white/10 bg-black">
+            <div className="mx-5 py-18 md:py-0 border-t border-white/10 bg-black">
                 <Footer />
             </div>
         </main>

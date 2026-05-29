@@ -34,15 +34,15 @@ export const Scales = ({
         <div
             className={cn(
                 "absolute inset-0 h-full w-full overflow-hidden",
-                "[--pattern-scales:var(--color-neutral-950)]/10",
-                "dark:[--pattern-scales:var(--color-white)]/5",
                 className
             )}
             style={
                 {
                     "--scales-size": `${size}px`,
                     "--scales-angle": getGradientAngle(),
-                    ...(color && { "--pattern-scales": color }),
+                    "--pattern-scales":
+                        color ||
+                        "color-mix(in oklab, var(--color-white) 5%, transparent)",
                 } as React.CSSProperties
             }
         >

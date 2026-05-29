@@ -13,6 +13,7 @@ import {
     Mail,
     FileText,
     Command,
+    Download,
 } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -106,7 +107,68 @@ export default function MobileNav() {
 
     return (
         <>
-            <TopBlur height={80} />
+            <TopBlur height={70} />
+
+            <div className="fixed left-5 right-5 top-4 z-50 hidden justify-center sm:flex">
+                <nav className="flex w-full max-w-5xl items-center justify-between rounded-2xl border border-[#262626]/50 bg-black/50 px-3 py-2 shadow-2xl backdrop-blur-3xl">
+                    <Link
+                        href="/"
+                        className="flex min-w-0 items-center gap-3 rounded-xl px-2 py-1.5 text-white"
+                    >
+                        <img
+                            src="/icon-gif.gif"
+                            alt="Logo"
+                            className="h-8 w-8 shrink-0"
+                        />
+                        {/* <span className="hidden text-sm font-semibold tracking-tight text-white/80 md:inline">
+                            Lamar
+                        </span> */}
+                    </Link>
+
+                    <div className="flex items-center gap-1 rounded-2xl border border-dashed border-[#262626]/70 bg-[#343434]/10 p-1">
+                        {navItems.map((item) => {
+                            const Icon = item.icon;
+                            const isActive = pathname === item.href;
+
+                            return (
+                                <Link
+                                    key={item.id}
+                                    href={item.href}
+                                    className={`group relative flex items-center gap-2 overflow-hidden rounded-xl px-3 py-2 text-sm font-medium transition-colors duration-300 ease-out ${isActive
+                                        ? "text-black"
+                                        : "text-white/55 hover:text-white"
+                                        }`}
+                                >
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="desktop-nav-active"
+                                            className="absolute inset-0 rounded-xl bg-white/70"
+                                            transition={springConfig}
+                                        />
+                                    )}
+                                    {!isActive && (
+                                        <span className="absolute inset-0 rounded-xl bg-white/0 transition-colors duration-300 ease-out group-hover:bg-white/7" />
+                                    )}
+                                    <Icon
+                                        size={16}
+                                        className={`relative z-10 transition-colors duration-300 ease-out ${isActive ? "text-black" : "text-white/55 group-hover:text-white"}`}
+                                    />
+                                    <span className="relative z-10">{item.label}</span>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    <a
+                        href="/cv.pdf"
+                        download
+                        className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#343434]/20 px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/5 hover:text-white"
+                    >
+                        <Download size={16} />
+                        <span>Resume</span>
+                    </a>
+                </nav>
+            </div>
 
             {/* Backdrop Blur */}
             <AnimatePresence>
