@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-//Sidebar
-import Sidebar from "@/components/ui/sidebar";
-import MobileNav from "@/components/ui/MobileNav";
+import Navbar from "@/components/layout/Navbar";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -37,10 +35,9 @@ export default function RootLayout({
             className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
         >
             <body className="min-h-full bg-black">
-                <MobileNav />
-                {/* <Sidebar /> */}
+                <Navbar />
 
-                <main className="min-h-screen md:p/l-25 p/t-20 md:pt-0">
+                <main className="min-h-screen">
                     {children}
                 </main>
             </body>

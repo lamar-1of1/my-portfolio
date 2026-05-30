@@ -1,6 +1,6 @@
-import { ScalesContainer } from "@/components/ui/scales";
+import { ScalesContainer } from "@/components/visual/Scales";
 
-export default function ScalesContainerDemo() {
+export default function ScalesBackground() {
     return (
         <ScalesContainer
             orientation="diagonal"

@@ -7,7 +7,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-import { workExperience } from "@/components/workData";
+import { workExperience } from "@/lib/content/workExperience";
 
 export interface AccordionIndexedItem {
     id: string;
@@ -100,13 +100,13 @@ function FillerWorkContent({ description }: { description: string }) {
                     // className="border-b border-white/[0.07] py-5 first:pt-0 last:pb-0"
                     >
                         {index === 0 ? (
-                            <span className="mb-3 inline-flex rounded-full border bo/rder-[#b5b5b5]/60 bg-white px-3 py-1.5 text-sm font-medium leading-none text-black">
+                            <span className="mb-3 inline-flex rounded-full border border-[#b5b5b5]/60 bg-white px-3 py-1.5 text-sm font-medium leading-none text-black">
                                 Current
                             </span>
                         ) : null}
 
 
-                        <div className="bg-re/d-500 grid gap-4 py-1 md:grid-cols-[minmax(280px,0.15fr)_minmax(0,1fr)] md:items-start md:gap-8">
+                        <div className="grid gap-4 py-1 md:grid-cols-[minmax(280px,0.15fr)_minmax(0,1fr)] md:items-start md:gap-8">
                             <div className="min-w-0">
                                 {/* <span className="text-sm font-medium leading-6 text-zinc-400">
                                     {entry.startDate} - {entry.endDate}
@@ -117,11 +117,11 @@ function FillerWorkContent({ description }: { description: string }) {
                                         {entry.companyInitial}
                                     </span> */}
 
-                                    <div className="m/in-w-0">
-                                        <p className="text-wr/ap text-base font-medium leading-tight text-white">
+                                    <div className="min-w-0">
+                                        <p className="text-wrap text-base font-medium leading-tight text-white">
                                             {entry.role}
                                         </p>
-                                        <p className="mt-1 trunc/ate text-sm leading-none text-zinc-500">
+                                        <p className="mt-1 truncate text-sm leading-none text-zinc-500">
                                             {entry.company}
                                         </p>
                                     </div>
@@ -165,7 +165,7 @@ export default function AccordionIndexed({
     className,
 }: AccordionIndexedProps) {
     return (
-        <div className={cn("mx-au/to w-full max-w-[920px]", className)}>
+        <div className={cn("w-full max-w-[920px]", className)}>
             <Accordion
                 type="single"
                 defaultValue={value ? undefined : defaultValue}

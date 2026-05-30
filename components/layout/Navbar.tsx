@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { TopBlur } from "@/components/ui/edge-blur";
+import { TopBlur } from "@/components/shared/EdgeBlur";
 
 const navItems = [
     {
@@ -64,7 +64,7 @@ const springConfig = {
     damping: 30,
 };
 
-export default function MobileNav() {
+export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     const pathname = usePathname();
@@ -179,7 +179,7 @@ export default function MobileNav() {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
                         onClick={() => setIsOpen(false)}
-                        className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm s/m:hidden"
+                        className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm sm:hidden"
                     />
                 )}
             </AnimatePresence>
