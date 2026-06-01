@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { TopBlur } from "@/components/shared/EdgeBlur";
+// import { TopBlur } from "@/components/shared/TopBlur";
 
 const navItems = [
     {
@@ -107,7 +107,7 @@ export default function Navbar() {
 
     return (
         <>
-            <TopBlur height={70} />
+            {/* <TopBlur height={70} /> */}
 
             <div className="fixed left-5 right-5 top-4 z-50 hidden justify-center sm:flex">
                 <nav className="flex w-full max-w-5xl items-center justify-between rounded-2xl border border-[#262626]/50 bg-black/50 px-3 py-2 shadow-2xl backdrop-blur-3xl">

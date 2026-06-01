@@ -8,7 +8,7 @@ export function GuideRail({ side }: GuideRailProps) {
     return (
         <aside
             aria-hidden="true"
-            className={`fixed top-0 z-0 h-screen w-5 overflow-hidden ${side === "left"
+            className={`pointer-events-none fixed inset-y-0 z-40 h-dvh w-5 overflow-hidden ${side === "left"
                 ? "left-0 border-r border-dashed border-white/15"
                 : "right-0 border-l border-dashed border-white/15"
                 }`}

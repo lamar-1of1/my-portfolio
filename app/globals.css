@@ -1,29 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap'); */
 
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* CSS */
+.positioned-element {
+    left: calc(18% * var(--index) - 12rem);
+}
 
-:root {}
+@media (max-width: 768px) {
+    .positioned-element {
+        left: calc(18% * var(--index) - 2rem);
+        /* Adjust for mobile */
+        /* or use a different positioning strategy */
+        left: 50%;
+        transform: translateX(57%);
+    }
+}
 
-;
+/* @font-face {
+    font-family: "Brolimo";
+    src: url("/fonts/BrolimoRegular.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "New Heterodox Mono";
+    src: url("/fonts/NewHeterodoxMono-Bold.otf") format("opentype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+.font-brolimo {
+    font-family: "Brolimo", sans-serif;
+}
+
+.font-heterodox-mono {
+    font-family: "New Heterodox Mono", monospace;
+}
+
+.font-section-heading {
+    font-family: "Open Sans", sans-serif;
+} */
+
 
 
 /* <weight>: Use a value from 100 to 900
 <uniquifier>: Use a unique and descriptive class name */
 
-.fraunces {
-    font-family: "Fraunces", serif;
+/* .inter {
+    font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: italic;
-    font-variation-settings:
-        "SOFT" 100,
-        "WONK" 100;
-}
+    font-weight: 800;
+    font-style: normal;
+} */
+
 
 /* .geist {
     font-family: "Geist", sans-serif;
@@ -123,6 +159,7 @@ details[open]>.project-mobile-details .project-mobile-details-inner {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .project-mobile-details,
     .project-mobile-details-inner {
         transition: none;

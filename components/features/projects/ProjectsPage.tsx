@@ -7,6 +7,7 @@ import { ProjectPreview } from "@/components/features/projects/ProjectPreview";
 import { ProjectRow } from "@/components/features/projects/ProjectRow";
 import Footer from "@/components/layout/Footer";
 import { GuideRail } from "@/components/shared/GuideRail";
+import { SectionTitle } from "@/components/shared/SectionTitle";
 import { cardData } from "@/lib/content/projects";
 
 export function ProjectsPage() {
@@ -18,29 +19,28 @@ export function ProjectsPage() {
 
     return (
         <div className="min-h-screen w-full bg-black text-white selection:bg-white selection:text-black">
-            <GuideRail side="left" />
-            <GuideRail side="right" />
+            {/* <GuideRail side="left" />
+            <GuideRail side="right" /> */}
 
-            <div className="projects-header-wrap ml-5 mr-5">
+            {/* <div className="projects-header-wrap ml-5 mr-5">
                 <header className="border-b border-dashed border-white/10 bg-[#343434]/20 backdrop-blur-md">
                     <div className="projects-header-inner flex h-24 items-end px-6 pb-5 md:px-12 lg:px-20">
-                        <div className="inline-flex items-center gap-2.5 text-sm font-semibold tracking-tight text-white/80">
-                            <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                            </span>
-                            Projects
-                        </div>
+                        <SectionTitle
+                            section="Projects"
+                            showDot
+                            className="mb-0"
+                            labelClassName="mb-0 border-0 bg-transparent p-0 backdrop-blur-none"
+                        />
                     </div>
                 </header>
-            </div>
+            </div> */}
 
-            <div className="projects-grid ml-5 mr-5 grid grid-cols-1 lg:h-screen lg:grid-cols-2">
+            <div className="projects-grid mt-20 m/l-5 m/r-5 grid grid-cols-1 lg:h-screen lg:grid-cols-2">
                 <main
                     ref={scrollContainerRef}
                     className="projects-list min-h-screen scrollbar-hide lg:h-screen lg:overflow-y-auto lg:border-r lg:border-dashed lg:border-white/10"
                 >
-                    <div className="projects-list-inner flex flex-col px-6 pb-20 pt-8 md:px-12 lg:px-20">
+                    <div className="projects-list-inner flex flex-col p/x-6 pb-20 pt-8 md:px-12 lg:px-20">
                         <motion.div
                             initial={{ opacity: 0, y: 14 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -94,10 +94,6 @@ export function ProjectsPage() {
                         </div>
                     </div>
                 </motion.aside>
-            </div>
-
-            <div className="mx-5 border-t border-white/10 bg-black py-18 md:py-0">
-                <Footer />
             </div>
         </div>
     );

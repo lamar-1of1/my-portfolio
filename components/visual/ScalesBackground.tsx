@@ -5,7 +5,7 @@ export default function ScalesBackground() {
         <ScalesContainer
             orientation="diagonal"
             size={8}
-            containerClassName="h-full w-full overflow-hidden flex items-center justify-center flex-col"
+            containerClassName="h-full w-full overflow-hidden bg-black flex items-center justify-center flex-col"
         />
     );
 }

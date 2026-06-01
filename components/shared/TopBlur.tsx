@@ -1,11 +1,11 @@
 "use client"
 
-interface EdgeBlurProps {
+interface TopBlurProps {
     position?: "top" | "bottom"
     height?: number
 }
 
-export function EdgeBlur({ position = "bottom", height = 75 }: EdgeBlurProps) {
+export function Blur({ position = "bottom", height = 75 }: TopBlurProps) {
     const blurLayers = [1, 2, 3, 6, 12]
 
     const isTop = position === "top"
@@ -32,10 +32,10 @@ export function EdgeBlur({ position = "bottom", height = 75 }: EdgeBlurProps) {
 }
 
 // Convenience exports for specific positions
-export function TopBlur({ height = 75 }: { height?: number }) {
-    return <EdgeBlur position="top" height={height} />
-}
+// export function TopBlur({ height = 75 }: { height?: number }) {
+//     return <TopBlur position="top" height={height} />
+// }
 
-export function BottomBlur({ height = 75 }: { height?: number }) {
-    return <EdgeBlur position="bottom" height={height} />
-}
+// export function BottomBlur({ height = 75 }: { height?: number }) {
+//     return <BottomBlur position="bottom" height={height} />
+// }

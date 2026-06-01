@@ -4,8 +4,8 @@ import { WorkHistorySection } from "@/components/features/about/WorkHistorySecti
 export function AboutSections() {
     return (
         <>
-            <AboutMe />
-            <WorkHistorySection />
+            {/* <AboutMe /> */}
+            {/* <WorkHistorySection /> */}
         </>
     );
 }
