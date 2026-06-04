@@ -5,18 +5,15 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* CSS */
-.positioned-element {
-    left: calc(18% * var(--index) - 12rem);
+.footer-watermark {
+    left: calc((var(--footer-mark-index) * 18%) - 2rem);
+    transform: translateX(-18%);
 }
 
-@media (max-width: 768px) {
-    .positioned-element {
-        left: calc(18% * var(--index) - 2rem);
-        /* Adjust for mobile */
-        /* or use a different positioning strategy */
-        left: 50%;
-        transform: translateX(57%);
+@media (min-width: 768px) {
+    .footer-watermark {
+        left: calc((var(--footer-mark-index) * 18%) - 12rem);
+        transform: none;
     }
 }
 
@@ -235,3 +232,20 @@ details[open]>.project-mobile-details .project-mobile-details-inner {
 }
 
 /* ---------- END CSS FOR PROJECTS PAGE ---------- */
+@keyframes gradient-animation {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-barbados-gradient {
+  background-image: linear-gradient(to right, #00267F, #FFC72C, #00267F);
+  background-size: 200% 200%;
+  background-clip: text;
+  opacity: 0.18;
+  -webkit-background-clip: text;
+  animation: gradient-animation 6s ease infinite;
+}

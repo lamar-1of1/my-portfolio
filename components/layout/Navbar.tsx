@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
-// import { TopBlur } from "@/components/shared/TopBlur";
+import { TopBlur } from "@/components/shared/TopBlur"
 
 const navItems = [
     {
@@ -107,25 +107,42 @@ export default function Navbar() {
 
     return (
         <>
-            {/* <TopBlur height={70} /> */}
+            <TopBlur height={50} />
 
             <div className="fixed left-5 right-5 top-4 z-50 hidden justify-center sm:flex">
-                <nav className="flex w-full max-w-5xl items-center justify-between rounded-2xl border border-[#262626]/50 bg-black/50 px-3 py-2 shadow-2xl backdrop-blur-3xl">
+                <nav className="relative isolate flex w-full max-w-6xl items-center justify-between gap-2 overflow-hidden rounded-[1.35rem] border border-white/10 bg-zinc-950/80 p-1.5 shadow-[0_18px_50px_rgba(0,0,0,0.45)] backdrop-blur-3xl">
+                    <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-[#00267F] via-[#FFC72C] to-[#00267F] opacity-70"
+                    />
+                    <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(255,199,44,0.07),transparent_24%),radial-gradient(circle_at_88%_0%,rgba(0,38,127,0.16),transparent_28%)]"
+                    />
+
                     <Link
                         href="/"
-                        className="flex min-w-0 items-center gap-3 rounded-xl px-2 py-1.5 text-white"
+                        className="group/brand relative z-10 flex min-w-0 items-center gap-2.5 rounded-2xl border border-white/[0.07] bg-black/25 p-1.5 pr-2.5 text-white transition-colors hover:border-white/15 hover:bg-white/[0.04]"
                     >
-                        <img
-                            src="/icon-gif.gif"
-                            alt="Logo"
-                            className="h-8 w-8 shrink-0"
-                        />
-                        {/* <span className="hidden text-sm font-semibold tracking-tight text-white/80 md:inline">
-                            Lamar
-                        </span> */}
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.025]">
+                            <img
+                                src="/icon-gif.gif"
+                                alt="Lamar logo"
+                                className="h-6 w-6 shrink-0"
+                            />
+                        </span>
+                        <span className="hidden min-w-0 flex-col leading-none lg:flex">
+                            <span className="text-xs font-semibold tracking-wide text-white/90">
+                                Lamar
+                            </span>
+                            <span className="mt-1 flex items-center gap-1.5 text-[9px] uppercase tracking-[0.16em] text-white/35">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_7px_rgba(52,211,153,0.7)]" />
+                                Available
+                            </span>
+                        </span>
                     </Link>
 
-                    <div className="flex items-center gap-1 rounded-2xl border border-dashed border-[#262626]/70 bg-[#343434]/10 p-1">
+                    <div className="relative z-10 flex items-center gap-0.5 rounded-2xl border border-dashed border-white/10 bg-black/30 p-1">
                         {navItems.map((item) => {
                             const Icon = item.icon;
                             const isActive = pathname === item.href;
@@ -134,26 +151,37 @@ export default function Navbar() {
                                 <Link
                                     key={item.id}
                                     href={item.href}
-                                    className={`group relative flex items-center gap-2 overflow-hidden rounded-xl px-3 py-2 text-sm font-medium transition-colors duration-300 ease-out ${isActive
-                                        ? "text-black"
-                                        : "text-white/55 hover:text-white"
+                                    className={`group relative flex items-center gap-2 overflow-hidden rounded-xl px-2.5 py-2 text-sm font-medium transition-colors duration-300 ease-out xl:px-3 ${isActive
+                                        ? "text-white"
+                                        : "text-white/45 hover:text-white/90"
                                         }`}
                                 >
                                     {isActive && (
                                         <motion.span
                                             layoutId="desktop-nav-active"
-                                            className="absolute inset-0 rounded-xl bg-white/70"
+                                            className="absolute inset-0 rounded-xl border border-white/10 bg-white/[0.075] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
                                             transition={springConfig}
                                         />
                                     )}
                                     {!isActive && (
-                                        <span className="absolute inset-0 rounded-xl bg-white/0 transition-colors duration-300 ease-out group-hover:bg-white/7" />
+                                        <span className="absolute inset-0 rounded-xl bg-white/0 transition-colors duration-300 ease-out group-hover:bg-white/[0.04]" />
                                     )}
                                     <Icon
                                         size={16}
-                                        className={`relative z-10 transition-colors duration-300 ease-out ${isActive ? "text-black" : "text-white/55 group-hover:text-white"}`}
+                                        className={`relative z-10 transition-colors duration-300 ease-out ${isActive ? "text-[#FFC72C]" : "text-white/35 group-hover:text-white/70"}`}
                                     />
                                     <span className="relative z-10">{item.label}</span>
+                                    <kbd
+                                        className={`relative z-10 hidden min-w-5 items-center justify-center rounded-md border px-1.5 py-0.5 font-sans text-[10px] font-semibold leading-none transition-colors lg:inline-flex ${isActive
+                                            ? "border-[#FFC72C]/20 bg-[#FFC72C]/[0.06] text-[#FFC72C]/75"
+                                            : "border-white/10 bg-white/[0.035] text-white/35 group-hover:border-white/15 group-hover:text-white/60"
+                                            }`}
+                                    >
+                                        {item.keybind}
+                                    </kbd>
+                                    {isActive && (
+                                        <span className="absolute bottom-0 left-1/2 z-10 h-px w-5 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#FFC72C] to-transparent" />
+                                    )}
                                 </Link>
                             );
                         })}
@@ -162,10 +190,12 @@ export default function Navbar() {
                     <a
                         href="/cv.pdf"
                         download
-                        className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#343434]/20 px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/5 hover:text-white"
+                        className="group/resume relative z-10 inline-flex shrink-0 items-center gap-2 rounded-2xl border border-white/10 bg-white px-2 py-1.5 pl-3 text-sm font-semibold text-zinc-950 transition-all duration-300 hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
                     >
-                        <Download size={16} />
-                        <span>Resume</span>
+                        <span className="hidden md:inline">Resume</span>
+                        <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-zinc-950 text-white transition-transform duration-300 group-hover/resume:translate-y-0.5">
+                            <Download size={14} />
+                        </span>
                     </a>
                 </nav>
             </div>

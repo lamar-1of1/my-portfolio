@@ -69,7 +69,7 @@ export default function RootLayout({
                 <main className="relative min-h-screen px-8">
                     {children}
                 </main>
-                <div className="md:pb-10 pb-20">
+                <div>
                     <Footer />
                 </div>
             </body>
