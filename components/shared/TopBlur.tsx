@@ -3,17 +3,25 @@
 interface TopBlurProps {
     position?: "top" | "bottom"
     height?: number
+    offset?: number
+    className?: string
 }
 
-export function Blur({ position = "bottom", height = 75 }: TopBlurProps) {
+export function Blur({
+    position = "bottom",
+    height = 75,
+    offset = 0,
+    className = "",
+}: TopBlurProps) {
     const blurLayers = [1, 2, 3, 6, 12]
 
     const isTop = position === "top"
+    const positionStyle = isTop ? { top: offset } : { bottom: offset }
 
     return (
         <div
-            className={`pointer-events-none fixed inset-x-0 isolate z-40 ${isTop ? "top-0" : "bottom-0"}`}
-            style={{ height }}
+            className={`pointer-events-none fixed inset-x-0 isolate z-40 ${className}`}
+            style={{ height, ...positionStyle }}
         >
             {blurLayers.map((blur) => (
                 <div
@@ -32,10 +40,26 @@ export function Blur({ position = "bottom", height = 75 }: TopBlurProps) {
 }
 
 // Convenience exports for specific positions
-export function TopBlur({ height = 75 }: { height?: number }) {
-    return <Blur position="top" height={height} />
+export function TopBlur({
+    height = 75,
+    offset = 0,
+    className,
+}: {
+    height?: number
+    offset?: number
+    className?: string
+}) {
+    return <Blur position="top" height={height} offset={offset} className={className} />
 }
 
-export function BottomBlur({ height = 75 }: { height?: number }) {
-    return <Blur position="bottom" height={height} />
+export function BottomBlur({
+    height = 75,
+    offset = 0,
+    className,
+}: {
+    height?: number
+    offset?: number
+    className?: string
+}) {
+    return <Blur position="bottom" height={height} offset={offset} className={className} />
 }

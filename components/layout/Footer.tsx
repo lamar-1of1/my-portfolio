@@ -30,9 +30,19 @@ const MarqueeText = () => (
         {Array.from({ length: 4 }).map((_, index) => (
             <span
                 key={index}
-                className="select-none text-[15vw] font-black leading-none tracking-tighter text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.12)] transition-colors duration-300 group-hover:[-webkit-text-stroke:1px_rgba(255,255,255,0.25)] md:text-[9vw]"
+                className="inline-flex select-none items-center gap-[2vw] text-[0px] leading-none"
             >
-                LET&apos;S BUILD ∘&nbsp;
+                <span className="text-[15vw] font-black leading-none tracking-tighter text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.12)] transition-colors duration-300 group-hover:[-webkit-text-stroke:1px_rgba(255,255,255,0.25)] md:text-[9vw]">
+                    BARBADOS
+                </span>
+                <Image
+                    src="/Barbados_trident.svg"
+                    alt=""
+                    width={428}
+                    height={485}
+                    aria-hidden="true"
+                    className="mr-[2vw] h-[10vw] w-auto shrink-0 opacity-50 transition-opacity duration-300 group-hover:opacity-95 md:h-[6vw]"
+                />
             </span>
         ))}
     </>
@@ -128,7 +138,7 @@ export default function Footer() {
             </div>
 
             {/* Bottom Global Metadata Area */}
-            <div className="relative z-10 mx-auto max-w-7xl pb-28 pt-4 sm:pb-12">
+            <div className="relative z-10 mx-auto max-w-7xl pb-22 pt-4 sm:pb-12">
                 <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between border-b border-white/5 pb-8">
 
                     {/* Live Status Indicators */}

@@ -1,1 +1,16 @@
-<svg width="428.8221" height="484.5" viewBox="0 0 6861.1533 7752" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><path id="a" fill="#000" d="M3430.5767 0c-260 709-525 1447-1092 2012 176-58 484-110 682-105v2982l-842 125c-30-3-40-50-40-114-81-926-300-1704-552-2509-18-110-337-530-91-456 30 4 359 138 307 74-448-464-1103-798-1739-897-56-14-89 14-39 79 844 1299 1550 2832 1544 4651 328 0 1123-194 1452-194v2104h415l95-5876z"/><use xlink:href="#a" transform="matrix(-1 0 0 1 6861.1533 0)"/></svg>
+<svg width="428.8221" height="484.5" viewBox="-180 -180 7221.1533 8112" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="trident-half" d="M3430.5767 0c-260 709-525 1447-1092 2012 176-58 484-110 682-105v2982l-842 125c-30-3-40-50-40-114-81-926-300-1704-552-2509-18-110-337-530-91-456 30 4 359 138 307 74-448-464-1103-798-1739-897-56-14-89 14-39 79 844 1299 1550 2832 1544 4651 328 0 1123-194 1452-194v2104h415l95-5876z" />
+    <g id="trident-shape">
+      <use href="#trident-half" />
+      <use href="#trident-half" transform="matrix(-1 0 0 1 6861.1533 0)" />
+    </g>
+    <filter id="gold-outline" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="120" result="expanded" />
+      <feComposite in="expanded" in2="SourceAlpha" operator="out" result="outline" />
+      <feFlood flood-color="#FFC72C" result="gold" />
+      <feComposite in="gold" in2="outline" operator="in" />
+    </filter>
+  </defs>
+  <use href="#trident-shape" fill="#000" filter="url(#gold-outline)" />
+</svg>
