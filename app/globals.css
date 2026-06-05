@@ -5,6 +5,10 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+.font-inter {
+    font-family: "Inter", var(--font-sans), Arial, sans-serif;
+}
+
 .footer-watermark {
     left: calc((var(--footer-mark-index) * 18%) - 2rem);
     transform: translateX(-18%);

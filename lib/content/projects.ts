@@ -11,7 +11,7 @@ export interface ProjectItem {
 export const cardData: ProjectItem[] = [
   {
     id: 1,
-    tag: 'BRAND',
+    tag: 'Brand',
     projectStatus: 'New',
     year: '2025',
     title: 'Adapting strategy in uncertain markets',
@@ -22,7 +22,7 @@ export const cardData: ProjectItem[] = [
   },
   {
     id: 2,
-    tag: 'STRATEGY',
+    tag: 'Strategy',
     projectStatus: 'New',
     year: '2025',
     title: 'Designing teams for modern growth',
@@ -33,7 +33,7 @@ export const cardData: ProjectItem[] = [
   },
   {
     id: 3,
-    tag: 'MANAGEMENT',
+    tag: 'Management',
     projectStatus: 'In Progress',
     year: '2024',
     title: 'The power of data-driven consulting',
@@ -44,7 +44,7 @@ export const cardData: ProjectItem[] = [
   },
   {
     id: 4,
-    tag: 'BRAND',
+    tag: 'Brand',
     projectStatus: 'In Progress',
     year: '2024',
     title: 'The future of client relationships',
@@ -55,7 +55,7 @@ export const cardData: ProjectItem[] = [
   },
   {
     id: 5,
-    tag: 'SUSTAINABILITY',
+    tag: 'Sustainability',
     projectStatus: 'In Progress',
     year: '2023',
     title: 'Sustainable consulting for lasting impact',
@@ -66,7 +66,7 @@ export const cardData: ProjectItem[] = [
   },
   {
     id: 6,
-    tag: 'ANALYTICS',
+    tag: 'Analytics',
     projectStatus: 'In Progress',
     year: '2023',
     title: 'Navigating change with strategic foresight',

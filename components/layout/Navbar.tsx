@@ -132,7 +132,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Links */}
-                    <div className="flex h-full min-w-0 flex-1 items-center justify-center gap-2 px-2 lg:gap-4 lg:px-5 xl:gap-7 xl:px-8">
+                    <div className="flex h-full min-w-0 flex-1 items-center justify-center gap-8 px-2 lg:gap-4 lg:px-5 xl:gap-7 xl:px-8">
                         {desktopNavItems.map((item) => {
                             const Icon = item.icon
                             const isActive = pathname === item.href
@@ -155,7 +155,7 @@ export default function Navbar() {
                                     />
                                     <span className="truncate">{item.label}</span>
                                     <kbd
-                                        className={`hidden h-6 min-w-[24px] items-center justify-center rounded-[0.35rem] border px-1.5 font-sans text-[10px] font-semibold leading-none transition-colors lg:inline-flex ${isActive ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-white/10 bg-white/[0.055] text-white/35 group-hover:text-white/55'}`}
+                                        className={`hidden h/-6 min-w-[24px] items-center justify-center rounded-[0.35rem] border p-1 font-sans text-[11px] font-semibold leading-none transition-colors lg:inline-flex ${isActive ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-white/10 bg-black/[0.055] text-white/35 group-hover:text-white/55'}`}
                                     >
                                         {item.keybind}
                                     </kbd>
