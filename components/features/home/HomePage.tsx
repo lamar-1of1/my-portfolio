@@ -3,19 +3,24 @@
 import Link from "next/link";
 import {
     ArrowUpRight,
+    Box,
+    Download,
     Disc3,
+    LayoutGrid,
     Layers3,
     Music2,
     PenTool,
     Radio,
     Sparkles,
     TerminalSquare,
+    UserRoundCheck,
 } from "lucide-react";
 import { GithubIcon } from "hugeicons-react";
 
 import { aboutCopy, aboutStats } from "@/lib/content/about";
 import { cardData } from "@/lib/content/projects";
 import { workExperience } from "@/lib/content/workExperience";
+import Beams from "@/components/visual/Beams";
 
 const featuredProjects = cardData.slice(0, 4).map((project, index) => ({
     ...project,
@@ -94,6 +99,143 @@ export function HomePage() {
 
     return (
         <div className="relative overflow-hidden bg-black text-white selection:bg-white selection:text-black pt-24 md:pt-28">
+            <section className="relative z-40 -mx-8 -mt-24 min-h-dvh overflow-hidden bg-black md:-mt-28">
+                <div className="absolute inset-0">
+                    <div className="absolute inset-0 bg-black" />
+                    <div className="absolute inset-x-0 top-0 h-[600px]">
+                        <Beams
+                            beamWidth={3}
+                            beamHeight={30}
+                            beamNumber={20}
+                            lightColor="#ffffff"
+                            speed={2}
+                            noiseIntensity={1.75}
+                            scale={0.2}
+                            rotation={30}
+                        />
+                    </div>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_36%,rgba(255,255,255,0.07),transparent_28%),linear-gradient(180deg,rgba(0,0,0,0.10),#000_76%)]" />
+                    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black to-transparent" />
+                </div>
+
+                <div className="pointer-events-none absolute inset-x-6 top-24 bottom-10 hidden border-x border-white/10 md:block">
+                    <span className="absolute left-[-0.45rem] top-[12%] text-sm text-white/55">+</span>
+                    <span className="absolute right-[-0.45rem] top-[12%] text-sm text-white/55">+</span>
+                    <span className="absolute left-[-0.45rem] top-[54%] text-sm text-white/55">+</span>
+                    <span className="absolute right-[-0.45rem] top-[54%] text-sm text-white/55">+</span>
+                    <span className="absolute left-[-0.45rem] bottom-0 text-sm text-white/55">+</span>
+                    <span className="absolute right-[-0.45rem] bottom-0 text-sm text-white/55">+</span>
+                </div>
+
+                <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col justify-center px-8 pb-10 pt-32 md:px-12 md:pb-12 md:pt-32 lg:px-16">
+                    <div className="max-w-6xl">
+                        <div className="mb-5 inline-flex items-center gap-2.5 rounded-full border border-white/5 bg-white/[0.02] px-4 py-2 text-sm font-medium text-zinc-200 backdrop-blur-md">
+                            <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                            </span>
+                            Available for work
+                        </div>
+
+                        <h1 className="text-5xl font-semibold leading-[0.95] tracking-tight text-white sm:text-6xl md:text-7xl">
+                            Hi, I&apos;m Lamar.
+                        </h1>
+                        <p className="mt-5 max-w-6xl text-2xl font-medium leading-snug text-white md:text-3xl md:leading-snug">
+                            I&apos;m an{" "}
+                            <span className="font-bold text-white">innovative</span>{" "}
+                            developer and designer crafting exceptional digital
+                            experiences with cutting-edge technologies and
+                            innovative solutions.
+                        </p>
+
+                        <div className="mt-8 grid gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.8fr)]">
+                            <article className="grid gap-4 rounded-lg border border-white/15 bg-zinc-950/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:grid-cols-[13rem_minmax(0,1fr)]">
+                                <div className="relative min-h-40 overflow-hidden rounded-lg bg-zinc-900 sm:min-h-0">
+                                    <img
+                                        src={featuredProjects[0].image}
+                                        alt={featuredProjects[0].title}
+                                        className="absolute inset-0 h-full w-full object-cover grayscale"
+                                    />
+                                    <div className="absolute inset-0 bg-black/15" />
+                                    <div className="absolute left-2 top-1/2 flex -translate-y-1/2 flex-col gap-1">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-white/45" />
+                                        <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col justify-center">
+                                    <div className="mb-7 flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.045] text-white">
+                                        <Sparkles size={18} />
+                                    </div>
+                                    <h2 className="text-2xl font-bold tracking-tight text-white">
+                                        5+ years experience
+                                    </h2>
+                                    <p className="mt-3 max-w-md text-sm leading-5 text-white/45">
+                                        We craft intuitive, user-centric digital
+                                        products that drive engagement and
+                                        conversion.
+                                    </p>
+                                </div>
+                            </article>
+
+                            <article className="rounded-lg border border-white/15 bg-zinc-950/70 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/[0.045] text-white">
+                                        <LayoutGrid size={22} />
+                                    </div>
+                                    <p className="text-2xl font-bold tracking-tight text-white">
+                                        Built 50+ websites
+                                    </p>
+                                </div>
+                                <div className="mt-8 flex flex-wrap items-center gap-4">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/[0.045] text-white">
+                                        <UserRoundCheck size={22} />
+                                    </div>
+                                    <div>
+                                        <p className="text-2xl font-bold tracking-tight text-white">
+                                            Client satisfaction:{" "}
+                                            <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1">
+                                                100%
+                                            </span>
+                                        </p>
+                                        <div className="mt-3 flex items-center gap-2 text-sm text-white/45">
+                                            <div className="flex -space-x-2">
+                                                <span className="h-6 w-6 rounded-full bg-white/50" />
+                                                <span className="h-6 w-6 rounded-full bg-white/35" />
+                                                <span className="h-6 w-6 rounded-full bg-white/20" />
+                                            </div>
+                                            + 5 more
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div className="mt-8 flex flex-wrap gap-4">
+                            <Link
+                                href="/projects"
+                                className="group/pill inline-flex items-center gap-4 rounded-full bg-white py-1.5 pl-5 pr-1.5 text-sm font-semibold tracking-tight text-zinc-950 transition-all duration-300  hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                            >
+                                <span className="font-medium text-zinc-900">
+                                    View Projects
+                                </span>
+                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-white transition-transform duration-500 ease-out group-hover/pill:rotate-45">
+                                    <Box size={16} strokeWidth={2.4} />
+                                </span>
+                            </Link>
+                            <a
+                                href="/cv.pdf"
+                                download
+                                className="group/pill inline-flex items-center gap-4 rounded-full border border-white/10 bg-white/[0.025] py-1.5 pl-5 pr-1.5 text-sm font-semibold tracking-tight text-zinc-300 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                            >
+                                <span>Download CV</span>
+                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-white transition-colors duration-300 group-hover/pill:bg-white/10">
+                                    <Download size={16} strokeWidth={2.4} />
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
             {/* <section className="relative overflow-hidden border-b border-dashed border-white/10 pt-24 md:pt-28">
                 <div className="absolute inset-0 opacity-35">
                     <img
@@ -196,7 +338,7 @@ export function HomePage() {
                 </div>
             </section> */}
 
-            <section className="mx-auto max-w-7xl px-0 py-18 md:px-8 md:py-24 lg:px-12">
+            <section id="featured-projects" className="mx-auto max-w-7xl px-0 py-18 md:px-8 md:py-24 lg:px-12">
                 <SectionHeading
                     kicker="Featured Projects"
                     title="A few pieces of work with a clear job to do."
