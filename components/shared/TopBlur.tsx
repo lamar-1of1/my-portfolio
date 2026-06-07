@@ -20,7 +20,7 @@ export function Blur({
 
     return (
         <div
-            className={`pointer-events-none fixed inset-x-0 isolate z-40 ${className}`}
+            className={`pointer-events-none fixed inset-x-0 isolate z-[49] ${className}`}
             style={{ height, ...positionStyle }}
         >
             {blurLayers.map((blur) => (
