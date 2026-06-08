@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
     ArrowUpRight,
     Disc3,
@@ -18,7 +19,7 @@ import { GithubIcon } from "hugeicons-react";
 import { aboutCopy, aboutStats } from "@/lib/content/about";
 import { cardData } from "@/lib/content/projects";
 import { workExperience } from "@/lib/content/workExperience";
-import Beams from "@/components/visual/Beams";
+import { Scales } from "@/components/visual/Scales";
 
 const featuredProjects = cardData.slice(0, 4).map((project, index) => ({
     ...project,
@@ -101,60 +102,122 @@ export function HomePage() {
                 <div className="absolute inset-0 pointer-events-none select-none">
                     <div className="absolute inset-0 bg-black" />
                     <div className="absolute top-[-10%] left-[-10%] h-[600px] w-[600px] rounded-full bg-emerald-500/[0.035] blur-[130px]" />
-                    {/* <div className="absolute left-1/2 top-0 h-[520px] w-[140vw] -translate-x-1/2 overflow-hidden opacity-30 md:hidden">
-                        <Beams
-                            beamWidth={2.5}
-                            beamHeight={24}
-                            beamNumber={12}
-                            lightColor="#ffffff"
-                            speed={1.7}
-                            noiseIntensity={1.55}
-                            scale={0.18}
-                            rotation={18}
-                        />
+                    {/* <div className="absolute inset-x-0 top-0 h-[520px] overflow-hidden md:left-5 md:right-5 md:h-[600px]">
+                        <div className="absolute inset-0 opacity-30 md:hidden">
+                            <Beams
+                                beamWidth={2.5}
+                                beamHeight={24}
+                                beamNumber={12}
+                                lightColor="#ffffff"
+                                speed={1.7}
+                                noiseIntensity={1.55}
+                                scale={0.18}
+                                rotation={18}
+                            />
+                        </div>
+                        <div className="absolute inset-0 hidden opacity-45 md:block">
+                            <Beams
+                                beamWidth={3}
+                                beamHeight={30}
+                                beamNumber={20}
+                                lightColor="#ffffff"
+                                speed={2}
+                                noiseIntensity={1.75}
+                                scale={0.2}
+                                rotation={30}
+                            />
+                        </div>
                     </div> */}
-                    <div className="absolute left-1/2 top-0 hidden h-[600px] w-[100vw] -translate-x-1/2 overflow-hidden opacity-45 md:block">
-                        <Beams
-                            beamWidth={3}
-                            beamHeight={30}
-                            beamNumber={20}
-                            lightColor="#ffffff"
-                            speed={2}
-                            noiseIntensity={1.75}
-                            scale={0.2}
-                            rotation={30}
-                        />
-                    </div>
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),#000_82%)]" />
                 </div>
 
-                <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col justify-center px-8 pb-12 pt-20 md:px-12 md:pb-16 md:pt-40 lg:px-16">
+                <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col justify-center px-8 pb-12 pt-28 md:px-12 md:pb-16 md:pt-36 lg:px-16">
+                    <header className="relative overflow-hidden  bg-black/35 shadow-[0_1px_0_rgba(255,255,255,0.04)]">
+                        {/* <div className="pointer-events-none absolute left-5 top-0 h-full border-l border-dashed border-white/10" /> */}
+                        {/* <div className="pointer-events-none absolute right-5 top-0 h-full border-l border-dashed border-white/10" /> */}
 
-                    <div className="border-b border-white/10 pb-10">
-                        <div className="mb-4 inline-flex items-center gap-2.5 rounded-full border border-white/5 bg-white/[0.02] px-4 py-2 text-sm font-medium text-zinc-200 backdrop-blur-md">
-                            <span className="relative grid h-2 w-2 shrink-0 place-items-center">
-                                <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400 opacity-75" />
-                                <span className="relative h-2 w-2 rounded-full bg-emerald-400" />
-                            </span>
-                            <span>Open to Remote Contracts</span>
-                        </div>
-                        {/* <h1 className="text-4xl font-extrabold up/percase tracking-tight text-white sm:text-6xl md:text-7xl lg:text-6xl">
-                            Lamar // Dev
-                        </h1> */}
-                    </div>
-
-                    <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-
-                        {/* <div className="flex flex-col justify-between py-2">
-                            <p className="text-lg leading-relaxed text-zinc-400">
-                                I deliver architectural engineering and interface solutions. Balancing high performance metrics with sharp visual design guidelines.
-                            </p>
-                            <div className="mt-8 flex items-center gap-3">
-                                <Link href="/projects" className="h-11 rounded-lg bg-white px-5 inline-flex items-center text-xs font-bold uppercase tracking-wider text-zinc-950 hover:bg-zinc-200 transition-colors">
-                                    Browse Core Stack
-                                </Link>
+                        <div className="relative">
+                            <div className="flex min-h-14 flex-col items-start justify-between gap-5 border-b border-dashed border-white/10 px-4 py-6 text-sm font-medium text-zinc-400 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 sm:px-7">
+                                <span className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/[0.08] px-3 py-1.5 text-xs font-medium normal-case text-emerald-300">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                                        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                                    </span>
+                                    Available for projects
+                                </span>
+                                <div className="flex flex-wrap items-center gap-2 text-zinc-300 sm:gap-3">
+                                    <span className="text-white">Lamar</span>
+                                    <span className="text-white/25">|</span>
+                                    <Image
+                                        src="/flag_bb.svg.svg"
+                                        alt="Barbados flag"
+                                        width={32}
+                                        height={32}
+                                        className="h-4 w-6 border border-white/15 object-cover"
+                                    />
+                                    <span>Barbados</span>
+                                    {/* <span className="hidden text-white/25 sm:inline">/</span> */}
+                                    {/* <span className="hidden sm:inline">246</span> */}
+                                </div>
                             </div>
-                        </div> */}
+
+                            <div className="relative grid min-h-[180px] sm:min-h-[210px] md:grid-cols-[minmax(0,1fr)_14rem] lg:grid-cols-[minmax(0,1fr)_16rem]">
+                                <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-4 sm:p-5 md:border-b-0 md:border-r md:p-6">
+                                    <div>
+                                        <p className="mb-3 text-xs font-semibold uppercase text-zinc-500">
+                                            Role
+                                        </p>
+                                        <h1 className="text-xl font-semibold leading-tight text-white sm:text-2xl md:text-3xl">
+                                            Product designer and frontend developer.
+                                        </h1>
+                                        <p className="mt-3 text-sm leading-6 text-zinc-400">
+                                            Building polished portfolio systems, product pages, and interactive web experiences.
+                                        </p>
+                                    </div>
+                                </div>
+                                {/*
+                                <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-5 md:border-b-0 md:border-r md:p-6">
+                                    <p className="text-xs font-semibold uppercase text-zinc-500">
+                                        Focus
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["Next.js", "React", "Motion", "Design Systems"].map((item) => (
+                                            <span
+                                                key={item}
+                                                className="border border-white/10 bg-white/[0.025] px-2.5 py-1 text-xs font-medium text-zinc-300"
+                                            >
+                                                {item}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div> */}
+
+                                <div className="flex flex-col justify-between p-4 sm:p-5 md:p-6">
+                                    <p className="text-xs font-semibold uppercase text-zinc-500">
+                                        Start here
+                                    </p>
+                                    <div className="mt-4 flex flex-wrap items-start gap-3 md:mt-0 md:flex-col">
+                                        <Link
+                                            href="/contact"
+                                            className="inline-flex min-w-[7.75rem] items-center justify-between gap-3 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.08] md:w-full"
+                                        >
+                                            Contact
+                                            <ArrowUpRight size={15} />
+                                        </Link>
+                                        <Link
+                                            href="#featured-projects"
+                                            className="inline-flex min-w-[8.25rem] items-center justify-between gap-3 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 md:w-full"
+                                        >
+                                            View work
+                                            <ArrowUpRight size={15} />
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div className="mt-6 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 
                         <div className="rounded-xl border border-white/10 bg-zinc-950/55 p-6 flex flex-col justify-between">
                             <div className="flex items-center justify-between">
@@ -201,107 +264,31 @@ export function HomePage() {
                 </div>
             </section>
 
-            {/* <section className="relative overflow-hidden border-b border-dashed border-white/10 pt-24 md:pt-28">
-                <div className="absolute inset-0 opacity-35">
-                    <img
-                        src="/assets/brand-social-preview.jpg"
-                        alt=""
-                        aria-hidden="true"
-                        className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(255,199,44,0.20),transparent_28%),linear-gradient(90deg,rgba(0,0,0,0.96),rgba(0,0,0,0.74),rgba(0,0,0,0.92))]" />
+            <div
+                aria-hidden="true"
+                className="relative -mx-3 overflow-hidden border-y border-dashed border-white/10 bg-black py-3 md:py-4"
+            >
+                <Scales
+                    orientation="diagonal"
+                    size={8}
+                    className="opacity-35"
+                    color="color-mix(in oklab, var(--color-white) 8%, transparent)"
+                />
+                {/* <div className="pointer-events-none absolute inset-x-0 top-1/2 border-t border-dashed border-white/10" /> */}
+                {/* <div className="pointer-events-none absolute left-1/2 top-0 h-full border-l border-dashed border-white/10" /> */}
+                <div className="relative left-1/2 flex min-w-full -translate-x-1/2 items-center justify-center gap-2 px-0 md:gap-8">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                        <Image
+                            key={index}
+                            src="/assets/brand-social-preview-Photoroom1.png"
+                            alt=""
+                            width={320}
+                            height={213}
+                            className="h-16 w-24 shrink-0 object-contain opa/city-45 grayscale contrast-125 brightness-75 md:h-20 md:w-32"
+                        />
+                    ))}
                 </div>
-
-                <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-7 px-0 pb-12 md:grid-cols-[minmax(0,1.05fr)_360px] md:items-end md:px-8 lg:px-12">
-                    <motion.div
-                        initial={{ opacity: 0, y: 18 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                        className="max-w-5xl"
-                    >
-                        <div className="mb-6 flex flex-wrap items-center gap-3">
-                            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3.5 py-2 text-sm font-semibold text-emerald-300">
-                                <Sparkles size={15} />
-                                Available for focused builds
-                            </span>
-                            <span className="inline-flex items-center gap-2 rounded-full border border-[#ffc72c]/25 bg-[#ffc72c]/10 px-3.5 py-2 text-sm font-semibold text-[#ffc72c]">
-                                Barbados based
-                            </span>
-                        </div>
-
-                        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400 md:text-sm">
-                            Lamar / Product designer and developer
-                        </p>
-                        <h1 className="max-w-4xl text-4xl font-black leading-[0.96] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                            I build sharp digital experiences with rhythm,
-                            clarity, and motion.
-                        </h1>
-                        <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-300">
-                            I design and develop modern web interfaces that feel
-                            polished, fast, and intentional from the first scroll to
-                            the final interaction.
-                        </p>
-
-                        <div className="mt-7 flex flex-wrap gap-3">
-                            <Link
-                                href="/projects"
-                                className="group inline-flex items-center gap-3 rounded-full bg-white py-1.5 pl-5 pr-1.5 text-sm font-semibold text-zinc-950 transition-all duration-300 hover:bg-zinc-100"
-                            >
-                                <span>View featured work</span>
-                                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-950 text-white transition-transform duration-300 group-hover:rotate-45">
-                                    <ArrowUpRight size={16} />
-                                </span>
-                            </Link>
-                            <Link
-                                href="/contact"
-                                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white/[0.08]"
-                            >
-                                Start a conversation
-                                <ArrowRight size={16} />
-                            </Link>
-                        </div>
-                    </motion.div>
-
-                    <motion.aside
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.75, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-                        className="mb-1 overflow-hidden rounded-xl border border-dashed border-white/15 bg-zinc-950/70 backdrop-blur-xl"
-                    >
-                        <div className="border-b border-dashed border-white/10 p-4">
-                            <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-zinc-900">
-                                <img
-                                    src={featuredProjects[0].image}
-                                    alt={featuredProjects[0].title}
-                                    className="absolute inset-0 h-full w-full object-cover"
-                                />
-                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
-                            </div>
-                        </div>
-                        <div className="p-4">
-                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">
-                                Latest direction
-                            </p>
-                            <h2 className="mt-2 text-xl font-extrabold tracking-tight text-white">
-                                {featuredProjects[0].title}
-                            </h2>
-                            <p className="mt-2 text-sm leading-6 text-zinc-400">
-                                {featuredProjects[0].outcome}
-                            </p>
-                            <div className="mt-4 flex flex-wrap gap-2">
-                                {featuredProjects[0].techStack.slice(0, 3).map((tech) => (
-                                    <span
-                                        key={tech}
-                                        className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs font-semibold text-zinc-300"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    </motion.aside>
-                </div>
-            </section> */}
+            </div>
 
             <section id="featured-projects" className="mx-auto max-w-7xl px-0 py-18 md:px-8 md:py-24 lg:px-12">
                 <SectionHeading
@@ -320,7 +307,7 @@ export function HomePage() {
                                 <img
                                     src={project.image}
                                     alt={project.title}
-                                    className="absolute inset-0 h-full w-full object-cover sm:grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                                    className="absolute inset-0 h-full w-full object-cover md:grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                                 <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-white px-3 py-1.5 text-xs font-semibold tracking-normal text-[#262626] backdrop-blur-3xl">

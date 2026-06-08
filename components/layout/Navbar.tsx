@@ -111,8 +111,7 @@ export default function Navbar() {
     }, [])
     return (
         <>
-            <TopBlur height={40} className="md:hidden" />
-            <TopBlur height={40} offset={64} className="hidden md:block" />
+            <TopBlur height={40} className="mx-5 !top-0 md:!top-16" />
 
             {/* Desktop Navbar */}
             <div className="fixed left-5 right-5 top-0 z-50 hidden border-b border-dashed border-white/10 bg-zinc-950/80 backdrop-blur-xl md:block">
