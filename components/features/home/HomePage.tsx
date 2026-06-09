@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import {
     ArrowUpRight,
+    ChevronLeft,
+    ChevronRight,
     Disc3,
+    Download,
     LayoutGrid,
     Layers3,
     Music2,
@@ -14,12 +18,17 @@ import {
     TerminalSquare,
     UserRoundCheck,
 } from "lucide-react";
-import { GithubIcon } from "hugeicons-react";
+import {
+    GithubIcon,
+    Linkedin02Icon,
+    NewTwitterIcon,
+} from "hugeicons-react";
 
 import { aboutCopy, aboutStats } from "@/lib/content/about";
 import { cardData } from "@/lib/content/projects";
 import { workExperience } from "@/lib/content/workExperience";
 import { Scales } from "@/components/visual/Scales";
+import Beams from "@/components/visual/Beams";
 
 const featuredProjects = cardData.slice(0, 4).map((project, index) => ({
     ...project,
@@ -64,6 +73,12 @@ const musicNotes = [
     "Lo-fi focus sessions",
 ];
 
+const socialLinks = [
+    { label: "GitHub", href: "#", icon: GithubIcon },
+    { label: "Twitter", href: "#", icon: NewTwitterIcon },
+    { label: "LinkedIn", href: "#", icon: Linkedin02Icon },
+];
+
 function SectionHeading({
     kicker,
     title,
@@ -95,6 +110,19 @@ function SectionHeading({
 
 export function HomePage() {
     const currentRole = workExperience[0];
+    const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+    const activeProject = featuredProjects[activeProjectIndex];
+    const activeProjectNumber = (activeProjectIndex + 1).toString().padStart(2, "0");
+    const goToPreviousProject = () => {
+        setActiveProjectIndex((current) =>
+            current === 0 ? featuredProjects.length - 1 : current - 1,
+        );
+    };
+    const goToNextProject = () => {
+        setActiveProjectIndex((current) =>
+            current === featuredProjects.length - 1 ? 0 : current + 1,
+        );
+    };
 
     return (
         <div className="relative overflow-hidden bg-black text-white selection:bg-white selection:text-black pt-24 md:pt-28">
@@ -102,7 +130,7 @@ export function HomePage() {
                 <div className="absolute inset-0 pointer-events-none select-none">
                     <div className="absolute inset-0 bg-black" />
                     <div className="absolute top-[-10%] left-[-10%] h-[600px] w-[600px] rounded-full bg-emerald-500/[0.035] blur-[130px]" />
-                    {/* <div className="absolute inset-x-0 top-0 h-[520px] overflow-hidden md:left-5 md:right-5 md:h-[600px]">
+                    <div className="absolute inset-x-0 top-0 h-[520px] overflow-hidden md:left-5 md:right-5 md:h-[600px]">
                         <div className="absolute inset-0 opacity-30 md:hidden">
                             <Beams
                                 beamWidth={2.5}
@@ -127,12 +155,12 @@ export function HomePage() {
                                 rotation={30}
                             />
                         </div>
-                    </div> */}
+                    </div>
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),#000_82%)]" />
                 </div>
 
                 <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col justify-center px-8 pb-12 pt-28 md:px-12 md:pb-16 md:pt-36 lg:px-16">
-                    <header className="relative overflow-hidden  bg-black/35 shadow-[0_1px_0_rgba(255,255,255,0.04)]">
+                    <header className="relative overflow-hidden shadow-[0_1px_0_rgba(255,255,255,0.04)]">
                         {/* <div className="pointer-events-none absolute left-5 top-0 h-full border-l border-dashed border-white/10" /> */}
                         {/* <div className="pointer-events-none absolute right-5 top-0 h-full border-l border-dashed border-white/10" /> */}
 
@@ -146,8 +174,8 @@ export function HomePage() {
                                     Available for projects
                                 </span>
                                 <div className="flex flex-wrap items-center gap-2 text-zinc-300 sm:gap-3">
-                                    <span className="text-white">Lamar</span>
-                                    <span className="text-white/25">|</span>
+                                    {/* <span className="text-white">Lamar</span>
+                                    <span className="text-white/25">|</span> */}
                                     <Image
                                         src="/flag_bb.svg.svg"
                                         alt="Barbados flag"
@@ -162,10 +190,10 @@ export function HomePage() {
                             </div>
 
                             <div className="relative grid min-h-[180px] sm:min-h-[210px] md:grid-cols-[minmax(0,1fr)_14rem] lg:grid-cols-[minmax(0,1fr)_16rem]">
-                                <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-4 sm:p-5 md:border-b-0 md:border-r md:p-6">
+                                <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-4 sm:p-5 md:border-r md:p-6">
                                     <div>
                                         <p className="mb-3 text-xs font-semibold uppercase text-zinc-500">
-                                            Role
+                                            Who am I?
                                         </p>
                                         <h1 className="text-xl font-semibold leading-tight text-white sm:text-2xl md:text-3xl">
                                             Product designer and frontend developer.
@@ -174,6 +202,28 @@ export function HomePage() {
                                             Building polished portfolio systems, product pages, and interactive web experiences.
                                         </p>
                                     </div>
+                                    <nav
+                                        aria-label="Social links"
+                                        className="mt-8 flex items-center gap-3"
+                                    >
+                                        {socialLinks.map((social) => {
+                                            const Icon = social.icon;
+
+                                            return (
+                                                <Link
+                                                    key={social.label}
+                                                    href={social.href}
+                                                    aria-label={social.label}
+                                                    className="group/social flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/75 transition-colors duration-200 hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
+                                                >
+                                                    <Icon
+                                                        size={18}
+                                                        className="transition-transform duration-300"
+                                                    />
+                                                </Link>
+                                            );
+                                        })}
+                                    </nav>
                                 </div>
                                 {/*
                                 <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-5 md:border-b-0 md:border-r md:p-6">
@@ -192,18 +242,19 @@ export function HomePage() {
                                     </div>
                                 </div> */}
 
-                                <div className="flex flex-col justify-between p-4 sm:p-5 md:p-6">
+                                <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-4 sm:p-5 md:p-6">
                                     <p className="text-xs font-semibold uppercase text-zinc-500">
-                                        Start here
+                                        Get in touch
                                     </p>
                                     <div className="mt-4 flex flex-wrap items-start gap-3 md:mt-0 md:flex-col">
-                                        <Link
-                                            href="/contact"
+                                        <a
+                                            href="/cv.pdf"
+                                            download
                                             className="inline-flex min-w-[7.75rem] items-center justify-between gap-3 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.08] md:w-full"
                                         >
-                                            Contact
-                                            <ArrowUpRight size={15} />
-                                        </Link>
+                                            Resume
+                                            <Download size={15} />
+                                        </a>
                                         <Link
                                             href="#featured-projects"
                                             className="inline-flex min-w-[8.25rem] items-center justify-between gap-3 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 md:w-full"
@@ -290,24 +341,24 @@ export function HomePage() {
                 </div>
             </div>
 
-            <section id="featured-projects" className="mx-auto max-w-7xl px-0 py-18 md:px-8 md:py-24 lg:px-12">
+            <section id="featured-projects" className="relative z-20 mx-auto max-w-7xl bg-black px-0 py-18 md:px-8 md:py-18 lg:px-12">
                 <SectionHeading
                     kicker="Featured Projects"
-                    title="A few pieces of work with a clear job to do."
-                    summary="Each project balances visual direction, usable structure, and implementation details that help the experience hold together."
+                    title=""
+                    summary=""
                 />
 
-                <div className="grid gap-8 md:grid-cols-2">
+                <div className="grid gap-8 md:hidden">
                     {featuredProjects.map((project, index) => (
                         <article
                             key={project.id}
-                            className="group overflow-hidden rounded-xl border border-dashed border-white/10 bg-[#343434]/15 transition-colors duration-300 hover:bg-[#343434]/25 cursor-default"
+                            className="group cursor-default overflow-hidden rounded-xl border border-dashed border-white/10 bg-[#171717] transition-colors duration-300 hover:bg-[#202020]"
                         >
                             <div className="relative aspect-[16/8] overflow-hidden bg-zinc-900 md:aspect-[16/7]">
                                 <img
                                     src={project.image}
                                     alt={project.title}
-                                    className="absolute inset-0 h-full w-full object-cover md:grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                                    className="absolute inset-0 h-full w-full object-cover transition duration-700 md:grayscale group-hover:scale-105 group-hover:grayscale-0"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                                 <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-white px-3 py-1.5 text-xs font-semibold tracking-normal text-[#262626] backdrop-blur-3xl">
@@ -356,6 +407,185 @@ export function HomePage() {
                             </div>
                         </article>
                     ))}
+                </div>
+
+                <div className="relative hidden pt-10 md:block">
+                    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[88dvh]">
+                        {featuredProjects.map((project, index) => {
+                            const offset = (index - activeProjectIndex + featuredProjects.length) % featuredProjects.length;
+                            const isVisibleBackCard = offset > 0 && offset < featuredProjects.length;
+
+                            if (!isVisibleBackCard) return null;
+
+                            return (
+                                <div
+                                    key={project.id}
+                                    className="absolute h-[88dvh] rounded-xl border border-dashed border-white/10 bg-[#141414] shadow-[0_24px_70px_rgba(0,0,0,0.28)]"
+                                    style={{
+                                        top: `${offset * -1.2}rem`,
+                                        left: `${offset * 1.55}rem`,
+                                        right: `${offset * 1.55}rem`,
+                                        zIndex: featuredProjects.length - offset,
+                                    }}
+                                    aria-hidden="true"
+                                >
+                                    <div className="flex h-12 items-center gap-2 border-b border-dashed border-white/10 px-4 text-xs text-zinc-400">
+                                        <span className="h-2 w-2 shrink-0 rounded-full bg-white/25" />
+                                        <span className="truncate font-bold text-white">{project.title}</span>
+                                        <span className="text-white/25">/</span>
+                                        <span className="truncate">{project.tag}</span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <article className="relative z-10 flex h-[88dvh] min-h-0 flex-col overflow-hidden rounded-xl border border-dashed border-white/10 bg-[#171717] shadow-[0_24px_80px_rgba(0,0,0,0.32)]">
+                        <div className="flex h-14 shrink-0 items-center gap-2 border-b border-dashed border-white/10 bg-[#202020] px-5 text-sm">
+                            <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400" />
+                            <span className="truncate font-bold text-white">{activeProject.title}</span>
+                            <span className="text-white/25">/</span>
+                            <span className="truncate text-zinc-300">{activeProject.tag}</span>
+                        </div>
+
+                        <div className="grid min-h-0 flex-1 grid-cols-[18rem_minmax(0,1fr)] lg:grid-cols-[21rem_minmax(0,1fr)]">
+                            <aside className="flex min-h-0 flex-col border-r border-dashed border-white/10 bg-[#111111] p-5 lg:p-6">
+                                <div>
+                                    <div className="relative mb-4 aspect-square max-w-[9.5rem] overflow-hidden rounded-xl border border-white/10 bg-zinc-950 lg:max-w-[11rem]">
+                                        <img
+                                            src={activeProject.image}
+                                            alt={activeProject.title}
+                                            className="absolute inset-0 h-full w-full object-cover grayscale transition duration-700 hover:scale-105 hover:grayscale-0"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                                    </div>
+                                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-300">
+                                        {activeProjectNumber} / {activeProject.tag}
+                                    </p>
+                                    <h3 className="max-w-xs text-2xl font-extrabold leading-tight tracking-tight text-white">
+                                        {activeProject.title}
+                                    </h3>
+                                    <p className="mt-3 line-clamp-4 text-sm leading-6 text-zinc-400">
+                                        {activeProject.subtitle}
+                                    </p>
+                                </div>
+
+                                <div className="mt-auto grid gap-3 border-t border-dashed border-white/10 pt-5 text-sm">
+                                    <div className="flex items-center justify-between gap-4">
+                                        <span className="text-zinc-500">Year</span>
+                                        <span className="font-semibold text-white">{activeProject.year}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between gap-4">
+                                        <span className="text-zinc-500">Status</span>
+                                        <span className="rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1 text-xs font-semibold text-zinc-300">
+                                            {activeProject.projectStatus}
+                                        </span>
+                                    </div>
+                                </div>
+                            </aside>
+
+                            <div className="flex min-h-0 flex-col p-5 lg:p-7">
+                                <div className="mb-5 flex items-center justify-between gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <LayoutGrid size={16} className="text-zinc-500" />
+                                        <h3 className="text-base font-extrabold tracking-tight text-white">
+                                            Highlights
+                                        </h3>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={goToPreviousProject}
+                                            aria-label="Previous project"
+                                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/75 transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
+                                        >
+                                            <ChevronLeft size={18} />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={goToNextProject}
+                                            aria-label="Next project"
+                                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/75 transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
+                                        >
+                                            <ChevronRight size={18} />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="grid min-h-0 flex-1 gap-3 md:grid-cols-[minmax(0,1.15fr)_minmax(12rem,0.85fr)] md:grid-rows-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:grid-cols-[minmax(0,1.25fr)_minmax(15rem,0.75fr)]">
+                                    <section className="flex min-h-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-5">
+                                        <p className="text-xs font-semibold text-zinc-500">Summary</p>
+                                        <p className="mt-8 text-2xl font-bold leading-tight text-white lg:text-3xl">
+                                            {activeProject.outcome}
+                                        </p>
+                                    </section>
+
+                                    <section className="flex min-h-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-5">
+                                        <p className="text-xs font-semibold text-zinc-500">Preview</p>
+                                        <Link
+                                            href={activeProject.liveUrl}
+                                            className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 underline-offset-4 hover:underline"
+                                        >
+                                            Live preview
+                                            <ArrowUpRight size={15} />
+                                        </Link>
+                                    </section>
+
+                                    <section className="flex min-h-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-5">
+                                        <p className="text-xs font-semibold text-zinc-500">Stack</p>
+                                        <div className="flex flex-wrap gap-2">
+                                            {activeProject.techStack.map((tech) => (
+                                                <span
+                                                    key={tech}
+                                                    className="rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1 text-xs font-semibold text-zinc-300"
+                                                >
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </section>
+
+                                    <section className="flex min-h-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-5">
+                                        <p className="text-xs font-semibold text-zinc-500">Source</p>
+                                        <a
+                                            href={activeProject.githubUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-emerald-300"
+                                        >
+                                            <GithubIcon size={16} />
+                                            GitHub
+                                        </a>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <nav
+                        aria-label="Featured project navigation"
+                        className="relative z-20 mx-auto mt-4 flex w-fit max-w-[calc(100%-2rem)] items-center gap-2 overflow-x-auto rounded-2xl border border-white/10 bg-black p-2"
+                    >
+                        {featuredProjects.map((project, index) => {
+                            const isActive = index === activeProjectIndex;
+
+                            return (
+                                <button
+                                    key={project.id}
+                                    type="button"
+                                    onClick={() => setActiveProjectIndex(index)}
+                                    aria-label={`Show ${project.title} from mini navigation`}
+                                    className={`inline-flex shrink-0 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${isActive
+                                        ? "border-white/20 bg-white/[0.09] text-white"
+                                        : "border-white/10 bg-white/[0.02] text-zinc-400 hover:bg-white/[0.06] hover:text-white"
+                                        }`}
+                                >
+                                    <span className={`h-1.5 w-1.5 rounded-full ${isActive ? "bg-emerald-400" : "bg-white/25"}`} />
+                                    {project.tag}
+                                </button>
+                            );
+                        })}
+                    </nav>
                 </div>
             </section>
 

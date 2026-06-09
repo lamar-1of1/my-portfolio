@@ -9,9 +9,7 @@ import {
     User,
     FolderKanban,
     Mail,
-    FileText,
     Command,
-    Download,
     MapPin,
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -46,13 +44,6 @@ const navItems = [
         href: '/contact',
     },
 ]
-const quickLinks = [
-    {
-        label: 'Resume',
-        icon: FileText,
-        href: '/cv.pdf',
-    },
-]
 const springConfig = {
     type: 'spring' as const,
     stiffness: 400,
@@ -80,7 +71,7 @@ function NavbarMetaBadge() {
             className="flex h-full min-w-0 items-center justify-center gap-1.5 whitespace-nowrap text-xs font-medium text-white/65"
         >
             <MapPin size={14} className="shrink-0 text-white/55" />
-            <span className="font-bold text-white/75">Barbados</span>
+            <span className="font-medium text-white/75">Barbados</span>
             <span className="font-bold text-white/20">{'//'}</span>
             <time className="tabular-nums text-white/60">{formattedTime}</time>
         </div>
@@ -114,7 +105,7 @@ export default function Navbar() {
             <TopBlur height={40} className="mx-5 !top-0 md:!top-16" />
 
             {/* Desktop Navbar */}
-            <div className="fixed left-5 right-5 top-0 z-50 hidden border-b border-dashed border-white/10 bg-zinc-950/80 backdrop-blur-xl md:block">
+            <div className="fixed left-5 right-5 top-0 z-[100] hidden border-b border-dashed border-white/10 bg-zinc-950/80 backdrop-blur-xl md:block">
                 <nav className="mx-auto flex h-16 w-full max-w-7xl items-stretch px-3 lg:px-6 xl:px-8">
                     {/* Brand */}
                     <div className="flex items-center justify-center border-r border-dashed border-white/10 pr-3 lg:pr-5 xl:pr-8">
@@ -168,19 +159,6 @@ export default function Navbar() {
                         <NavbarMetaBadge />
                     </div>
 
-                    {/* Resume CTA */}
-                    <div className="flex items-center justify-center border-l border-dashed border-white/10 pl-3 lg:pl-5 xl:pl-8">
-                        <a
-                            href="/cv.pdf"
-                            download
-                            className="group/resume inline-flex shrink-0 items-center gap-2 rounded-xl border border-[#262626]/70 bg-white/[0.025] px-3 py-1.5 text-sm font-medium text-zinc-300 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 lg:px-3.5"
-                        >
-                            <span>Resume</span>
-                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.06] text-white transition-colors group-hover/resume:bg-white/10">
-                                <Download size={14} className="transition-transform duration-300 ease-out" />
-                            </span>
-                        </a>
-                    </div>
                 </nav>
             </div>
 
@@ -207,7 +185,7 @@ export default function Navbar() {
             </AnimatePresence>
 
             {/* Mobile Floating Menu */}
-            <div className="fixed bottom-4 left-4 right-4 z-50 flex justify-center md:hidden">
+            <div className="fixed bottom-4 left-4 right-4 z-[100] flex justify-center md:hidden">
                 <motion.div
                     layout
                     transition={springConfig}
@@ -288,36 +266,6 @@ export default function Navbar() {
                                             </Link>
                                         )
                                     })}
-                                </div>
-
-                                <div className="border-t border-[#262626]/70 p-3">
-                                    <p className="mb-3 px-1 text-sm font-medium text-white/35">
-                                        Quick Links
-                                    </p>
-                                    <div className="grid grid-cols-1 gap-2">
-                                        {quickLinks.map((link) => {
-                                            const Icon = link.icon
-                                            return (
-                                                <a
-                                                    key={link.label}
-                                                    href={link.href}
-                                                    className="group flex items-center gap-3 rounded-2xl border border-[#262626]/70 bg-[#343434]/10 px-3 py-3 transition-all duration-200 hover:bg-white/5"
-                                                >
-                                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/[0.04] transition-transform duration-200 group-hover:scale-105">
-                                                        <Icon size={18} className="text-white/80" />
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-sm text-white/80">
-                                                            {link.label}
-                                                        </span>
-                                                        <span className="text-xs text-white/35">
-                                                            Download CV / Resume
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            )
-                                        })}
-                                    </div>
                                 </div>
                             </motion.div>
                         )}
