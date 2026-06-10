@@ -79,6 +79,18 @@ const socialLinks = [
     { label: "LinkedIn", href: "#", icon: Linkedin02Icon },
 ];
 
+function getProjectStatusClass(status: string) {
+    if (status.toLowerCase() === "new") {
+        return "border-emerald-500/25 bg-emerald-500/10 text-emerald-300";
+    }
+
+    if (status.toLowerCase().includes("progress")) {
+        return "border-amber-400/25 bg-amber-400/10 text-amber-200";
+    }
+
+    return "border-white/10 bg-white/[0.035] text-zinc-300";
+}
+
 function SectionHeading({
     kicker,
     title,
@@ -89,21 +101,28 @@ function SectionHeading({
     summary?: string;
 }) {
     return (
-        <div className="mb-8 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
-                <p className="font-inter mb-4 inline-flex items-center ga/p-2 border-b-2 border-emerald-800 p/x-3 py-1.5 text-md font-medium text-emerald-300">
-                    {/* <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> */}
-                    {kicker}
-                </p>
-                <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+        <div className="mb-8 md:mb-10">
+            <div className="border-y border-dashed border-white/10 bg-[#111111] px-5 py-4 md:px-6">
+                <div className="flex items-center justify-between gap-4">
+                    <div className="flex min-w-0 items-center gap-3">
+                        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400" />
+                        <p className="truncate text-sm font-medium text-white">{kicker}</p>
+                    </div>
+                    <span className="hidden shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500 sm:inline">
+                        Section
+                    </span>
+                </div>
+            </div>
+            <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <h2 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
                     {title}
                 </h2>
-            </div>
             {summary ? (
                 <p className="max-w-md text-sm leading-6 text-zinc-400 md:text-base">
                     {summary}
                 </p>
             ) : null}
+            </div>
         </div>
     );
 }
@@ -341,20 +360,32 @@ export function HomePage() {
                 </div>
             </div>
 
-            <section id="featured-projects" className="relative z-20 mx-auto max-w-7xl bg-black px-0 py-18 md:px-8 md:py-18 lg:px-12">
-                <SectionHeading
-                    kicker="Featured Projects"
-                    title=""
-                    summary=""
-                />
+            <section id="featured-projects" className="relative z-20 mx-auto max-w-7xl bg-black px-0 py-14 md:px-8 md:py-16 lg:px-12">
+                <div className="mb-8 border-y border-dashed border-white/10 bg-[#111111] px-5 py-4 md:mb-28 md:px-6">
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                            <p className="text-sm font-medium text-white">Featured Projects</p>
+                            {/* <span className="hidden text-white/25 sm:inline">/</span>
+                            <span className="hidden text-sm text-zinc-500 sm:inline">Selected work</span> */}
+                        </div>
+                        <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.02em] text-white">
+                            {featuredProjects.length.toString().padStart(2, "0")}
+                            <span className="inline text-zinc-500"> projects</span>
+                        </span>
+                    </div>
+                </div>
 
-                <div className="grid gap-8 md:hidden">
+                <div
+                    aria-label="Featured project carousel"
+                    className="scrollbar-hide -m/x-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:hidden"
+                >
                     {featuredProjects.map((project, index) => (
                         <article
                             key={project.id}
-                            className="group cursor-default overflow-hidden rounded-xl border border-dashed border-white/10 bg-[#171717] transition-colors duration-300 hover:bg-[#202020]"
+                            className="group w-[82vw] max-w-[22rem] shrink-0 snap-start cursor-default overflow-hidden rounded-xl border border-dashed border-white/10 bg-[#171717] transition-colors duration-300 hover:bg-[#202020]"
                         >
-                            <div className="relative aspect-[16/8] overflow-hidden bg-zinc-900 md:aspect-[16/7]">
+                            <div className="relative aspect-[16/7] overflow-hidden bg-zinc-900">
                                 <img
                                     src={project.image}
                                     alt={project.title}
@@ -368,12 +399,14 @@ export function HomePage() {
                             <div className="p-4 md:p-5">
                                 <div className="mb-3 flex items-center justify-between gap-4 text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">
                                     <span>{project.year}</span>
-                                    <span>{project.projectStatus}</span>
+                                    <span className={`rounded-full border px-2 py-0.5 ${getProjectStatusClass(project.projectStatus)}`}>
+                                        {project.projectStatus}
+                                    </span>
                                 </div>
                                 <h3 className="text-xl font-extrabold tracking-tight text-white md:text-2xl">
                                     {project.title}
                                 </h3>
-                                <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-400">
+                                <p className="mt-2 line-clamp-2 text-sm leading-6 text-zinc-400">
                                     {project.outcome}
                                 </p>
                                 <div className="mt-4 flex flex-wrap gap-2">
@@ -391,17 +424,17 @@ export function HomePage() {
                                         href={project.liveUrl}
                                         className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
                                     >
-                                        Live preview
+                                        Read more
                                         <ArrowUpRight size={15} />
                                     </Link>
                                     <a
                                         href={project.githubUrl}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/[0.07]"
+                                        aria-label="GitHub"
+                                        className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:bg-white/[0.07]"
                                     >
                                         <GithubIcon size={15} />
-                                        GitHub
                                     </a>
                                 </div>
                             </div>
@@ -409,8 +442,8 @@ export function HomePage() {
                     ))}
                 </div>
 
-                <div className="relative hidden pt-10 md:block">
-                    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[88dvh]">
+                <div className="relative hidden pt-8 md:block">
+                    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[26rem] xl:h-[28rem]">
                         {featuredProjects.map((project, index) => {
                             const offset = (index - activeProjectIndex + featuredProjects.length) % featuredProjects.length;
                             const isVisibleBackCard = offset > 0 && offset < featuredProjects.length;
@@ -420,7 +453,7 @@ export function HomePage() {
                             return (
                                 <div
                                     key={project.id}
-                                    className="absolute h-[88dvh] rounded-xl border border-dashed border-white/10 bg-[#141414] shadow-[0_24px_70px_rgba(0,0,0,0.28)]"
+                                    className="absolute h-[26rem] rounded-xl border border-dashed border-white/10 bg-[#141414] shadow-[0_24px_70px_rgba(0,0,0,0.28)] xl:h-[28rem]"
                                     style={{
                                         top: `${offset * -1.2}rem`,
                                         left: `${offset * 1.55}rem`,
@@ -431,7 +464,7 @@ export function HomePage() {
                                 >
                                     <div className="flex h-12 items-center gap-2 border-b border-dashed border-white/10 px-4 text-xs text-zinc-400">
                                         <span className="h-2 w-2 shrink-0 rounded-full bg-white/25" />
-                                        <span className="truncate font-bold text-white">{project.title}</span>
+                                        <span className="truncate font-medium text-white">{project.title}</span>
                                         <span className="text-white/25">/</span>
                                         <span className="truncate">{project.tag}</span>
                                     </div>
@@ -440,18 +473,18 @@ export function HomePage() {
                         })}
                     </div>
 
-                    <article className="relative z-10 flex h-[88dvh] min-h-0 flex-col overflow-hidden rounded-xl border border-dashed border-white/10 bg-[#171717] shadow-[0_24px_80px_rgba(0,0,0,0.32)]">
+                    <article className="relative z-10 flex h-[26rem] min-h-0 flex-col overflow-hidden rounded-xl border border-dashed border-white/10 bg-[#171717] shadow-[0_24px_80px_rgba(0,0,0,0.32)] xl:h-[28rem]">
                         <div className="flex h-14 shrink-0 items-center gap-2 border-b border-dashed border-white/10 bg-[#202020] px-5 text-sm">
                             <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400" />
-                            <span className="truncate font-bold text-white">{activeProject.title}</span>
+                            <span className="truncate font-medium text-white">{activeProject.title}</span>
                             <span className="text-white/25">/</span>
                             <span className="truncate text-zinc-300">{activeProject.tag}</span>
                         </div>
 
                         <div className="grid min-h-0 flex-1 grid-cols-[18rem_minmax(0,1fr)] lg:grid-cols-[21rem_minmax(0,1fr)]">
-                            <aside className="flex min-h-0 flex-col border-r border-dashed border-white/10 bg-[#111111] p-5 lg:p-6">
+                            <aside className="flex min-h-0 flex-col border-r border-dashed border-white/10 bg-[#111111] p-4 lg:p-5">
                                 <div>
-                                    <div className="relative mb-4 aspect-square max-w-[9.5rem] overflow-hidden rounded-xl border border-white/10 bg-zinc-950 lg:max-w-[11rem]">
+                                    <div className="relative mb-3 aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-zinc-950">
                                         <img
                                             src={activeProject.image}
                                             alt={activeProject.title}
@@ -459,36 +492,33 @@ export function HomePage() {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                                     </div>
-                                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-300">
-                                        {activeProjectNumber} / {activeProject.tag}
+                                    <p className="mb-2 text-xs font-semibold uppercase tracking-[0.07em] text-emerald-300">
+                                        {activeProjectNumber}{" // "}{activeProject.tag}
                                     </p>
-                                    <h3 className="max-w-xs text-2xl font-extrabold leading-tight tracking-tight text-white">
+                                    <h3 className="max-w-xs text-xl font-medium leading-tight tracking-tight text-white/75 lg:text-xl">
                                         {activeProject.title}
                                     </h3>
-                                    <p className="mt-3 line-clamp-4 text-sm leading-6 text-zinc-400">
-                                        {activeProject.subtitle}
-                                    </p>
                                 </div>
 
-                                <div className="mt-auto grid gap-3 border-t border-dashed border-white/10 pt-5 text-sm">
+                                <div className="mt-auto grid gap-2 border-t border-dashed border-white/10 pt-4 text-sm">
                                     <div className="flex items-center justify-between gap-4">
                                         <span className="text-zinc-500">Year</span>
                                         <span className="font-semibold text-white">{activeProject.year}</span>
                                     </div>
                                     <div className="flex items-center justify-between gap-4">
                                         <span className="text-zinc-500">Status</span>
-                                        <span className="rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1 text-xs font-semibold text-zinc-300">
+                                        <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${getProjectStatusClass(activeProject.projectStatus)}`}>
                                             {activeProject.projectStatus}
                                         </span>
                                     </div>
                                 </div>
                             </aside>
 
-                            <div className="flex min-h-0 flex-col p-5 lg:p-7">
-                                <div className="mb-5 flex items-center justify-between gap-4">
+                            <div className="flex min-h-0 flex-col p-4">
+                                <div className="mb-3 flex items-center justify-between gap-4">
                                     <div className="flex items-center gap-2">
                                         <LayoutGrid size={16} className="text-zinc-500" />
-                                        <h3 className="text-base font-extrabold tracking-tight text-white">
+                                        <h3 className="text-md font-medium tracking-tight text-white/75">
                                             Highlights
                                         </h3>
                                     </div>
@@ -497,7 +527,7 @@ export function HomePage() {
                                             type="button"
                                             onClick={goToPreviousProject}
                                             aria-label="Previous project"
-                                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/75 transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
+                                            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/75 transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
                                         >
                                             <ChevronLeft size={18} />
                                         </button>
@@ -505,35 +535,24 @@ export function HomePage() {
                                             type="button"
                                             onClick={goToNextProject}
                                             aria-label="Next project"
-                                            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/75 transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
+                                            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/75 transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
                                         >
                                             <ChevronRight size={18} />
                                         </button>
                                     </div>
                                 </div>
 
-                                <div className="grid min-h-0 flex-1 gap-3 md:grid-cols-[minmax(0,1.15fr)_minmax(12rem,0.85fr)] md:grid-rows-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:grid-cols-[minmax(0,1.25fr)_minmax(15rem,0.75fr)]">
-                                    <section className="flex min-h-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-5">
-                                        <p className="text-xs font-semibold text-zinc-500">Summary</p>
-                                        <p className="mt-8 text-2xl font-bold leading-tight text-white lg:text-3xl">
-                                            {activeProject.outcome}
+                                <div className="grid min-h-0 flex-1 content-start gap-3 md:grid-cols-[minmax(0,1.15fr)_minmax(13rem,0.85fr)] md:grid-rows-[auto_auto] lg:grid-cols-[minmax(0,1.25fr)_minmax(15rem,0.75fr)]">
+                                    <section className="flex min-h-0 flex-col rounded-xl border border-dashed border-white/10 bg-[#111111] p-4 md:row-span-2 lg:p-5">
+                                        <p className="text-sm font-semibold text-zinc-500">Summary</p>
+                                        <p className="mt-4 line-clamp-3 text-sm leading-6 text-zinc-400">
+                                            {activeProject.subtitle}
                                         </p>
                                     </section>
 
-                                    <section className="flex min-h-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-5">
-                                        <p className="text-xs font-semibold text-zinc-500">Preview</p>
-                                        <Link
-                                            href={activeProject.liveUrl}
-                                            className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 underline-offset-4 hover:underline"
-                                        >
-                                            Live preview
-                                            <ArrowUpRight size={15} />
-                                        </Link>
-                                    </section>
-
-                                    <section className="flex min-h-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-5">
-                                        <p className="text-xs font-semibold text-zinc-500">Stack</p>
-                                        <div className="flex flex-wrap gap-2">
+                                    <section className="flex min-h-0 flex-col rounded-xl border border-dashed border-white/10 bg-[#111111] p-4">
+                                        <p className="text-sm font-semibold text-zinc-500">Stack</p>
+                                        <div className="mt-3 flex flex-wrap gap-2">
                                             {activeProject.techStack.map((tech) => (
                                                 <span
                                                     key={tech}
@@ -545,47 +564,32 @@ export function HomePage() {
                                         </div>
                                     </section>
 
-                                    <section className="flex min-h-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-5">
-                                        <p className="text-xs font-semibold text-zinc-500">Source</p>
-                                        <a
-                                            href={activeProject.githubUrl}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-emerald-300"
-                                        >
-                                            <GithubIcon size={16} />
-                                            GitHub
-                                        </a>
+                                    <section className="flex min-h-0 flex-col rounded-xl border border-dashed border-white/10 bg-[#111111] p-4">
+                                        <p className="text-sm font-semibold text-zinc-500">Links</p>
+                                        <div className="mt-4 flex flex-wrap gap-4">
+                                            <Link
+                                                href={activeProject.liveUrl}
+                                                className="inline-flex items-center gap-2 text-sm font-medium text-emerald-300 underline-offset-4 hover:underline"
+                                            >
+                                                Read more
+                                                <ArrowUpRight size={15} />
+                                            </Link>
+                                            <a
+                                                href={activeProject.githubUrl}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                aria-label="GitHub"
+                                                className="inline-flex h-8 w-8 items-center justify-center text-white transition-colors hover:text-emerald-300"
+                                            >
+                                                <GithubIcon size={16} />
+                                            </a>
+                                        </div>
                                     </section>
                                 </div>
                             </div>
                         </div>
                     </article>
 
-                    <nav
-                        aria-label="Featured project navigation"
-                        className="relative z-20 mx-auto mt-4 flex w-fit max-w-[calc(100%-2rem)] items-center gap-2 overflow-x-auto rounded-2xl border border-white/10 bg-black p-2"
-                    >
-                        {featuredProjects.map((project, index) => {
-                            const isActive = index === activeProjectIndex;
-
-                            return (
-                                <button
-                                    key={project.id}
-                                    type="button"
-                                    onClick={() => setActiveProjectIndex(index)}
-                                    aria-label={`Show ${project.title} from mini navigation`}
-                                    className={`inline-flex shrink-0 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${isActive
-                                        ? "border-white/20 bg-white/[0.09] text-white"
-                                        : "border-white/10 bg-white/[0.02] text-zinc-400 hover:bg-white/[0.06] hover:text-white"
-                                        }`}
-                                >
-                                    <span className={`h-1.5 w-1.5 rounded-full ${isActive ? "bg-emerald-400" : "bg-white/25"}`} />
-                                    {project.tag}
-                                </button>
-                            );
-                        })}
-                    </nav>
                 </div>
             </section>
 
