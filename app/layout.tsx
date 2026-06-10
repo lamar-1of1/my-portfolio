@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description:
         "Developer and designer crafting focused digital experiences.",
     icons: {
-        icon: "/icon-white.svg",
+        icon: "/icon.png",
     },
     openGraph: {
         title: "Lamar | Portfolio",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         type: "website",
         images: [
             {
-                url: "/assets/brand-social-preview.jpg",
+                url: "/brand-social-preview-Photoroom.png",
                 width: 1200,
                 height: 630,
                 alt: "Lamar portfolio brand mark",

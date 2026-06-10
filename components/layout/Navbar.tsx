@@ -30,13 +30,6 @@ const navItems = [
         href: '/about',
     },
     {
-        id: 'projects',
-        label: 'Projects',
-        icon: FolderKanban,
-        keybind: 'P',
-        href: '/projects',
-    },
-    {
         id: 'contact',
         label: 'Contact',
         icon: Mail,
