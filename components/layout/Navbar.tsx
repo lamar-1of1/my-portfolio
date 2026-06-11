@@ -23,6 +23,13 @@ const navItems = [
         href: '/',
     },
     {
+        id: 'projects',
+        label: 'Projects',
+        icon: FolderKanban,
+        keybind: 'P',
+        href: '/projects',
+    },
+    {
         id: 'about',
         label: 'About',
         icon: User,

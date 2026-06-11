@@ -6,18 +6,22 @@ import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useState } from "react";
 import {
     ArrowUpRight,
+    Atom,
+    Award,
+    Box,
+    Boxes,
+    BriefcaseBusiness,
+    Braces,
     ChevronLeft,
     ChevronRight,
-    Disc3,
+    Code,
+    Copy,
     Download,
+    GraduationCap,
     LayoutGrid,
-    Layers3,
-    Music2,
-    PenTool,
-    Radio,
-    Sparkles,
-    TerminalSquare,
+    Palette,
     UserRoundCheck,
+    Wind,
 } from "lucide-react";
 import { GithubIcon, Linkedin02Icon, NewTwitterIcon } from "hugeicons-react";
 
@@ -72,41 +76,36 @@ const featuredProjects = cardData.slice(0, 4).map((project, index) => ({
     githubUrl: "https://github.com/",
 }));
 
-const skillGroups = [
-    {
-        title: "Frontend",
-        icon: Layers3,
-        skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    },
-    {
-        title: "Backend",
-        icon: TerminalSquare,
-        skills: [
-            "Node.js",
-            "API routes",
-            "Auth flows",
-            "Database modeling",
-            "Performance",
-        ],
-    },
-    {
-        title: "Design",
-        icon: PenTool,
-        skills: [
-            "Figma",
-            "Design systems",
-            "Interaction design",
-            "Prototyping",
-            "Visual polish",
-        ],
-    },
+const aboutToolkit = [
+    { label: "Next.js", icon: Box },
+    { label: "React", icon: Atom },
+    { label: "TypeScript", icon: Braces },
+    { label: "Tailwind CSS", icon: Wind },
+    { label: "Framer Motion", icon: Boxes },
+    { label: "Figma", icon: Palette },
+    { label: "Node.js", icon: Code },
+    { label: "Design Systems", icon: LayoutGrid },
 ];
 
-const musicNotes = [
-    "Soca and dancehall energy",
-    "R&B details and atmosphere",
-    "Afrobeats rhythm",
-    "Lo-fi focus sessions",
+const aboutJourney = [
+    {
+        icon: BriefcaseBusiness,
+        period: "2023 - Present",
+        title: "Product Designer / Frontend Developer",
+        copy: "Shaping intuitive digital products from wireframe to launch, with a focus on structure, motion, and responsive craft.",
+    },
+    {
+        icon: GraduationCap,
+        period: "2021 - 2024",
+        title: "UX/UI Design Foundation",
+        copy: "Deepened my foundation in user-centered design, interface systems, and interaction principles.",
+    },
+    {
+        icon: Award,
+        period: "2020",
+        title: "Graphic Design Graduate",
+        copy: "Built an early creative foundation through visual systems, brand work, layout, and digital storytelling.",
+    },
 ];
 
 const socialLinks = [
@@ -125,42 +124,6 @@ function getProjectStatusClass(status: string) {
     }
 
     return "border-white/10 bg-white/[0.035] text-zinc-300";
-}
-
-function SectionHeading({
-    kicker,
-    title,
-    summary,
-}: {
-    kicker: string;
-    title: string;
-    summary?: string;
-}) {
-    return (
-        <div className="mb-8 md:mb-10">
-            <div className="border-y border-dashed border-white/10 bg-[#111111] px-5 py-4 md:px-6">
-                <div className="flex items-center justify-between gap-4">
-                    <div className="flex min-w-0 items-center gap-3">
-                        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400" />
-                        <p className="truncate text-sm font-medium text-white">{kicker}</p>
-                    </div>
-                    <span className="hidden shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500 sm:inline">
-                        Section
-                    </span>
-                </div>
-            </div>
-            <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-                <h2 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
-                    {title}
-                </h2>
-                {summary ? (
-                    <p className="max-w-md text-sm leading-6 text-zinc-400 md:text-base">
-                        {summary}
-                    </p>
-                ) : null}
-            </div>
-        </div>
-    );
 }
 
 export function HomePage() {
@@ -240,20 +203,6 @@ export function HomePage() {
                                     </span>
                                     Available for projects
                                 </span>
-                                <div className="flex flex-wrap items-center gap-2 text-zinc-300 sm:gap-3">
-                                    {/* <span className="text-white">Lamar</span>
-                                    <span className="text-white/25">|</span> */}
-                                    <Image
-                                        src="/flag_bb.svg.svg"
-                                        alt="Barbados flag"
-                                        width={32}
-                                        height={32}
-                                        className="h-4 w-6 border border-white/15 object-cover"
-                                    />
-                                    <span>Barbados</span>
-                                    {/* <span className="hidden text-white/25 sm:inline">/</span> */}
-                                    {/* <span className="hidden sm:inline">246</span> */}
-                                </div>
                             </div>
 
                             <div className="relative grid min-h-[180px] sm:min-h-[210px] md:grid-cols-[minmax(0,1fr)_14rem] lg:grid-cols-[minmax(0,1fr)_16rem]">
@@ -397,7 +346,7 @@ export function HomePage() {
                 </div>
             </section>
 
-            <div
+            {/* <div
                 aria-hidden="true"
                 className="relative -mx-3 overflow-hidden border-y border-dashed border-white/10 bg-black py-3 md:py-4"
             >
@@ -407,8 +356,8 @@ export function HomePage() {
                     className="opacity-35"
                     color="color-mix(in oklab, var(--color-white) 8%, transparent)"
                 />
-                {/* <div className="pointer-events-none absolute inset-x-0 top-1/2 border-t border-dashed border-white/10" /> */}
-                {/* <div className="pointer-events-none absolute left-1/2 top-0 h-full border-l border-dashed border-white/10" /> */}
+                <div className="pointer-events-none absolute inset-x-0 top-1/2 border-t border-dashed border-white/10" />
+                <div className="pointer-events-none absolute left-1/2 top-0 h-full border-l border-dashed border-white/10" />
                 <div className="relative left-1/2 flex min-w-full -translate-x-1/2 items-center justify-center gap-2 px-0 md:gap-8">
                     {Array.from({ length: 8 }).map((_, index) => (
                         <Image
@@ -421,7 +370,7 @@ export function HomePage() {
                         />
                     ))}
                 </div>
-            </div>
+            </div> */}
 
             <section
                 id="featured-projects"
@@ -811,19 +760,163 @@ export function HomePage() {
             {/* About section */}
             <section
                 id="about"
-                className="relative z-20 mx-auto max-w-7xl bg-black px-0 py-14 md:px-8 md:py-22 lg:px-12"
+                className="relative z-20 mx-auto w-full max-w-7xl overflow-hidden bg-black px-0 py-14 md:px-8 md:py-20 lg:px-12"
             >
-                <div className="mb-8 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-28 md:px-6">
-                    <div className="flex items-center justify-between gap-4">
-                        <div className="flex items-center gap-3">
+                <div className="mb-8 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-12 md:px-6">
+                    <div className="flex min-w-0 items-center justify-between gap-4">
+                        <div className="flex min-w-0 items-center gap-3">
                             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                             <p className="text-sm font-medium text-white">
                                 About
                             </p>
+                            {/* <span className="hidden text-white/25 sm:inline">/</span>
+                            <span className="hidden text-sm text-zinc-500 sm:inline">Selected work</span> */}
                         </div>
-                        <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.02em] text-white">
-                            <span className="inline text-zinc-500">Who am I?</span>
-                        </span>
+                        <span className="inline text-zinc-500 shrink-0 text-xs font-semibold uppercase tracking-[0.02em]">Who am I ?</span>
+                    </div>
+                </div>
+                <div className="w-full max-w-full overflow-hidden border-y border-dashed border-white/10">
+                    <div className="grid min-w-0 lg:grid-cols-[16.5rem_minmax(0,1fr)]">
+                        <aside className="min-w-0 border-b border-dashed border-white/10 p-5 sm:p-6 lg:border-b-0 lg:border-r">
+                            <div className="flex h-full min-w-0 flex-col gap-6">
+                                {/* Intro */}
+                                <div className="min-w-0">
+                                    <h3 className="text-lg font-semibold leading-tight text-white">
+                                        Designer & Full Stack Developer
+                                    </h3>
+
+                                    <p className="mt-2 max-w-full text-sm leading-relaxed text-zinc-400">
+                                        Creating thoughtful digital experiences from Barbados.
+                                    </p>
+                                </div>
+
+                                {/* Meta */}
+                                <div className="space-y-3">
+                                    {/* <div className="flex items-center gap-3 rounded-lg border border-dashed border-white/10 bg-white/[0.015] px-3 py-2">
+                                        <span className="h-2 w-2 rounded-full bg-white/30" />
+                                        <span className="text-sm font-medium text-zinc-300">
+                                            Barbados
+                                        </span>
+                                    </div> */}
+
+                                    {/* <div className="flex items-center gap-3 rounded-lg border border-dashed border-emerald-500/20 bg-emerald-500/[0.04] px-3 py-2">
+                                        <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                                        <span className="text-sm font-medium text-emerald-300">
+                                            Available for work
+                                        </span>
+                                    </div> */}
+                                </div>
+
+                                {/* Contact */}
+                                <a
+                                    href="mailto:coxlamar4@gmail.com"
+                                    className="group flex min-w-0 items-center justify-between gap-4 rounded-lg border border-dashed border-white/10 bg-white/[0.015] px-4 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-emerald-400/30 hover:bg-emerald-400/[0.03]"
+                                >
+                                    <span className="truncate">coxlamar4@gmail.com</span>
+
+                                    <Copy
+                                        size={15}
+                                        className="shrink-0 text-zinc-500 transition-colors duration-300 group-hover:text-emerald-300"
+                                    />
+                                </a>
+                            </div>
+                        </aside>
+
+                        <div className="min-w-0 p-5 sm:p-6 lg:p-7">
+                            <div className="max-w-4xl space-y-4 break-words text-sm font-normal leading-6 text-zinc-400">
+                                <p>
+                                    I&apos;m a designer and developer based in Barbados with a passion for creating digital experiences that are clear, functional, and driven by impact. I build polished portfolio systems, product pages, and interactive web experiences that help ideas feel easier to understand.
+                                </p>
+                                <p>
+                                    My work sits between visual design and production frontend. I shape interfaces from structure to launch, moving through user flows, responsive layouts, design systems, and the interaction details that make a page feel considered.
+                                </p>
+                                <p>
+                                    I keep the process direct: understand the goal, design the system, build the experience, then refine until the final result feels calm, fast, and ready to use.
+                                </p>
+                            </div>
+
+                            {/* <div className="mt-7 grid border-y border-dashed border-white/10 sm:grid-cols-3">
+                                {aboutStats.map((stat) => (
+                                    <div
+                                        key={stat.label}
+                                        className="border-b border-dashed border-white/10 py-5 last:border-b-0 sm:border-b-0 sm:border-r sm:px-5 sm:first:pl-0 sm:last:border-r-0"
+                                    >
+                                        <p className="text-3xl font-extrabold tracking-tight text-white">
+                                            {stat.value}
+                                        </p>
+                                        <p className="mt-1 text-xs font-bold text-zinc-500">
+                                            {stat.label}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div> */}
+
+                            <div className="pt-6">
+                                <div className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-wide">
+                                    {/* <Music2 size={13} className="text-emerald-300" /> */}
+                                    {/* <span className="text-emerald-300">02</span> */}
+                                    {/* <span className="text-zinc-500">{"//"}</span> */}
+                                    <span className="text-white">Tech Stack</span>
+                                </div>
+                                <div className="relative max-w-full overflow-hidden py-1">
+                                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-black via-black/80 to-transparent" />
+                                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-black via-black/80 to-transparent" />
+                                    <div className="tech-stack-marquee flex w-max gap-2">
+                                        {[...aboutToolkit, ...aboutToolkit].map((tool, index) => {
+                                            const Icon = tool.icon;
+
+                                            return (
+                                                <span
+                                                    key={`${tool.label}-${index}`}
+                                                    className="inline-flex h-10 shrink-0 items-center gap-2 rounded-md border border-white/10 bg-black/35 px-3.5 text-xs font-bold text-zinc-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+                                                    aria-hidden={index >= aboutToolkit.length}
+                                                >
+                                                    <Icon size={15} className="text-emerald-300" />
+                                                    {tool.label}
+                                                </span>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-7">
+                    <div className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-wide">
+                        {/* <Music2 size={13} className="text-emerald-300" /> */}
+                        {/* <span className="text-emerald-300">03</span> */}
+                        {/* <span className="text-zinc-500">{"//"}</span> */}
+                        <span className="text-white font-inter">My Journey</span>
+                    </div>
+
+                    <div className="journey-card-grid grid overflow-hidden rounded-lg border border-dashed border-white/10 bg-[#0f0f0f] md:grid-cols-3">
+                        {aboutJourney.map((item) => {
+                            const Icon = item.icon;
+
+                            return (
+                                <article
+                                    key={item.title}
+                                    className="journey-card relative min-h-[11rem] overflow-hidden border-b border-dashed border-white/10 p-5 transition-all duration-500 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0"
+                                >
+                                    <div className="relative z-10 flex items-center justify-between gap-4">
+                                        <span className="journey-card-icon flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-black/30 text-zinc-400 transition-all duration-500">
+                                            <Icon size={15} />
+                                        </span>
+                                        <span className="text-xs font-bold text-zinc-600">
+                                            {item.period}
+                                        </span>
+                                    </div>
+                                    <h3 className="relative z-10 mt-5 text-sm font-medium text-white transition-colors duration-500">
+                                        {item.title}
+                                    </h3>
+                                    <p className="relative z-10 mt-3 text-sm font-semibold leading-6 text-zinc-500 transition-colors duration-500">
+                                        {item.copy}
+                                    </p>
+                                </article>
+                            );
+                        })}
                     </div>
                 </div>
             </section>

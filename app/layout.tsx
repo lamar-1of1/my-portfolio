@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/Navbar";
@@ -11,10 +11,10 @@ const geistSans = Geist({
     variable: "--font-sans",
 });
 
-// const inter = Inter({
-//     subsets: ["latin"],
-//     variable: "--font-inter",
-// });
+const interSans = Inter({
+    subsets: ["latin"],
+    variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
     title: "Lamar | Portfolio",
@@ -58,7 +58,7 @@ export default function RootLayout({
                 "h-full",
                 "antialiased",
                 geistSans.variable,
-                // inter.variable
+                interSans.variable,
             )}
         >
             <body className="bg-black text-white">
