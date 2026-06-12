@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -20,28 +20,28 @@ const navItems = [
         label: 'Home',
         icon: Home,
         keybind: 'H',
-        href: '/',
+        href: '/#home',
     },
     {
         id: 'projects',
         label: 'Projects',
         icon: FolderKanban,
         keybind: 'P',
-        href: '/projects',
+        href: '/#featured-projects',
     },
     {
         id: 'about',
         label: 'About',
         icon: User,
         keybind: 'A',
-        href: '/about',
+        href: '/#about',
     },
     {
         id: 'contact',
         label: 'Contact',
         icon: Mail,
         keybind: 'C',
-        href: '/contact',
+        href: '/#contact',
     },
 ]
 const springConfig = {
@@ -49,6 +49,12 @@ const springConfig = {
     stiffness: 400,
     damping: 30,
 }
+const getSectionId = (item: (typeof navItems)[number]) =>
+    item.href.split('#')[1] || item.id
+
+const getActiveSectionId = (sectionId: string) =>
+    sectionId === 'featured-projects' ? 'projects' : sectionId
+
 function NavbarMetaBadge() {
     const [formattedTime, setFormattedTime] = useState('--:-- --')
     useEffect(() => {
@@ -79,11 +85,99 @@ function NavbarMetaBadge() {
 }
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
+    const [activeSection, setActiveSection] = useState('home')
+    const [hoveredSection, setHoveredSection] = useState<string | null>(null)
     const pathname = usePathname()
+    const highlightedSection = hoveredSection || activeSection
     const activeNav =
-        navItems.find((item) => item.href === pathname) || navItems[0]
+        navItems.find((item) => item.id === activeSection) || navItems[0]
     const ActiveIcon = activeNav.icon
     const desktopNavItems = navItems
+    const scrollToSection = (
+        item: (typeof navItems)[number],
+        behavior: ScrollBehavior = 'smooth',
+    ) => {
+        const sectionId = getSectionId(item)
+
+        if (item.id === 'home') {
+            window.scrollTo({ top: 0, behavior })
+            return
+        }
+
+        const target = document.getElementById(sectionId)
+
+        if (!target) return
+
+        const navOffset = window.matchMedia('(min-width: 768px)').matches ? 72 : 20
+        const targetTop =
+            target.getBoundingClientRect().top + window.scrollY - navOffset
+
+        window.scrollTo({
+            top: Math.max(0, targetTop),
+            behavior,
+        })
+    }
+
+    useEffect(() => {
+        if (pathname !== '/') return
+
+        const sectionIds = navItems.map(getSectionId)
+
+        const updateFromHash = () => {
+            const hash = window.location.hash.replace('#', '')
+
+            if (sectionIds.includes(hash)) {
+                setActiveSection(getActiveSectionId(hash))
+                return
+            }
+
+            setActiveSection('home')
+        }
+
+        updateFromHash()
+
+        if (window.location.hash) {
+            requestAnimationFrame(() => {
+                const matchedItem = navItems.find(
+                    (item) => getSectionId(item) === window.location.hash.replace('#', ''),
+                )
+
+                if (matchedItem) scrollToSection(matchedItem, 'auto')
+            })
+        }
+
+        window.addEventListener('hashchange', updateFromHash)
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const visibleEntry = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+
+                if (!visibleEntry) return
+
+                setActiveSection(
+                    visibleEntry.target.id === 'featured-projects'
+                        ? 'projects'
+                        : visibleEntry.target.id,
+                )
+            },
+            {
+                rootMargin: '-35% 0px -50% 0px',
+                threshold: [0.1, 0.25, 0.5],
+            },
+        )
+
+        sectionIds.forEach((id) => {
+            const section = document.getElementById(id)
+            if (section) observer.observe(section)
+        })
+
+        return () => {
+            window.removeEventListener('hashchange', updateFromHash)
+            observer.disconnect()
+        }
+    }, [pathname])
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             const pressedKey = event.key.toLowerCase()
@@ -91,7 +185,10 @@ export default function Navbar() {
                 (item) => item.keybind.toLowerCase() === pressedKey,
             )
             if (matchedItem) {
-                window.location.href = matchedItem.href
+                const sectionId = getSectionId(matchedItem)
+                window.history.pushState(null, '', `/#${sectionId}`)
+                setActiveSection(matchedItem.id)
+                scrollToSection(matchedItem)
                 setIsOpen(false)
             }
             if (pressedKey === 'm') setIsOpen((prev) => !prev)
@@ -100,6 +197,24 @@ export default function Navbar() {
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [])
+    const handleNavClick = (
+        event: MouseEvent<HTMLAnchorElement>,
+        item: (typeof navItems)[number],
+    ) => {
+        if (pathname !== '/') {
+            setActiveSection(item.id)
+            setIsOpen(false)
+            return
+        }
+
+        event.preventDefault()
+        setActiveSection(item.id)
+        setIsOpen(false)
+
+        const targetId = getSectionId(item)
+        window.history.pushState(null, '', `/#${targetId}`)
+        scrollToSection(item)
+    }
     return (
         <>
             <TopBlur height={40} className="mx-5 !top-0 md:!top-16" />
@@ -110,7 +225,8 @@ export default function Navbar() {
                     {/* Brand */}
                     <div className="flex items-center justify-center border-r border-dashed border-white/10 pr-3 lg:pr-5 xl:pr-8">
                         <Link
-                            href="/"
+                            href="/#home"
+                            onClick={(event) => handleNavClick(event, navItems[0])}
                             className="group/brand flex min-w-0 items-center gap-3 text-white transition-colors hover:text-white/85"
                         >
                             <img
@@ -125,27 +241,35 @@ export default function Navbar() {
                     <div className="flex h-full min-w-0 flex-1 items-center justify-center gap-8 px-2 lg:gap-4 lg:px-5 xl:gap-7 xl:px-8">
                         {desktopNavItems.map((item) => {
                             const Icon = item.icon
-                            const isActive = pathname === item.href
+                            const isActive = activeSection === item.id
+                            const isHighlighted = highlightedSection === item.id
                             return (
                                 <Link
                                     key={item.id}
                                     href={item.href}
-                                    className={`group relative flex h-full min-w-0 items-center gap-1.5 text-[13px] font-medium transition-colors duration-200 lg:gap-2 xl:text-sm ${isActive ? 'text-white' : 'text-white/55 hover:text-white/90'}`}
+                                    onClick={(event) => handleNavClick(event, item)}
+                                    onMouseEnter={() => setHoveredSection(item.id)}
+                                    onMouseLeave={() => setHoveredSection(null)}
+                                    className={`group relative flex h-full min-w-0 items-center gap-1.5 px-2 text-[13px] font-medium transition-colors duration-200 lg:gap-2 xl:text-sm ${isHighlighted ? 'text-white' : 'text-white/55 hover:text-white/90'}`}
                                 >
-                                    {isActive && (
+                                    {isHighlighted && (
                                         <motion.span
-                                            layoutId="desktop-nav-active"
-                                            className="absolute inset-x-0 bottom-[-1px] h-[2px] bg-emerald-400"
-                                            transition={springConfig}
+                                            layoutId="desktop-nav-highlight"
+                                            className="absolute inset-x-0 inset-y-3 rounded-full border border-white/10 bg-white/[0.055]"
+                                            transition={{
+                                                type: 'spring',
+                                                stiffness: 420,
+                                                damping: 34,
+                                            }}
                                         />
                                     )}
                                     <Icon
                                         size={16}
-                                        className={`shrink-0 transition-colors duration-200 ${isActive ? 'text-emerald-400' : 'text-white/40 group-hover:text-white/70'}`}
+                                        className={`relative z-10 shrink-0 transition-colors duration-200 ${isActive ? 'text-emerald-400' : 'text-white/40 group-hover:text-white/70'}`}
                                     />
-                                    <span className="truncate">{item.label}</span>
+                                    <span className="relative z-10 truncate">{item.label}</span>
                                     <kbd
-                                        className={`hidden h/-6 min-w-[24px] items-center justify-center rounded-[0.35rem] border p-1 font-sans text-[11px] font-semibold leading-none transition-colors lg:inline-flex ${isActive ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-white/10 bg-black/[0.055] text-white/35 group-hover:text-white/55'}`}
+                                        className={`relative z-10 hidden h/-6 min-w-[24px] items-center justify-center rounded-[0.35rem] border p-1 font-sans text-[11px] font-semibold leading-none transition-colors lg:inline-flex ${isActive ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-white/10 bg-black/[0.055] text-white/35 group-hover:text-white/55'}`}
                                     >
                                         {item.keybind}
                                     </kbd>
@@ -219,42 +343,55 @@ export default function Navbar() {
                                 <div className="flex flex-col gap-1 p-2">
                                     {navItems.map((item) => {
                                         const Icon = item.icon
-                                        const isActive = pathname === item.href
+                                        const isActive = activeSection === item.id
+                                        const isHighlighted = highlightedSection === item.id
                                         return (
                                             <Link
                                                 key={item.id}
                                                 href={item.href}
-                                                onClick={() => {
-                                                    setIsOpen(false)
-                                                }}
+                                                onClick={(event) => handleNavClick(event, item)}
+                                                onMouseEnter={() => setHoveredSection(item.id)}
+                                                onMouseLeave={() => setHoveredSection(null)}
                                                 className="block"
                                             >
                                                 <motion.div
                                                     variants={{
                                                         open: {
                                                             opacity: 1,
-                                                            y: 0,
+                                                            x: 0,
                                                         },
                                                         closed: {
                                                             opacity: 0,
-                                                            y: 10,
+                                                            x: -10,
                                                         },
                                                     }}
                                                     initial="closed"
                                                     animate="open"
                                                     exit="closed"
                                                     transition={springConfig}
-                                                    className={`flex w-full items-center justify-between rounded-xl px-3 py-3 transition-all duration-200 ${isActive ? 'border-2 border-[#262626]/70 bg-[#262626]/30 text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
+                                                    className={`relative flex w-full items-center justify-between overflow-hidden rounded-xl px-3 py-3 transition-colors duration-200 ${isHighlighted ? 'text-white' : 'text-white/60 hover:text-white'}`}
                                                 >
-                                                    <div className="flex items-center gap-3">
+                                                    {isHighlighted && (
+                                                        <motion.span
+                                                            layoutId="mobile-nav-highlight"
+                                                            className="absolute inset-0 rounded-xl border border-white/10 bg-white/[0.055]"
+                                                            transition={{
+                                                                type: 'spring',
+                                                                stiffness: 420,
+                                                                damping: 34,
+                                                            }}
+                                                        />
+                                                    )}
+                                                    <div className="relative z-10 flex items-center gap-3">
                                                         <Icon
                                                             size={18}
+                                                            className={isActive ? 'text-emerald-400' : 'text-white/60'}
                                                         />
                                                         <span className="text-sm tracking-wide">
                                                             {item.label}
                                                         </span>
                                                     </div>
-                                                    <div className="flex items-center">
+                                                    <div className="relative z-10 flex items-center">
                                                         <div className="flex h-6 items-center gap-1.5 rounded-lg border border-[#262626]/90 bg-[#343434]/20 px-2 shadow-[0_1px_0_rgba(255,255,255,0.04),inset_0_-1px_0_rgba(0,0,0,0.3)]">
                                                             <Command size={13} className="text-white/45" />
                                                             <kbd className="font-sans text-xs font-medium uppercase tracking-wide text-white/55">
@@ -286,15 +423,15 @@ export default function Navbar() {
                                         key={activeNav.id}
                                         initial={{
                                             opacity: 0,
-                                            y: 8,
+                                            x: 10,
                                         }}
                                         animate={{
                                             opacity: 1,
-                                            y: 0,
+                                            x: 0,
                                         }}
                                         exit={{
                                             opacity: 0,
-                                            y: -8,
+                                            x: -10,
                                         }}
                                         transition={{
                                             duration: 0.2,

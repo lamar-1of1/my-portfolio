@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
-import { useRef, useState, type PointerEvent } from "react";
+import { useRef, useState, type FormEvent, type PointerEvent } from "react";
 import {
     ArrowUpRight,
     Atom,
@@ -12,6 +12,7 @@ import {
     Boxes,
     BriefcaseBusiness,
     Braces,
+    Check,
     ChevronLeft,
     ChevronRight,
     Code,
@@ -19,6 +20,7 @@ import {
     Download,
     GraduationCap,
     LayoutGrid,
+    MessageSquare,
     Palette,
     UserRoundCheck,
     Wind,
@@ -114,6 +116,8 @@ const socialLinks = [
     { label: "LinkedIn", href: "#", icon: Linkedin02Icon },
 ];
 
+const contactEmail = "coxlamar4@gmail.com";
+
 function getProjectStatusClass(status: string) {
     if (status.toLowerCase() === "new") {
         return "border-emerald-500/25 bg-emerald-500/10 text-emerald-300";
@@ -134,6 +138,16 @@ export function HomePage() {
     const [mobileDirection, setMobileDirection] = useState(1);
     const [activeProjectIndex, setActiveProjectIndex] = useState(0);
     const [direction, setDirection] = useState(1);
+    const [copiedEmail, setCopiedEmail] = useState(false);
+    const [contactFormStatus, setContactFormStatus] = useState<
+        "idle" | "submitted"
+    >("idle");
+    const [contactForm, setContactForm] = useState({
+        name: "",
+        email: "",
+        message: "",
+    });
+    const copiedEmailTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const activeMobileProject = featuredProjects[mobileProjectIndex];
     const activeProject = featuredProjects[activeProjectIndex];
     const activeProjectNumber = (activeProjectIndex + 1)
@@ -165,6 +179,64 @@ export function HomePage() {
         mobilePointerStartX.current = null;
         mobilePointerStartY.current = null;
     };
+    const copyEmailToClipboard = async () => {
+        if (navigator.clipboard?.writeText) {
+            try {
+                await navigator.clipboard.writeText(contactEmail);
+                return;
+            } catch {
+                // Fall back below for browsers that expose clipboard but block it.
+            }
+        }
+
+        const textarea = document.createElement("textarea");
+        textarea.value = contactEmail;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        const copied = document.execCommand("copy");
+        document.body.removeChild(textarea);
+
+        if (!copied) {
+            throw new Error("Clipboard copy failed");
+        }
+    };
+    const handleEmailCopy = async () => {
+        try {
+            await copyEmailToClipboard();
+            setCopiedEmail(true);
+
+            if (copiedEmailTimeout.current) {
+                clearTimeout(copiedEmailTimeout.current);
+            }
+
+            copiedEmailTimeout.current = setTimeout(() => {
+                setCopiedEmail(false);
+            }, 2000);
+        } catch (err) {
+            console.error("Failed to copy email", err);
+        }
+    };
+    const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const subject = `Project inquiry from ${contactForm.name}`;
+        const body = [
+            `Name: ${contactForm.name}`,
+            `Email: ${contactForm.email}`,
+            "",
+            "Project details:",
+            contactForm.message,
+        ].join("\n");
+
+        setContactFormStatus("submitted");
+        window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
+            subject,
+        )}&body=${encodeURIComponent(body)}`;
+    };
     const handleMobilePointerStart = (event: PointerEvent<HTMLElement>) => {
         if (event.pointerType === "mouse" && event.button !== 0) return;
 
@@ -195,8 +267,11 @@ export function HomePage() {
 
     return (
         <div className="relative overflow-hidden bg-black text-white selection:bg-white selection:text-black pt-24 md:pt-28">
-            <section className="relative z-[45] -mx-8 -mt-24 min-h-dvh overflow-hidden bg-black md:-mt-28">
-                <div className="absolute inset-0 pointer-events-none select-none">
+            <section
+                id="home"
+                className="relative z-[45] -mx-8 -mt-24 min-h-dvh overflow-hidden bg-black md:-mt-28"
+            >
+                {/* <div className="absolute inset-0 pointer-events-none select-none">
                     <div className="absolute inset-0 bg-black" />
                     <div className="absolute top-[-10%] left-[-10%] h-[600px] w-[600px] rounded-full bg-emerald-500/[0.035] blur-[130px]" />
                     <div className="absolute inset-x-0 top-0 h-[520px] overflow-hidden md:left-5 md:right-5 md:h-[600px]">
@@ -226,7 +301,7 @@ export function HomePage() {
                         </div>
                     </div>
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),#000_82%)]" />
-                </div>
+                </div> */}
 
                 <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col justify-center px-8 pb-12 pt-28 md:px-12 md:pb-16 md:pt-36 lg:px-16">
                     <header className="relative overflow-hidden shadow-[0_1px_0_rgba(255,255,255,0.04)]">
@@ -415,7 +490,7 @@ export function HomePage() {
                 id="featured-projects"
                 className="featured-projects-section relative z-20 mx-auto max-w-7xl bg-black px-0 py-14 md:px-8 md:py-16 lg:px-12"
             >
-                <div className="featured-projects-shell-header mb-8 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-28 md:px-6">
+                <div className="featured-projects-shell-header border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 mb-28 md:px-6">
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
                             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
@@ -840,36 +915,6 @@ export function HomePage() {
                                         Creating thoughtful digital experiences from Barbados.
                                     </p>
                                 </div>
-
-                                {/* Meta */}
-                                <div className="space-y-3">
-                                    {/* <div className="flex items-center gap-3 rounded-lg border border-dashed border-white/10 bg-white/[0.015] px-3 py-2">
-                                        <span className="h-2 w-2 rounded-full bg-white/30" />
-                                        <span className="text-sm font-medium text-zinc-300">
-                                            Barbados
-                                        </span>
-                                    </div> */}
-
-                                    {/* <div className="flex items-center gap-3 rounded-lg border border-dashed border-emerald-500/20 bg-emerald-500/[0.04] px-3 py-2">
-                                        <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                                        <span className="text-sm font-medium text-emerald-300">
-                                            Available for work
-                                        </span>
-                                    </div> */}
-                                </div>
-
-                                {/* Contact */}
-                                <a
-                                    href="mailto:coxlamar4@gmail.com"
-                                    className="group flex min-w-0 items-center justify-between gap-4 rounded-lg border border-dashed border-white/10 bg-white/[0.015] px-4 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-emerald-400/30 hover:bg-emerald-400/[0.03]"
-                                >
-                                    <span className="truncate">coxlamar4@gmail.com</span>
-
-                                    <Copy
-                                        size={15}
-                                        className="shrink-0 text-zinc-500 transition-colors duration-300 group-hover:text-emerald-300"
-                                    />
-                                </a>
                             </div>
                         </aside>
 
@@ -972,8 +1017,153 @@ export function HomePage() {
                 </div>
             </section>
 
+            {/* Contact section */}
+            <section
+                id="contact"
+                className="relative z-20 mx-auto w-full max-w-7xl overflow-hidden bg-black px-0 pb-14 pt-4 md:px-8 md:pb-20 lg:px-12"
+            >
+                <div className="mb-8 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-12 md:px-6">
+                    <div className="flex min-w-0 items-center justify-between gap-4">
+                        <div className="flex min-w-0 items-center gap-3">
+                            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                            <p className="text-sm font-medium text-white">
+                                Contact
+                            </p>
+                        </div>
+                        <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.02em] text-zinc-500">
+                            Let&apos;s Cook
+                        </span>
+                    </div>
+                </div>
 
+                <div className="grid overflow-hidden border-y border-dashed border-white/10 bg-black lg:grid-cols-[minmax(0,1fr)_24rem]">
+                    <div className="min-w-0 border-b border-dashed border-white/10 p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-8">
+                        {/* <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/[0.08] px-3 py-1.5 text-xs font-medium text-emerald-300">
+                            <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                            </span>
+                            Available for focused builds
+                        </div> */}
 
+                        <h2 className="mt-0 max-w-3xl text-4xl font-semibold leading-[0.95] tracking-tight text-white sm:text-5xl md:text-6xl">
+                            Have an idea that needs structure, polish, and a clean launch path?
+                        </h2>
+                        <p className="mt-6 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base sm:leading-7">
+                            Tell me what you&apos;re building, where it needs to go,
+                            and what would make it feel complete. I&apos;ll help turn
+                            that into a sharp interface and a production-ready web
+                            experience.
+                        </p>
+
+                        <div className="mt-8 flex flex-wrap items-center gap-3">
+                            {/* <a
+                                href={`mailto:${contactEmail}?subject=Project%20inquiry`}
+                                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
+                            >
+                                Send an email
+                                <ArrowUpRight size={15} />
+                            </a> */}
+                            {/* <button
+                                type="button"
+                                onClick={handleEmailCopy}
+                                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
+                            >
+                                {copiedEmail ? "Email copied" : "Copy email"}
+                                {copiedEmail ? <Check size={15} /> : <Copy size={15} />}
+                            </button> */}
+                        </div>
+                    </div>
+
+                    <aside className="min-w-0 p-5 sm:p-6 lg:p-8">
+                        <form
+                            onSubmit={handleContactSubmit}
+                            className="grid gap-4"
+                        >
+                            <div className="flex items-center gap-3 text-sm font-semibold text-white">
+                                <MessageSquare size={16} className="text-emerald-300" />
+                                Send me a message
+                            </div>
+
+                            <label className="grid gap-2 text-sm font-medium text-zinc-300">
+                                Name
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={contactForm.name}
+                                    onChange={(event) => {
+                                        setContactForm((current) => ({
+                                            ...current,
+                                            name: event.target.value,
+                                        }));
+                                        setContactFormStatus("idle");
+                                    }}
+                                    required
+                                    autoComplete="name"
+                                    className="h-12 rounded-lg border border-dashed border-white/10 bg-white/[0.015] px-4 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-emerald-400/40 focus:bg-emerald-400/[0.03]"
+                                    placeholder="Your name"
+                                />
+                            </label>
+
+                            <label className="grid gap-2 text-sm font-medium text-zinc-300">
+                                Email
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={contactForm.email}
+                                    onChange={(event) => {
+                                        setContactForm((current) => ({
+                                            ...current,
+                                            email: event.target.value,
+                                        }));
+                                        setContactFormStatus("idle");
+                                    }}
+                                    required
+                                    autoComplete="email"
+                                    className="h-12 rounded-lg border border-dashed border-white/10 bg-white/[0.015] px-4 text-sm text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-emerald-400/40 focus:bg-emerald-400/[0.03]"
+                                    placeholder="you@example.com"
+                                />
+                            </label>
+
+                            <label className="grid gap-2 text-sm font-medium text-zinc-300">
+                                What are we building?
+                                <textarea
+                                    name="message"
+                                    value={contactForm.message}
+                                    onChange={(event) => {
+                                        setContactForm((current) => ({
+                                            ...current,
+                                            message: event.target.value,
+                                        }));
+                                        setContactFormStatus("idle");
+                                    }}
+                                    required
+                                    rows={6}
+                                    className="resize-none rounded-lg border border-dashed border-white/10 bg-white/[0.015] px-4 py-3 text-sm leading-6 text-white outline-none transition-colors placeholder:text-zinc-600 focus:border-emerald-400/40 focus:bg-emerald-400/[0.03]"
+                                    placeholder="Share the idea, timeline, or what feels stuck."
+                                />
+                            </label>
+
+                            <button
+                                type="submit"
+                                className="cursor-pointer inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
+                            >
+                                Send email
+                                <ArrowUpRight size={15} />
+                            </button>
+
+                            {/* <p
+                                aria-live="polite"
+                                className="min-h-5 text-xs font-medium text-zinc-500"
+                            >
+                                {contactFormStatus === "submitted"
+                                    ? "Your email draft is ready to send."
+                                    : `Messages are prepared for ${contactEmail}.`}
+                            </p> */}
+                        </form>
+                    </aside>
+                </div>
+            </section>
         </div>
     );
 }

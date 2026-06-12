@@ -51,7 +51,7 @@ const MarqueeText = () => (
 function FooterPillButton({ label }: { label: string }) {
     return (
         <Link
-            href="/contact"
+            href="#contact"
             className="group/pill inline-flex items-center gap-4 rounded-full bg-white py-1.5 pl-5 pr-1.5 text-sm font-semibold tracking-tight text-zinc-950 transition-all duration-300 hover:bg-zinc-100 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
             <span className="font-medium text-zinc-900">{label}</span>
@@ -103,7 +103,7 @@ export default function Footer() {
     return (
         <footer
             ref={footerRef}
-            className="relative w-full overflow-hidden border-t border-dashed border-white/10 bg-zinc-950 px-8 pt-16 text-white md:px-12 md:pt-24"
+            className="relative w-full overflow-hidden border-t border-dashed border-white/10 bg-zinc-950 px-8 pt-16 text-white md:px-12 md:pt-32"
         >
             {/* Core Header Elements */}
             <div className="relative z-10 mx-auto max-w-7xl">
@@ -127,14 +127,21 @@ export default function Footer() {
             </div>
 
             {/* Infinite Text Marquee Component Wrapper */}
-            <div className="group relative z-10 mb-10 mt-16 flex h-24 w-full items-center overflow-hidden border-y border-dashed border-white/10 py-2 md:my-14 md:h-36">
-                <motion.div
-                    className="flex min-w-max items-center whitespace-nowrap will-change-transform"
-                    style={{ x }}
-                >
-                    <div className="flex items-center"><MarqueeText /></div>
-                    <div className="flex items-center"><MarqueeText /></div>
-                </motion.div>
+            <div className="relative left-1/2 right-1/2 z-10 -ml-[50vw] -mr-[50vw] mb-10 mt-16 w-screen md:my-14">
+                <div className="group flex h-24 w-full items-center overflow-hidden border-y border-dashed border-white/10 py-2 md:h-36">
+                    <motion.div
+                        className="flex min-w-max items-center whitespace-nowrap will-change-transform"
+                        style={{ x }}
+                    >
+                        <div className="flex items-center">
+                            <MarqueeText />
+                        </div>
+
+                        <div className="flex items-center">
+                            <MarqueeText />
+                        </div>
+                    </motion.div>
+                </div>
             </div>
 
             {/* Bottom Global Metadata Area */}
