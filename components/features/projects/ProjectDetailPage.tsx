@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { MoveLeft } from "lucide-react";
+import { ArrowUpRight, MoveLeft } from "lucide-react";
 import { GithubIcon } from "hugeicons-react";
 
 import type { ProjectItem } from "@/lib/content/projects";
@@ -94,14 +94,14 @@ export function ProjectDetailPage({
                         </div>
 
                         <div className="flex items-center gap-3">
-                            {/* <Link
+                            <Link
                                 href="/#contact"
                                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
                             >
-                                Start a project
+                                View website
                                 <ArrowUpRight size={15} />
-                            </Link> */}
-                            <a
+                            </Link>
+                            {/* <a
                                 href={project.githubUrl}
                                 target="_blank"
                                 rel="noreferrer"
@@ -109,7 +109,7 @@ export function ProjectDetailPage({
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
                             >
                                 <GithubIcon size={16} />
-                            </a>
+                            </a> */}
                         </div>
                     </div>
                 </header>
