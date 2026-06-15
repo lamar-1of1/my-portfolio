@@ -75,6 +75,16 @@ const setSectionIfChanged = (
     setActiveSection((current) => (current === sectionId ? current : sectionId))
 }
 
+// Keep global nav shortcuts from firing while visitors type.
+const isEditableTarget = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) return false
+
+    return (
+        target.isContentEditable ||
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)
+    )
+}
+
 function NavbarMetaBadge() {
     const [formattedTime, setFormattedTime] = useState('--:-- --')
     useEffect(() => {
@@ -223,11 +233,24 @@ export default function Navbar() {
     }, [pathname])
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            const pressedKey = event.key.toLowerCase()
+            if (
+                isEditableTarget(event.target) ||
+                event.altKey ||
+                event.ctrlKey ||
+                event.metaKey
+            ) {
+                return
+            }
+
+            const pressedKey = event.key?.toLowerCase?.()
+
+            if (!pressedKey) return
+
             const matchedItem = navItems.find(
-                (item) => item.keybind.toLowerCase() === pressedKey,
+                (item) => item.keybind?.toLowerCase?.() === pressedKey,
             )
             if (matchedItem) {
+                event.preventDefault()
                 const sectionId = getSectionId(matchedItem)
                 window.history.pushState(null, '', `/#${sectionId}`)
                 setActiveSection(matchedItem.id)

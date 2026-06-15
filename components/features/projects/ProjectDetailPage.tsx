@@ -32,7 +32,7 @@ function DetailRow({
                 {title}
             </h2>
 
-            <div className="max-w-3xl text-sm leading-7 text-zinc-400">
+            <div className="max-w-xl text-sm leading-7 text-zinc-400">
                 {children}
             </div>
         </section>
@@ -50,10 +50,10 @@ export function ProjectDetailPage({
         <div className="mx-auto w-full max-w-6xl px-0 pb-20 pt-24 text-white md:px-8 md:pt-28 lg:px-12">
             <Link
                 href="/#featured-projects"
-                className="mb-5 inline-flex items-center gap-2 text-sm font-medium uppe/rcase tra/cking-[0.12em] text-zinc-500 transition-colors hover:text-white"
+                className="mb-5 inline-flex items-center text-sm font-medium text-zinc-500 transition-all  hover:text-white"
             >
                 <MoveLeft size={14} />
-                Back to Projects
+                <span className="text-zinc-500 ml-1">Back to</span> <span className="hover:text-white ml-1">Projects</span>
             </Link>
 
             <article>

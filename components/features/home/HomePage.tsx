@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useRef, useState, type FormEvent, type PointerEvent } from "react";
 import {
@@ -28,6 +29,15 @@ import { GithubIcon, Linkedin02Icon, NewTwitterIcon } from "hugeicons-react";
 import { cardData } from "@/lib/content/projects";
 
 const easeCurve: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const hCaptchaSiteKey = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
+// Block links, scripts, and HTML before sending form content.
+const blockedContactContentPattern =
+    /(<\s*\/?\s*script\b|<\/?[a-z][\s\S]*>|javascript\s*:|data\s*:|vbscript\s*:|https?:\/\/|www\.|[a-z0-9-]+\.[a-z]{2,}(?:\/|\b))/i;
+const blockedEmailContentPattern =
+    /(<\s*\/?\s*script\b|<\/?[a-z][\s\S]*>|javascript\s*:|data\s*:|vbscript\s*:|https?:\/\/|www\.)/i;
+const validNamePattern = /^[\p{L}\s-]*$/u;
+
+type ContactFormField = "name" | "email" | "message";
 
 const contentStagger: Variants = {
     hidden: {},
@@ -110,8 +120,6 @@ const socialLinks = [
     { label: "LinkedIn", href: "#", icon: Linkedin02Icon },
 ];
 
-const contactEmail = "coxlamar4@gmail.com";
-
 function getProjectStatusClass(status: string) {
     const normalizedStatus = status.toLowerCase();
 
@@ -129,14 +137,22 @@ function getProjectStatusClass(status: string) {
 export function HomePage() {
     const mobilePointerStartX = useRef<number | null>(null);
     const mobilePointerStartY = useRef<number | null>(null);
+    const hCaptchaRef = useRef<HCaptcha>(null);
 
     const [mobileProjectIndex, setMobileProjectIndex] = useState(0);
     const [mobileDirection, setMobileDirection] = useState(1);
     const [activeProjectIndex, setActiveProjectIndex] = useState(0);
     const [direction, setDirection] = useState(1);
     const [contactFormStatus, setContactFormStatus] = useState<
-        "idle" | "submitted"
+        | "idle"
+        | "submitting"
+        | "success"
+        | "error"
+        | "captcha"
+        | "blocked"
+        | "name"
     >("idle");
+    const [hCaptchaToken, setHCaptchaToken] = useState("");
 
     const [contactForm, setContactForm] = useState({
         name: "",
@@ -152,6 +168,38 @@ export function HomePage() {
         .padStart(2, "0");
 
     const variants = slideUp(direction);
+
+    const hasBlockedContactContent = (
+        value: string,
+        field: ContactFormField = "message",
+    ) =>
+        field === "email"
+            ? blockedEmailContentPattern.test(value)
+            : blockedContactContentPattern.test(value);
+
+    const isValidContactName = (value: string) => validNamePattern.test(value);
+
+    // Reject invalid field content before it reaches form state.
+    const updateContactFormField = (
+        field: ContactFormField,
+        value: string,
+    ) => {
+        if (field === "name" && !isValidContactName(value)) {
+            setContactFormStatus("name");
+            return;
+        }
+
+        if (hasBlockedContactContent(value, field)) {
+            setContactFormStatus("blocked");
+            return;
+        }
+
+        setContactForm((current) => ({
+            ...current,
+            [field]: value,
+        }));
+        setContactFormStatus("idle");
+    };
 
     const goToPreviousProject = () => {
         setDirection(-1);
@@ -211,23 +259,80 @@ export function HomePage() {
         event.currentTarget.releasePointerCapture?.(event.pointerId);
     };
 
-    const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const subject = `Project inquiry from ${contactForm.name}`;
-        const body = [
-            `Name: ${contactForm.name}`,
-            `Email: ${contactForm.email}`,
-            "",
-            "Project details:",
-            contactForm.message,
-        ].join("\n");
+        const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+        // Re-check validation before sending anything to Web3Forms.
+        const hasInvalidName = !isValidContactName(contactForm.name);
+        const hasBlockedContent =
+            hasBlockedContactContent(contactForm.name, "name") ||
+            hasBlockedContactContent(contactForm.email, "email") ||
+            hasBlockedContactContent(contactForm.message, "message");
 
-        setContactFormStatus("submitted");
+        if (!accessKey) {
+            setContactFormStatus("error");
+            return;
+        }
 
-        window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
-            subject,
-        )}&body=${encodeURIComponent(body)}`;
+        if (hasInvalidName) {
+            setContactFormStatus("name");
+            return;
+        }
+
+        if (hasBlockedContent) {
+            setContactFormStatus("blocked");
+            return;
+        }
+
+        if (!hCaptchaToken) {
+            setContactFormStatus("captcha");
+            return;
+        }
+
+        setContactFormStatus("submitting");
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: accessKey,
+                    subject: `Project inquiry from ${contactForm.name}`,
+                    from_name: "Portfolio Contact Form",
+                    name: contactForm.name,
+                    email: contactForm.email,
+                    message: contactForm.message,
+                    "h-captcha-response": hCaptchaToken,
+                    botcheck: "",
+                }),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                hCaptchaRef.current?.resetCaptcha();
+                setHCaptchaToken("");
+                setContactFormStatus("error");
+                return;
+            }
+
+            hCaptchaRef.current?.resetCaptcha();
+            setHCaptchaToken("");
+            setContactFormStatus("success");
+            setContactForm({
+                name: "",
+                email: "",
+                message: "",
+            });
+        } catch {
+            hCaptchaRef.current?.resetCaptcha();
+            setHCaptchaToken("");
+            setContactFormStatus("error");
+        }
     };
 
     return (
@@ -294,7 +399,7 @@ export function HomePage() {
                                 </nav>
                             </div>
 
-                            <div className="flex flex-col justify-between p-4 sm:p-5 md:p-6">
+                            {/* <div className="flex flex-col justify-between p-4 sm:p-5 md:p-6">
                                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">
                                     Get in touch
                                 </p>
@@ -317,7 +422,7 @@ export function HomePage() {
                                         <ArrowUpRight size={15} />
                                     </Link>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </header>
 
@@ -654,7 +759,7 @@ export function HomePage() {
 
                                             <motion.h3
                                                 variants={variants}
-                                                className="max-w-xs text-xl font-medium leading-tight tracking-tight text-white/75"
+                                                className="ma/x-w-xs text-xl font-medium leading-tight tracking-tight text-white/75"
                                             >
                                                 {activeProject.title}
                                             </motion.h3>
@@ -986,8 +1091,8 @@ export function HomePage() {
                             </h2>
 
                             <p className="mt-4 text-sm leading-6 text-zinc-400">
-                                Send the details and I&apos;ll open your email app with a
-                                clean project message ready to go.
+                                Send the details and I&apos;ll get your message directly
+                                in my inbox.
                             </p>
                         </div>
                     </aside>
@@ -1009,11 +1114,10 @@ export function HomePage() {
                                     name="name"
                                     value={contactForm.name}
                                     onChange={(event) => {
-                                        setContactForm((current) => ({
-                                            ...current,
-                                            name: event.target.value,
-                                        }));
-                                        setContactFormStatus("idle");
+                                        updateContactFormField(
+                                            "name",
+                                            event.target.value,
+                                        );
                                     }}
                                     required
                                     autoComplete="name"
@@ -1029,11 +1133,10 @@ export function HomePage() {
                                     name="email"
                                     value={contactForm.email}
                                     onChange={(event) => {
-                                        setContactForm((current) => ({
-                                            ...current,
-                                            email: event.target.value,
-                                        }));
-                                        setContactFormStatus("idle");
+                                        updateContactFormField(
+                                            "email",
+                                            event.target.value,
+                                        );
                                     }}
                                     required
                                     autoComplete="email"
@@ -1048,11 +1151,10 @@ export function HomePage() {
                                     name="message"
                                     value={contactForm.message}
                                     onChange={(event) => {
-                                        setContactForm((current) => ({
-                                            ...current,
-                                            message: event.target.value,
-                                        }));
-                                        setContactFormStatus("idle");
+                                        updateContactFormField(
+                                            "message",
+                                            event.target.value,
+                                        );
                                     }}
                                     required
                                     rows={6}
@@ -1061,17 +1163,64 @@ export function HomePage() {
                                 />
                             </label>
 
+                            <div className="max-w-full overflow-hidden">
+                                <HCaptcha
+                                    ref={hCaptchaRef}
+                                    sitekey={hCaptchaSiteKey}
+                                    reCaptchaCompat={false}
+                                    theme="dark"
+                                    onVerify={(token) => {
+                                        setHCaptchaToken(token);
+                                        setContactFormStatus("idle");
+                                    }}
+                                    onExpire={() => {
+                                        setHCaptchaToken("");
+                                    }}
+                                    onError={() => {
+                                        setHCaptchaToken("");
+                                        setContactFormStatus("error");
+                                    }}
+                                />
+                            </div>
+
                             <button
                                 type="submit"
-                                className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
+                                disabled={contactFormStatus === "submitting"}
+                                className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 disabled:cursor-not-allowed disabled:bg-zinc-500 disabled:text-zinc-200"
                             >
-                                Send email
+                                {contactFormStatus === "submitting"
+                                    ? "Sending..."
+                                    : "Send message"}
                                 <ArrowUpRight size={15} />
                             </button>
 
-                            {contactFormStatus === "submitted" && (
+                            {contactFormStatus === "success" && (
                                 <p className="text-xs font-medium text-emerald-300">
-                                    Opening your email app...
+                                    Message sent. I&apos;ll get back to you soon.
+                                </p>
+                            )}
+
+                            {contactFormStatus === "error" && (
+                                <p className="text-xs font-medium text-red-300">
+                                    Something went wrong. Please try again.
+                                </p>
+                            )}
+
+                            {contactFormStatus === "captcha" && (
+                                <p className="text-xs font-medium text-amber-200">
+                                    Please complete the captcha before sending.
+                                </p>
+                            )}
+
+                            {contactFormStatus === "blocked" && (
+                                <p className="text-xs font-medium text-amber-200">
+                                    Links and scripts are not allowed in this form.
+                                </p>
+                            )}
+
+                            {contactFormStatus === "name" && (
+                                <p className="text-xs font-medium text-amber-200">
+                                    Names can only include letters, spaces, and hyphens.
                                 </p>
                             )}
                         </form>
