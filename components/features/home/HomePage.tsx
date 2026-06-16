@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useRef, useState, type FormEvent, type PointerEvent } from "react";
 import {
     ArrowUpRight,
@@ -15,7 +15,6 @@ import {
     ChevronLeft,
     ChevronRight,
     Code,
-    Download,
     GraduationCap,
     LayoutGrid,
     MessageSquare,
@@ -26,9 +25,10 @@ import {
 } from "lucide-react";
 import { GithubIcon, Linkedin02Icon, NewTwitterIcon } from "hugeicons-react";
 
+import { MotionImage } from "@/components/shared/MotionImage";
 import { cardData } from "@/lib/content/projects";
+import { contentStagger, easeCurve, fadeOnly, slideUp } from "@/lib/motion";
 
-const easeCurve: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const hCaptchaSiteKey = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
 // Block links, scripts, and HTML before sending form content.
 const blockedContactContentPattern =
@@ -38,31 +38,6 @@ const blockedEmailContentPattern =
 const validNamePattern = /^[\p{L}\s-]*$/u;
 
 type ContactFormField = "name" | "email" | "message";
-
-const contentStagger: Variants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.06,
-            delayChildren: 0.08,
-        },
-    },
-};
-
-const slideUp = (direction: number): Variants => ({
-    hidden: {
-        opacity: 0,
-        y: 14 * (direction >= 0 ? 1 : -1),
-    },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.45,
-            ease: easeCurve,
-        },
-    },
-});
 
 const featuredProjects = cardData.slice(0, 4).map((project, index) => ({
     ...project,
@@ -135,6 +110,7 @@ function getProjectStatusClass(status: string) {
 }
 
 export function HomePage() {
+    const shouldReduceMotion = useReducedMotion();
     const mobilePointerStartX = useRef<number | null>(null);
     const mobilePointerStartY = useRef<number | null>(null);
     const hCaptchaRef = useRef<HCaptcha>(null);
@@ -167,7 +143,7 @@ export function HomePage() {
         .toString()
         .padStart(2, "0");
 
-    const variants = slideUp(direction);
+    const variants = shouldReduceMotion ? fadeOnly : slideUp(direction);
 
     const hasBlockedContactContent = (
         value: string,
@@ -494,7 +470,7 @@ export function HomePage() {
                 id="featured-projects"
                 className="relative z-20 mx-auto max-w-7xl bg-black px-0 py-14 md:px-8 md:py-16 lg:px-12"
             >
-                <div className="mb-16 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-24 md:px-6">
+                <div className="mb-32 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-24 md:px-6">
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
                             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
@@ -510,7 +486,7 @@ export function HomePage() {
                     </div>
                 </div>
 
-                <div className="relative md:hidden">
+                <div className="relative hidden">
                     <div
                         aria-label="Featured project carousel"
                         className="flex justify-center overflow-hidden px-5 pb-4"
@@ -518,20 +494,29 @@ export function HomePage() {
                         <AnimatePresence mode="wait">
                             <motion.article
                                 key={activeMobileProject.id}
-                                initial={{ opacity: 0, x: 18 * mobileDirection }}
+                                initial={{
+                                    opacity: 0,
+                                    x: shouldReduceMotion ? 0 : 18 * mobileDirection,
+                                }}
                                 animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -18 * mobileDirection }}
-                                transition={{ duration: 0.3, ease: easeCurve }}
+                                exit={{
+                                    opacity: 0,
+                                    x: shouldReduceMotion ? 0 : -18 * mobileDirection,
+                                }}
+                                transition={{
+                                    duration: shouldReduceMotion ? 0.18 : 0.3,
+                                    ease: easeCurve,
+                                }}
                                 onPointerDown={handleMobilePointerStart}
                                 onPointerUp={handleMobilePointerEnd}
                                 onPointerCancel={resetMobilePointer}
                                 className="group w-[84vw] max-w-[23rem] shrink-0 cursor-default touch-pan-y overflow-hidden rounded-2xl border border-dashed border-white/10 bg-[#141414] shadow-[0_20px_60px_rgba(0,0,0,0.35)] transition-colors duration-300 hover:bg-[#1b1b1b]"
                             >
                                 <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
-                                    <img
+                                    <MotionImage
                                         src={activeMobileProject.image}
                                         alt={activeMobileProject.title}
-                                        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                                        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                                     />
 
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
@@ -628,7 +613,7 @@ export function HomePage() {
                     </div>
                 </div>
 
-                <div className="relative hidden pt-8 md:block">
+                <div className="relative h/idden pt-8 md:block">
                     <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-full min-h-[34rem] lg:min-h-[30rem] xl:min-h-[31rem]">
                         <AnimatePresence initial={false} mode="popLayout">
                             {featuredProjects.map((project, index) => {
@@ -647,7 +632,11 @@ export function HomePage() {
                                     <motion.div
                                         key={project.id}
                                         layout
-                                        initial={{ opacity: 0, y: 18, scale: 0.98 }}
+                                        initial={{
+                                            opacity: 0,
+                                            y: shouldReduceMotion ? 0 : 18,
+                                            scale: shouldReduceMotion ? 1 : 0.98,
+                                        }}
                                         animate={{
                                             opacity: 1,
                                             y: 0,
@@ -656,9 +645,13 @@ export function HomePage() {
                                             left: `${offset * 1.55}rem`,
                                             right: `${offset * 1.55}rem`,
                                         }}
-                                        exit={{ opacity: 0, y: -18, scale: 0.96 }}
+                                        exit={{
+                                            opacity: 0,
+                                            y: shouldReduceMotion ? 0 : -18,
+                                            scale: shouldReduceMotion ? 1 : 0.96,
+                                        }}
                                         transition={{
-                                            duration: 0.45,
+                                            duration: shouldReduceMotion ? 0.18 : 0.45,
                                             ease: easeCurve,
                                         }}
                                         className="absolute h-full min-h-[34rem] rounded-xl border border-dashed border-white/10 bg-[#141414] shadow-[0_24px_70px_rgba(0,0,0,0.28)] lg:min-h-[30rem] xl:min-h-[31rem]"
@@ -706,33 +699,11 @@ export function HomePage() {
                             <aside className="flex min-h-0 min-w-0 flex-col gap-5 border-b border-dashed border-white/10 bg-[#111111] p-4 lg:border-b-0 lg:border-r lg:p-5">
                                 <div className="min-w-0">
                                     <div className="relative mb-3 aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-zinc-950 md:aspect-[16/7] lg:aspect-[16/9] xl:aspect-[16/10]">
-                                        <AnimatePresence mode="wait" initial={false}>
-                                            <motion.img
-                                                key={activeProject.id}
-                                                src={activeProject.image}
-                                                alt={activeProject.title}
-                                                className="absolute inset-0 h-full w-full object-cover"
-                                                initial={{
-                                                    opacity: 0,
-                                                    scale: 1.04,
-                                                    filter: "blur(10px)",
-                                                }}
-                                                animate={{
-                                                    opacity: 1,
-                                                    scale: 1,
-                                                    filter: "blur(0px)",
-                                                }}
-                                                exit={{
-                                                    opacity: 0,
-                                                    scale: 1.02,
-                                                    filter: "blur(8px)",
-                                                }}
-                                                transition={{
-                                                    duration: 0.45,
-                                                    ease: easeCurve,
-                                                }}
-                                            />
-                                        </AnimatePresence>
+                                        <MotionImage
+                                            src={activeProject.image}
+                                            alt={activeProject.title}
+                                            className="absolute inset-0 h-full w-full object-cover"
+                                        />
 
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                                     </div>

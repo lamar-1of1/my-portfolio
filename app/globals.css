@@ -105,6 +105,29 @@
     }
 }
 
+.motion-image-skeleton {
+    overflow: hidden;
+    background:
+        linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.08) 48%, transparent 100%),
+        rgb(24, 24, 27);
+    background-size: 220% 100%, 100% 100%;
+}
+
+.motion-image-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    animation: motion-skeleton-sweep 1.35s ease-in-out infinite;
+}
+
+@keyframes motion-skeleton-sweep {
+    to {
+        transform: translateX(100%);
+    }
+}
+
 /* Hide scrollbar but keep scrolling */
 .scrollbar-hide {
     -ms-overflow-style: none;
@@ -501,6 +524,10 @@ details[open]>.project-mobile-details .project-mobile-details-inner {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .motion-image-skeleton::after {
+    animation: none;
+  }
+
   .tech-stack-marquee {
     animation: none;
   }

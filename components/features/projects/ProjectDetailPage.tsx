@@ -1,9 +1,18 @@
-/* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
-import { ArrowUpRight, MoveLeft } from "lucide-react";
-import { GithubIcon } from "hugeicons-react";
+"use client";
 
+import Link from "next/link";
+import { ArrowUpRight, CornerUpLeft } from "lucide-react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import type { ReactNode } from "react";
+
+import { MotionImage } from "@/components/shared/MotionImage";
 import type { ProjectItem } from "@/lib/content/projects";
+import {
+    contentStagger,
+    fadeOnly,
+    fadeUp,
+    reducedContentStagger,
+} from "@/lib/motion";
 
 function getProjectStatusClass(status: string) {
     const normalizedStatus = status.toLowerCase();
@@ -22,12 +31,17 @@ function getProjectStatusClass(status: string) {
 function DetailRow({
     title,
     children,
+    variants,
 }: {
     title: string;
-    children: React.ReactNode;
+    children: ReactNode;
+    variants: Variants;
 }) {
     return (
-        <section className="grid gap-5 border-t border-dashed border-white/10 py-8 md:grid-cols-[9rem_minmax(0,1fr)] md:gap-10">
+        <motion.section
+            variants={variants}
+            className="grid gap-5 border-t border-dashed border-white/10 py-8 md:grid-cols-[9rem_minmax(0,1fr)] md:gap-10"
+        >
             <h2 className="text-sm font-semibold tracking-tight text-white">
                 {title}
             </h2>
@@ -35,7 +49,7 @@ function DetailRow({
             <div className="max-w-xl text-sm leading-7 text-zinc-400">
                 {children}
             </div>
-        </section>
+        </motion.section>
     );
 }
 
@@ -46,20 +60,37 @@ export function ProjectDetailPage({
     project: ProjectItem;
     otherProjects: ProjectItem[];
 }) {
+    const shouldReduceMotion = useReducedMotion();
+    const itemVariants = shouldReduceMotion ? fadeOnly : fadeUp;
+    const staggerVariants = shouldReduceMotion
+        ? reducedContentStagger
+        : contentStagger;
+
     return (
-        <div className="mx-auto w-full max-w-6xl px-0 pb-20 pt-24 text-white md:px-8 md:pt-28 lg:px-12">
-            <Link
-                href="/#featured-projects"
-                className="mb-5 inline-flex items-center text-sm font-medium text-zinc-500 transition-all  hover:text-white"
-            >
-                <MoveLeft size={14} />
-                <span className="text-zinc-500 ml-1">Back to</span> <span className="hover:text-white ml-1">Projects</span>
-            </Link>
+        <motion.div
+            variants={staggerVariants}
+            initial="hidden"
+            animate="visible"
+            className="mx-auto w-full max-w-6xl px-0 pb-20 pt-24 text-white md:px-8 md:pt-28 lg:px-12"
+        >
+            <motion.div variants={itemVariants}>
+                <Link
+                    href="/#featured-projects"
+                    className="mb-5 inline-flex items-center text-sm font-medium text-zinc-500 transition-all  hover:text-white"
+                >
+                    <CornerUpLeft size={14} />
+                    <span className="text-zinc-500 ml-1">Back to</span>{" "}
+                    <span className="hover:text-white ml-1">Projects</span>
+                </Link>
+            </motion.div>
 
             <article>
-                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-zinc-950">
+                <motion.div
+                    variants={itemVariants}
+                    className="relative overflow-hidden rounded-xl border border-white/10 bg-zinc-950"
+                >
                     <div className="relative aspect-[16/10] md:aspect-[16/7]">
-                        <img
+                        <MotionImage
                             src={project.image}
                             alt={project.title}
                             className="absolute inset-0 h-full w-full object-cover"
@@ -76,9 +107,9 @@ export function ProjectDetailPage({
                             </span>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
-                <header className="py-7">
+                <motion.header variants={itemVariants} className="py-7">
                     <p className="mb-3 text-sm font-medium up/percase trackin/g-[0.12em] text-emerald-300">
                         {project.tag}
                     </p>
@@ -112,9 +143,9 @@ export function ProjectDetailPage({
                             </a> */}
                         </div>
                     </div>
-                </header>
+                </motion.header>
 
-                <DetailRow title="Overview">
+                <DetailRow title="Overview" variants={itemVariants}>
                     <p>{project.overview}</p>
 
                     <dl className="mt-8 grid gap-5 text-xs sm:grid-cols-2 lg:grid-cols-4">
@@ -145,24 +176,27 @@ export function ProjectDetailPage({
                     </div>
                 </DetailRow>
 
-                <DetailRow title="My Role">
+                <DetailRow title="My Role" variants={itemVariants}>
                     <p>{project.myRole}</p>
                 </DetailRow>
 
-                <DetailRow title="Problems">
+                <DetailRow title="Problems" variants={itemVariants}>
                     <p>{project.problems}</p>
                 </DetailRow>
 
-                <DetailRow title="Solutions">
+                <DetailRow title="Solutions" variants={itemVariants}>
                     <p>{project.solutions}</p>
                 </DetailRow>
 
-                <DetailRow title="Outcome">
+                <DetailRow title="Outcome" variants={itemVariants}>
                     <p>{project.outcome}</p>
                 </DetailRow>
             </article>
 
-            <section className="border-t border-dashed border-white/10 pt-9">
+            <motion.section
+                variants={itemVariants}
+                className="border-t border-dashed border-white/10 pt-9"
+            >
                 <div className="mb-5 flex items-center justify-between gap-4">
                     <h2 className="text-sm font-semibold tracking-tight text-white">
                         Other Projects
@@ -177,42 +211,45 @@ export function ProjectDetailPage({
 
                 <div className="grid gap-4 md:grid-cols-2">
                     {otherProjects.map((otherProject) => (
-                        <Link
-                            key={otherProject.slug}
-                            href={`/projects/${otherProject.slug}`}
-                            className="group overflow-hidden rounded-lg border border-white/10 bg-zinc-950/60 transition-colors hover:border-emerald-500/35 hover:bg-zinc-900/70"
-                        >
-                            <div className="relative aspect-[16/9] overflow-hidden bg-zinc-900">
-                                <img
-                                    src={otherProject.image}
-                                    alt={otherProject.title}
-                                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                />
-                                <div className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[0.68rem] font-semibold text-zinc-950">
-                                    {otherProject.tag}
-                                </div>
-                            </div>
-
-                            <div className="p-4">
-                                <div className="mb-3 flex flex-wrap gap-2">
-                                    {otherProject.techStack.slice(0, 2).map((tech) => (
-                                        <span
-                                            key={tech}
-                                            className="rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1 text-[0.68rem] font-semibold text-zinc-400"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
+                        <motion.div key={otherProject.slug} variants={itemVariants}>
+                            <Link
+                                href={`/projects/${otherProject.slug}`}
+                                className="group block overflow-hidden rounded-lg border border-white/10 bg-zinc-950/60 transition-colors hover:border-emerald-500/35 hover:bg-zinc-900/70"
+                            >
+                                <div className="relative aspect-[16/9] overflow-hidden bg-zinc-900">
+                                    <MotionImage
+                                        src={otherProject.image}
+                                        alt={otherProject.title}
+                                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                                    />
+                                    <div className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[0.68rem] font-semibold text-zinc-950">
+                                        {otherProject.tag}
+                                    </div>
                                 </div>
 
-                                <h3 className="text-base font-semibold tracking-tight text-white">
-                                    {otherProject.title}
-                                </h3>
-                            </div>
-                        </Link>
+                                <div className="p-4">
+                                    <div className="mb-3 flex flex-wrap gap-2">
+                                        {otherProject.techStack
+                                            .slice(0, 2)
+                                            .map((tech) => (
+                                                <span
+                                                    key={tech}
+                                                    className="rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1 text-[0.68rem] font-semibold text-zinc-400"
+                                                >
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                    </div>
+
+                                    <h3 className="text-base font-semibold tracking-tight text-white">
+                                        {otherProject.title}
+                                    </h3>
+                                </div>
+                            </Link>
+                        </motion.div>
                     ))}
                 </div>
-            </section>
-        </div>
+            </motion.section>
+        </motion.div>
     );
 }

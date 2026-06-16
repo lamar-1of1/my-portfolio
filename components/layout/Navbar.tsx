@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { TopBlur } from '@/components/shared/TopBlur'
+import { scrollToHash } from '@/lib/smooth-scroll'
 const navItems = [
     {
         id: 'home',
@@ -125,23 +126,28 @@ export default function Navbar() {
     ) => {
         const sectionId = getSectionId(item)
 
-        if (item.id === 'home') {
-            window.scrollTo({ top: 0, behavior })
+        if (behavior === 'auto') {
+            if (item.id === 'home') {
+                window.scrollTo({ top: 0, behavior })
+                return
+            }
+
+            const target = document.getElementById(sectionId)
+
+            if (!target) return
+
+            const navOffset = window.matchMedia('(min-width: 768px)').matches ? 72 : 20
+            const targetTop =
+                target.getBoundingClientRect().top + window.scrollY - navOffset
+
+            window.scrollTo({
+                top: Math.max(0, targetTop),
+                behavior,
+            })
             return
         }
 
-        const target = document.getElementById(sectionId)
-
-        if (!target) return
-
-        const navOffset = window.matchMedia('(min-width: 768px)').matches ? 72 : 20
-        const targetTop =
-            target.getBoundingClientRect().top + window.scrollY - navOffset
-
-        window.scrollTo({
-            top: Math.max(0, targetTop),
-            behavior,
-        })
+        scrollToHash(`#${sectionId}`)
     }
 
     useEffect(() => {

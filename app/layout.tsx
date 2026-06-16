@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer"; // Import your footer component here
 import { GuideRail } from "@/components/shared/GuideRail"; // Import your guide rail component here
+import { SmoothScroll } from "@/components/shared/SmoothScroll";
 
 const geistSans = Geist({
     subsets: ["latin"],
@@ -62,6 +63,7 @@ export default function RootLayout({
             )}
         >
             <body className="bg-black text-white">
+                <SmoothScroll />
                 <Navbar />
 
                 <GuideRail side="left" />
