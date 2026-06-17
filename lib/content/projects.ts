@@ -25,23 +25,23 @@ export interface ProjectItem {
 export const cardData: ProjectItem[] = [
   {
     id: 1,
-    slug: 'adapting-strategy-in-uncertain-markets',
+    slug: 'st-joseph-unveiling-our-legacy',
     tag: 'Brand',
-    projectStatus: 'New',
-    year: '2025',
-    client: 'Northstar Advisory',
-    role: 'Product design, frontend development',
-    industry: 'Brand strategy',
-    timeline: '8 weeks',
-    title: 'Adapting strategy in uncertain markets',
+    projectStatus: 'In Progress',
+    year: '2026',
+    client: 'District Emergency Organisation (DEO)',
+    role: 'Web Coordinator Product design, ',
+    industry: 'Website Development',
+    timeline: '22 weeks',
+    title: 'St. Joseph: Unveiling Our Legacy',
     subtitle:
-      'How businesses can stay agile and make smarter decisions amid global shifts. A deep dive into resilient frameworks.',
+      '"Unveiling Our Legacy" is a community initiative led by the St. Joseph District Emergency Organisation (DEO).',
     image:
-      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+      'https://i.postimg.cc/C5mPcMwV/Screenshot-2026-06-16-224104.png',
     services: ['Strategy', 'Interface', 'Content', 'Frontend'],
     techStack: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
     overview:
-      'A focused digital narrative for a consulting team helping businesses make confident decisions in volatile markets. The page turns dense strategic thinking into a calm, editorial experience with clear hierarchy and fast routes to the strongest ideas.',
+      '"Unveiling Our Legacy" is a community initiative led by the St. Joseph District Emergency Organisation (DEO). We have mapped key landmarks across the parish, from the Parris Hill Mural to historic churches and natural wonders. It is time for you to unlock:',
     myRole:
       'I shaped the information architecture, designed the page system, wrote key interface copy, and built the responsive frontend with motion details that support the reading flow.',
     problems:
