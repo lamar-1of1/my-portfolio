@@ -23,6 +23,8 @@ export function FeaturedProjectsSection() {
 
     const activeMobileProject = featuredProjects[mobileProjectIndex];
     const activeProject = featuredProjects[activeProjectIndex];
+    const visibleStack = activeProject.techStack.slice(0, 5);
+    const hiddenStackCount = Math.max(activeProject.techStack.length - visibleStack.length, 0);
     const activeProjectNumber = (activeProjectIndex + 1)
         .toString()
         .padStart(2, "0");
@@ -99,14 +101,14 @@ export function FeaturedProjectsSection() {
                             Featured Projects
                         </p>
                     </div>
-        
+
                     <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.02em] text-white">
                         {featuredProjects.length.toString().padStart(2, "0")}
                         <span className="text-zinc-500"> projects</span>
                     </span>
                 </div>
             </div>
-        
+
             <div className="relative hidden">
                 <div
                     aria-label="Featured project carousel"
@@ -139,26 +141,26 @@ export function FeaturedProjectsSection() {
                                     alt={activeMobileProject.title}
                                     className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                                 />
-        
+
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-        
+
                                 <div className="absolute left-4 top-4 flex items-center gap-2">
                                     <span className="rounded-full border border-white/15 bg-white px-3 py-1.5 text-xs font-semibold text-[#262626]">
                                         {(mobileProjectIndex + 1)
                                             .toString()
                                             .padStart(2, "0")}
                                     </span>
-        
+
                                     <span className="rounded-full border border-white/10 bg-black/45 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
                                         {activeMobileProject.tag}
                                     </span>
                                 </div>
                             </div>
-        
+
                             <div className="p-4">
                                 <div className="mb-3 flex items-center justify-between gap-4 text-xs font-semibold uppercase tracking-[0.08em] text-zinc-500">
                                     <span>{activeMobileProject.year}</span>
-        
+
                                     <span
                                         className={`rounded-full border px-2.5 py-1 text-[0.68rem] normal-case tracking-normal ${getProjectStatusClass(
                                             activeMobileProject.projectStatus,
@@ -167,15 +169,15 @@ export function FeaturedProjectsSection() {
                                         {activeMobileProject.projectStatus}
                                     </span>
                                 </div>
-        
+
                                 <h3 className="text-2xl font-semibold tracking-tight text-white">
                                     {activeMobileProject.title}
                                 </h3>
-        
+
                                 <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-400">
                                     {activeMobileProject.outcome}
                                 </p>
-        
+
                                 <div className="mt-4 flex flex-wrap gap-2">
                                     {activeMobileProject.techStack
                                         .slice(0, 3)
@@ -188,7 +190,7 @@ export function FeaturedProjectsSection() {
                                             </span>
                                         ))}
                                 </div>
-        
+
                                 <div className="mt-5 grid grid-cols-[1fr_auto] gap-3">
                                     <Link
                                         href={activeMobileProject.liveUrl}
@@ -197,7 +199,7 @@ export function FeaturedProjectsSection() {
                                         Read more
                                         <ArrowUpRight size={15} />
                                     </Link>
-        
+
                                     <a
                                         href={activeMobileProject.githubUrl}
                                         target="_blank"
@@ -212,7 +214,7 @@ export function FeaturedProjectsSection() {
                         </motion.article>
                     </AnimatePresence>
                 </div>
-        
+
                 <div className="mt-3 flex justify-end gap-2 px-5">
                     <button
                         type="button"
@@ -222,7 +224,7 @@ export function FeaturedProjectsSection() {
                     >
                         <ChevronLeft size={18} />
                     </button>
-        
+
                     <button
                         type="button"
                         onClick={() => goToMobileProject(1)}
@@ -233,7 +235,7 @@ export function FeaturedProjectsSection() {
                     </button>
                 </div>
             </div>
-        
+
             <div className="relative h/idden pt-8 md:block">
                 <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-full min-h-[34rem] lg:min-h-[30rem] xl:min-h-[31rem]">
                     <AnimatePresence initial={false} mode="popLayout">
@@ -243,12 +245,12 @@ export function FeaturedProjectsSection() {
                                     activeProjectIndex +
                                     featuredProjects.length) %
                                 featuredProjects.length;
-        
+
                             const isVisibleBackCard =
                                 offset > 0 && offset < featuredProjects.length;
-        
+
                             if (!isVisibleBackCard) return null;
-        
+
                             return (
                                 <motion.div
                                     key={project.id}
@@ -294,7 +296,7 @@ export function FeaturedProjectsSection() {
                         })}
                     </AnimatePresence>
                 </div>
-        
+
                 <article className="relative z-10 flex min-h-[34rem] min-w-0 flex-col overflow-hidden rounded-xl border border-dashed border-white/10 bg-[#171717] shadow-[0_24px_80px_rgba(0,0,0,0.32)] lg:min-h-[30rem] xl:min-h-[31rem]">
                     <AnimatePresence mode="wait">
                         <motion.div
@@ -315,7 +317,7 @@ export function FeaturedProjectsSection() {
                             </span>
                         </motion.div>
                     </AnimatePresence>
-        
+
                     <div className="grid min-h-0 min-w-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(16rem,0.82fr)_minmax(0,1.18fr)] xl:grid-cols-[21rem_minmax(0,1fr)]">
                         <aside className="flex min-h-0 min-w-0 flex-col gap-5 border-b border-dashed border-white/10 bg-[#111111] p-4 lg:border-b-0 lg:border-r lg:p-5">
                             <div className="min-w-0">
@@ -325,10 +327,10 @@ export function FeaturedProjectsSection() {
                                         alt={activeProject.title}
                                         className="absolute inset-0 h-full w-full object-cover"
                                     />
-        
+
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                                 </div>
-        
+
                                 <AnimatePresence mode="wait">
                                     <motion.div
                                         key={`${activeProject.id}-aside-copy`}
@@ -342,13 +344,13 @@ export function FeaturedProjectsSection() {
                                     >
                                         <motion.p
                                             variants={variants}
-                                            className="mb-2 text-xs font-semibold uppercase tracking-[0.07em] text-emerald-300"
+                                            className="mb-2 text-sm font-medium text-emerald-300"
                                         >
                                             {activeProjectNumber}
                                             {" // "}
                                             {activeProject.tag}
                                         </motion.p>
-        
+
                                         <motion.h3
                                             variants={variants}
                                             className="ma/x-w-xs text-xl font-medium leading-tight tracking-tight text-white/75"
@@ -358,7 +360,7 @@ export function FeaturedProjectsSection() {
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
-        
+
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={`${activeProject.id}-meta`}
@@ -380,7 +382,7 @@ export function FeaturedProjectsSection() {
                                             {activeProject.year}
                                         </span>
                                     </motion.div>
-        
+
                                     <motion.div
                                         variants={variants}
                                         className="flex items-center justify-between gap-4"
@@ -397,7 +399,7 @@ export function FeaturedProjectsSection() {
                                 </motion.div>
                             </AnimatePresence>
                         </aside>
-        
+
                         <div className="flex min-h-0 min-w-0 flex-col p-4">
                             <div className="mb-3 flex items-center justify-between gap-4">
                                 <div className="flex items-center gap-2">
@@ -406,7 +408,7 @@ export function FeaturedProjectsSection() {
                                         Highlights
                                     </h3>
                                 </div>
-        
+
                                 <div className="flex items-center gap-2">
                                     <button
                                         type="button"
@@ -416,7 +418,7 @@ export function FeaturedProjectsSection() {
                                     >
                                         <ChevronLeft size={18} />
                                     </button>
-        
+
                                     <button
                                         type="button"
                                         onClick={goToNextProject}
@@ -427,7 +429,7 @@ export function FeaturedProjectsSection() {
                                     </button>
                                 </div>
                             </div>
-        
+
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeProject.id}
@@ -438,7 +440,7 @@ export function FeaturedProjectsSection() {
                                         opacity: 0,
                                         transition: { duration: 0.18 },
                                     }}
-                                    className="grid min-h-0 min-w-0 flex-1 content-start gap-3 sm:grid-cols-2 md:grid-cols-[minmax(0,1.15fr)_minmax(12rem,0.85fr)] md:grid-rows-[auto_auto] lg:grid-cols-[minmax(0,1.25fr)_minmax(13rem,0.75fr)] xl:grid-cols-[minmax(0,1.25fr)_minmax(15rem,0.75fr)]"
+                                    className="grid min-h-0 min-w-0 flex-1 content-start gap-3 sm:grid-cols-2 md:grid-cols-[minmax(0,1.2fr)_minmax(13rem,0.8fr)] md:grid-rows-[auto_auto] lg:grid-cols-[minmax(0,1.28fr)_minmax(14rem,0.72fr)] xl:grid-cols-[minmax(0,1.28fr)_minmax(15rem,0.72fr)]"
                                 >
                                     <motion.section
                                         variants={variants}
@@ -447,12 +449,28 @@ export function FeaturedProjectsSection() {
                                         <p className="text-sm font-semibold text-zinc-500">
                                             Summary
                                         </p>
-        
-                                        <p className="mt-4 li/ne-clamp-3 text-sm leading-6 text-zinc-400">
+
+                                        <p className="mt-4 text-sm leading-6 text-zinc-300">
                                             {activeProject.subtitle}
                                         </p>
+
+                                        <dl className="mt-6 grid gap-3 border-t border-dashed border-white/10 pt-5 text-sm sm:grid-cols-2">
+                                            {[
+                                                ["Client", activeProject.client],
+                                                ["Timeline", activeProject.timeline],
+                                            ].map(([label, value]) => (
+                                                <div key={label} className="min-w-0">
+                                                    <dt className="text-xs font-semibold text-zinc-600">
+                                                        {label}
+                                                    </dt>
+                                                    <dd className="mt-1 line-clamp-2 font-semibold leading-5 text-white">
+                                                        {value}
+                                                    </dd>
+                                                </div>
+                                            ))}
+                                        </dl>
                                     </motion.section>
-        
+
                                     <motion.section
                                         variants={variants}
                                         className="flex min-h-0 min-w-0 flex-col rounded-xl border border-dashed border-white/10 bg-[#111111] p-4"
@@ -460,9 +478,9 @@ export function FeaturedProjectsSection() {
                                         <p className="text-sm font-semibold text-zinc-500">
                                             Stack
                                         </p>
-        
+
                                         <div className="mt-3 flex flex-wrap gap-2">
-                                            {activeProject.techStack.map((tech) => (
+                                            {visibleStack.map((tech) => (
                                                 <span
                                                     key={tech}
                                                     className="rounded-full border border-white/10 bg-white/[0.035] px-2.5 py-1 text-xs font-semibold text-zinc-300"
@@ -470,17 +488,22 @@ export function FeaturedProjectsSection() {
                                                     {tech}
                                                 </span>
                                             ))}
+                                            {hiddenStackCount > 0 ? (
+                                                <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 text-xs font-semibold text-emerald-300">
+                                                    +{hiddenStackCount} more
+                                                </span>
+                                            ) : null}
                                         </div>
                                     </motion.section>
-        
+
                                     <motion.section
                                         variants={variants}
                                         className="flex min-h-0 min-w-0 flex-col rounded-xl border border-dashed border-white/10 bg-[#111111] p-4"
                                     >
                                         <p className="text-sm font-semibold text-zinc-500">
-                                            Links
+                                            Project Links
                                         </p>
-        
+
                                         <div className="mt-4 flex flex-wrap items-center gap-3">
                                             <Link
                                                 href={activeProject.liveUrl}
@@ -489,7 +512,7 @@ export function FeaturedProjectsSection() {
                                                 Read more
                                                 <ArrowUpRight size={15} />
                                             </Link>
-        
+
                                             <a
                                                 href={activeProject.githubUrl}
                                                 target="_blank"

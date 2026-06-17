@@ -13,6 +13,7 @@ import {
     fadeUp,
     reducedContentStagger,
 } from "@/lib/motion";
+import { GithubIcon } from "hugeicons-react";
 
 function getProjectStatusClass(status: string) {
     const normalizedStatus = status.toLowerCase();
@@ -65,6 +66,7 @@ export function ProjectDetailPage({
     const staggerVariants = shouldReduceMotion
         ? reducedContentStagger
         : contentStagger;
+    const isExternalLiveUrl = /^https?:\/\//.test(project.liveUrl);
 
     return (
         <motion.div
@@ -110,7 +112,7 @@ export function ProjectDetailPage({
                 </motion.div>
 
                 <motion.header variants={itemVariants} className="py-7">
-                    <p className="mb-3 text-sm font-medium up/percase trackin/g-[0.12em] text-emerald-300">
+                    <p className="mb-3 text-sm font-medium text-emerald-300">
                         {project.tag}
                     </p>
 
@@ -126,13 +128,15 @@ export function ProjectDetailPage({
 
                         <div className="flex items-center gap-3">
                             <Link
-                                href="/#contact"
+                                href={project.liveUrl}
+                                target={isExternalLiveUrl ? "_blank" : undefined}
+                                rel={isExternalLiveUrl ? "noreferrer" : undefined}
                                 className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
                             >
                                 View website
                                 <ArrowUpRight size={15} />
                             </Link>
-                            {/* <a
+                            <a
                                 href={project.githubUrl}
                                 target="_blank"
                                 rel="noreferrer"
@@ -140,7 +144,7 @@ export function ProjectDetailPage({
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-300"
                             >
                                 <GithubIcon size={16} />
-                            </a> */}
+                            </a>
                         </div>
                     </div>
                 </motion.header>
@@ -148,7 +152,7 @@ export function ProjectDetailPage({
                 <DetailRow title="Overview" variants={itemVariants}>
                     <p>{project.overview}</p>
 
-                    <dl className="mt-8 grid gap-5 text-xs sm:grid-cols-2 lg:grid-cols-4">
+                    <dl className="mt-8 grid gap-5 text-sm sm:grid-cols-2 lg:grid-cols-1">
                         {[
                             ["Year", project.year],
                             ["Client", project.client],
@@ -159,24 +163,28 @@ export function ProjectDetailPage({
                                 <dt className="mb-1 font-semibold text-zinc-600">
                                     {label}
                                 </dt>
-                                <dd className="font-semibold text-white">{value}</dd>
+                                <dd className="font-medium text-white">{value}</dd>
                             </div>
                         ))}
                     </dl>
 
-                    <div className="mt-6 flex flex-wrap gap-2">
-                        {project.services.map((service) => (
+                    <p className="mt-8 text-sm font-semibold text-zinc-600">
+                        Tech Stack
+                    </p>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                        {project.techStack.map((tech) => (
                             <span
-                                key={service}
+                                key={tech}
                                 className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 text-xs font-semibold text-zinc-300"
                             >
-                                {service}
+                                {tech}
                             </span>
                         ))}
                     </div>
                 </DetailRow>
 
-                <DetailRow title="My Role" variants={itemVariants}>
+                <DetailRow title="My Role(s)" variants={itemVariants}>
                     <p>{project.myRole}</p>
                 </DetailRow>
 

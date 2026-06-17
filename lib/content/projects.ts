@@ -11,7 +11,6 @@ export interface ProjectItem {
   role: string
   industry: string
   timeline: string
-  services: string[]
   techStack: string[]
   overview: string
   myRole: string
@@ -26,31 +25,30 @@ export const cardData: ProjectItem[] = [
   {
     id: 1,
     slug: 'st-joseph-unveiling-our-legacy',
-    tag: 'Brand',
+    tag: 'Community',
     projectStatus: 'In Progress',
     year: '2026',
     client: 'District Emergency Organisation (DEO)',
-    role: 'Web Coordinator Product design, ',
-    industry: 'Website Development',
+    role: 'Web Coordinator & Product Design, ',
+    industry: 'Disaster Preparedness, Community Engagement, Cultural Preservation & Education',
     timeline: '22 weeks',
     title: 'St. Joseph: Unveiling Our Legacy',
     subtitle:
       '"Unveiling Our Legacy" is a community initiative led by the St. Joseph District Emergency Organisation (DEO).',
     image:
       'https://i.postimg.cc/C5mPcMwV/Screenshot-2026-06-16-224104.png',
-    services: ['Strategy', 'Interface', 'Content', 'Frontend'],
-    techStack: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+    techStack: ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'TypeScript', 'Google Auth', 'Supabase Auth', 'AWS', 'Vercel', 'Resend', 'MapBox', 'Bunny.net'],
     overview:
-      '"Unveiling Our Legacy" is a community initiative led by the St. Joseph District Emergency Organisation (DEO). We have mapped key landmarks across the parish, from the Parris Hill Mural to historic churches and natural wonders. It is time for you to unlock:',
+      '"Unveiling Our Legacy" is a community initiative led by the St. Joseph District Emergency Organisation (DEO). We have mapped key landmarks across the parish, from the Parris Hill Mural to historic churches and natural wonders. ',
     myRole:
-      'I shaped the information architecture, designed the page system, wrote key interface copy, and built the responsive frontend with motion details that support the reading flow.',
+      'Web Design Coordinator and Coder. The communication of information to the client, in a non-technical way abstracting from all code and technology as well as overseeing user experience, scheduling meetings and managing the day-to-day operations of the website.',
     problems:
-      'The original story carried strong insight, but it was difficult to scan. Core messages competed for attention, important proof points were buried, and mobile users had too much text before reaching a clear action.',
+      'Performance degradation of the Virtual Map, especially on lower-end devices. Initially hard-coded the unique IDs of certain murals/sites which made it less manageable amongst the huge cluster of code in the file.',
     solutions:
-      'I reduced the page into a smaller set of purposeful sections, added stronger visual pacing, created reusable content blocks, and designed interaction states that make the article feel polished without slowing it down.',
+      'For the improvement of performance of the Virtual Map, I used Supabase to create a database of the murals and sites, and then fetched the data from the database to populate the map. This way, we can easily manage the data without having to hard-code it into the codebase.',
     outcome:
-      'The finished experience makes the strategic offer easier to understand, gives the team a stronger project showcase, and creates a cleaner path from first impression to inquiry.',
-    liveUrl: '/projects/adapting-strategy-in-uncertain-markets',
+      'The project is still in progress, but the majority of the website is live and the map is functional. We continue to receive positive feedback from the community and other stakeholders, and I am excited to continue working on this project.',
+    liveUrl: 'https://st-joseph-legacy-project.vercel.app',
     githubUrl: 'https://github.com/',
   },
   {
@@ -68,8 +66,7 @@ export const cardData: ProjectItem[] = [
       'How structure and collaboration fuel performance in high-growth organizations. Rethinking the modern workspace.',
     image:
       'https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=2671&auto=format&fit=crop',
-    services: ['UX Design', 'Design System', 'Responsive UI', 'Content'],
-    techStack: ['React', 'TypeScript', 'Design Systems', 'Figma'],
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Figma'],
     overview:
       'A responsive product story for a team operations concept built around clarity, collaboration, and modern growth. The project translates abstract organizational ideas into a practical, scannable web experience.',
     myRole:
@@ -98,8 +95,7 @@ export const cardData: ProjectItem[] = [
       'Why data is reshaping how consulting firms deliver value over time. Leveraging analytics for actionable insights.',
     image:
       'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2664&auto=format&fit=crop',
-    services: ['Analytics UI', 'API Design', 'Accessibility', 'Frontend'],
-    techStack: ['Next.js', 'Analytics UI', 'API Design', 'Accessibility'],
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'REST API'],
     overview:
       'A data-led consulting experience designed to make insight feel useful instead of overwhelming. The interface frames analytics as a practical decision tool through simple content modules and measured visual density.',
     myRole:
@@ -128,8 +124,7 @@ export const cardData: ProjectItem[] = [
       'Building lasting trust and loyalty in an increasingly digital-first world. The human element in automated systems.',
     image:
       'https://images.unsplash.com/photo-1502809737437-1d85c70dd2ca?q=80&w=2670&auto=format&fit=crop',
-    services: ['Content Strategy', 'Responsive UI', 'Performance', 'Frontend'],
-    techStack: ['React', 'Content Strategy', 'Responsive UI', 'Performance'],
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     overview:
       'A client-facing web flow for a customer experience concept centered on trust, speed, and human connection. The page presents relationship-building as a clear product value rather than a soft brand claim.',
     myRole:
@@ -158,8 +153,7 @@ export const cardData: ProjectItem[] = [
       'Integrating ESG principles into core business strategies for long-term success and environmental stewardship.',
     image:
       'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=2670&auto=format&fit=crop',
-    services: ['UX Design', 'ESG Content', 'Responsive UI', 'Frontend'],
-    techStack: ['Next.js', 'React', 'Tailwind CSS', 'Accessibility'],
+    techStack: ['Next.js', 'React', 'Tailwind CSS', 'Vercel'],
     overview:
       'A sustainability-focused service page built to turn ESG priorities into a practical business story. The experience balances environmental credibility with clear commercial value.',
     myRole:
@@ -188,7 +182,6 @@ export const cardData: ProjectItem[] = [
       'Anticipating market trends to stay ahead of the curve and drive innovation in competitive landscapes.',
     image:
       'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2670&auto=format&fit=crop',
-    services: ['Interface Design', 'Research Framing', 'Frontend', 'Motion'],
     techStack: ['React', 'TypeScript', 'Framer Motion', 'Tailwind CSS'],
     overview:
       'A strategic foresight project page designed to help visitors understand change signals, planning frameworks, and the value of anticipating market shifts before they become urgent.',

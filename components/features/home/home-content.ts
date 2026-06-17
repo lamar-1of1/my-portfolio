@@ -23,12 +23,6 @@ export const featuredProjects = cardData.slice(0, 4).map((project, index) => ({
         "Built a data-led experience pattern for presenting insights without losing warmth, pace, or editorial polish.",
         "Shaped a client-facing web flow around trust signals, fast discovery, and clean interaction moments.",
     ][index],
-    techStack: [
-        ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
-        ["React", "TypeScript", "Design Systems", "Figma"],
-        ["Next.js", "Analytics UI", "API Design", "Accessibility"],
-        ["React", "Content Strategy", "Responsive UI", "Performance"],
-    ][index],
     liveUrl: "/projects/" + project.slug,
     githubUrl: "https://github.com/",
 }));
