@@ -60,7 +60,7 @@ export function MotionImage({
                 initial={
                     shouldReduceMotion
                         ? { opacity: 0 }
-                        : { opacity: 0, scale: 1.04, filter: "blur(10px)" }
+                        : { opacity: 0, scale: 1.02 }
                 }
                 animate={
                     shouldReduceMotion
@@ -68,7 +68,6 @@ export function MotionImage({
                         : {
                               opacity: isLoaded ? 1 : 0,
                               scale: 1,
-                              filter: "blur(0px)",
                           }
                 }
                 transition={{

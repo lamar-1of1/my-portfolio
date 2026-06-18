@@ -21,18 +21,18 @@ const navItems = [
         href: '/#home',
     },
     {
-        id: 'projects',
-        label: 'Projects',
-        icon: FolderKanban,
-        keybind: 'P',
-        href: '/#featured-projects',
-    },
-    {
         id: 'about',
         label: 'About',
         icon: User,
         keybind: 'A',
         href: '/#about',
+    },
+    {
+        id: 'projects',
+        label: 'Projects',
+        icon: FolderKanban,
+        keybind: 'P',
+        href: '/#featured-projects',
     },
     {
         id: 'contact',

@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { ProjectDetailPage } from "@/components/features/projects/ProjectDetailPage";
 import {
     cardData,
-    getOtherProjects,
     getProjectBySlug,
 } from "@/lib/content/projects";
 
@@ -57,7 +56,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     return (
         <ProjectDetailPage
             project={project}
-            otherProjects={getOtherProjects(project.slug)}
+            otherProjects={cardData.filter((item) => item.slug !== project.slug)}
         />
     );
 }

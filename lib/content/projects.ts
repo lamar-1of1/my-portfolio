@@ -1,3 +1,8 @@
+export interface ProjectCredit {
+  name: string
+  url?: string
+}
+
 export interface ProjectItem {
   id: number
   slug: string
@@ -17,6 +22,7 @@ export interface ProjectItem {
   problems: string
   solutions: string
   outcome: string
+  credits?: ProjectCredit[]
   liveUrl: string
   githubUrl: string
 }
@@ -29,7 +35,7 @@ export const cardData: ProjectItem[] = [
     projectStatus: 'In Progress',
     year: '2026',
     client: 'District Emergency Organisation (DEO)',
-    role: 'Web Coordinator & Product Design, ',
+    role: 'Web Coordinator & Product Design',
     industry: 'Disaster Preparedness, Community Engagement, Cultural Preservation & Education',
     timeline: '22 weeks',
     title: 'St. Joseph: Unveiling Our Legacy',
@@ -50,6 +56,12 @@ export const cardData: ProjectItem[] = [
       'The project is still in progress, but the majority of the website is live and the map is functional. We continue to receive positive feedback from the community and other stakeholders, and I am excited to continue working on this project.',
     liveUrl: 'https://st-joseph-legacy-project.vercel.app',
     githubUrl: 'https://github.com/',
+    credits: [
+      {
+        name: 'Shaquon Hamilton',
+        url: 'https://www.shaquonhamilton.com',
+      },
+    ],
   },
   {
     id: 2,

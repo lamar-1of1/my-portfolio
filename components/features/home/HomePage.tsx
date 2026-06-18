@@ -7,8 +7,8 @@ export function HomePage() {
     return (
         <div className="relative overflow-hidden bg-black pt-24 text-white selection:bg-white selection:text-black md:pt-28">
             <HeroSection />
-            <FeaturedProjectsSection />
             <AboutSection />
+            <FeaturedProjectsSection />
             <ContactSection />
         </div>
     );
