@@ -12,15 +12,14 @@ import {
 } from "framer-motion"
 import {
     GithubIcon,
-    Linkedin02Icon,
     NewTwitterIcon,
 } from "hugeicons-react"
-import { ArrowUp, ArrowUpRight } from "lucide-react"
+import { ArrowUp } from "lucide-react"
 
 const socialLinks = [
     { label: "GitHub", href: "#", icon: GithubIcon },
     { label: "Twitter", href: "#", icon: NewTwitterIcon },
-    { label: "LinkedIn", href: "#", icon: Linkedin02Icon },
+    // { label: "LinkedIn", href: "#", icon: Linkedin02Icon },
 ]
 
 const marqueeSpeed = 0.001
@@ -48,19 +47,19 @@ const MarqueeText = () => (
     </>
 )
 
-function FooterPillButton({ label }: { label: string }) {
-    return (
-        <Link
-            href="#contact"
-            className="group/pill inline-flex items-center gap-4 rounded-full bg-white py-1.5 pl-5 pr-1.5 text-sm font-semibold tracking-tight text-zinc-950 transition-all duration-300 hover:bg-zinc-100 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-        >
-            <span className="font-medium text-zinc-900">{label}</span>
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-white transition-transform duration-500 ease-out group-hover/pill:rotate-45">
-                <ArrowUpRight size={16} strokeWidth={2.5} />
-            </span>
-        </Link>
-    )
-}
+// function FooterPillButton({ label }: { label: string }) {
+//     return (
+//         <Link
+//             href="#contact"
+//             className="group/pill inline-flex items-center gap-4 rounded-full bg-white py-1.5 pl-5 pr-1.5 text-sm font-semibold tracking-tight text-zinc-950 transition-all duration-300 hover:bg-zinc-100 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+//         >
+//             <span className="font-medium text-zinc-900">{label}</span>
+//             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-white transition-transform duration-500 ease-out group-hover/pill:rotate-45">
+//                 <ArrowUpRight size={16} strokeWidth={2.5} />
+//             </span>
+//         </Link>
+//     )
+// }
 
 export default function Footer() {
     const [formattedTime, setFormattedTime] = useState("--:-- --")
@@ -120,9 +119,9 @@ export default function Footer() {
                             Have a project in mind? I take on a small number of focused builds at a time.
                         </p>
                     </div>
-                    <div className="flex shrink-0 lg:justify-end">
+                    {/* <div className="flex shrink-0 lg:justify-end">
                         <FooterPillButton label="Book an intro call" />
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

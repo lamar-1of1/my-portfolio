@@ -25,6 +25,9 @@ export function FeaturedProjectsSection() {
     const activeProjectNumber = (activeProjectIndex + 1)
         .toString()
         .padStart(2, "0");
+    const activeMobileProjectNumber = (mobileProjectIndex + 1)
+        .toString()
+        .padStart(2, "0");
     const variants = shouldReduceMotion ? fadeOnly : slideUp(direction);
 
     const goToPreviousProject = () => {
@@ -205,7 +208,7 @@ export function FeaturedProjectsSection() {
                     </AnimatePresence>
                 </div>
 
-                <div className="mt-3 flex justify-center gap-2 px-5">
+                <div className="mt-3 flex items-center justify-center gap-3 px-5">
                     <button
                         type="button"
                         onClick={() => goToMobileProject(-1)}
@@ -214,6 +217,19 @@ export function FeaturedProjectsSection() {
                     >
                         <ChevronLeft size={18} />
                     </button>
+
+                    <span
+                        aria-live="polite"
+                        className="min-w-16 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-center text-xs font-semibold tabular-nums text-zinc-500"
+                    >
+                        <span className="text-white">
+                            {activeMobileProjectNumber}
+                        </span>
+                        <span>
+                            {" "}
+                            / {featuredProjects.length.toString().padStart(2, "0")}
+                        </span>
+                    </span>
 
                     <button
                         type="button"
@@ -255,9 +271,9 @@ export function FeaturedProjectsSection() {
                                             opacity: 1,
                                             y: 0,
                                             scale: 1,
-                                            top: `${offset * -1.2}rem`,
-                                            left: `${offset * 1.55}rem`,
-                                            right: `${offset * 1.55}rem`,
+                                            top: `calc(${offset} * var(--featured-stack-y-step, -1.2rem))`,
+                                            left: `calc(${offset} * var(--featured-stack-x-step, 1.55rem))`,
+                                            right: `calc(${offset} * var(--featured-stack-x-step, 1.55rem))`,
                                         }}
                                         exit={{
                                             opacity: 0,
@@ -344,7 +360,7 @@ export function FeaturedProjectsSection() {
 
                                             <motion.h3
                                                 variants={variants}
-                                                className="ma/x-w-xs text-xl font-medium leading-tight tracking-tight text-white/75"
+                                                className="max-w-xs text-xl font-medium leading-tight tracking-tight text-white/75"
                                             >
                                                 {activeProject.title}
                                             </motion.h3>
@@ -449,7 +465,7 @@ export function FeaturedProjectsSection() {
                                                 Project Details
                                             </p>
 
-                                            <dl className="mt-4 grid gap-12 text-sm">
+                                            <dl className="mt-4 grid gap-6 text-sm">
                                                 {[
                                                     ["Role", activeProject.role],
                                                     ["Industry", activeProject.industry],
@@ -482,7 +498,7 @@ export function FeaturedProjectsSection() {
                     </article>
                 </div>
 
-                <div className="relative z-20 mt-5 flex justify-center gap-3">
+                <div className="relative z-20 mt-5 flex items-center justify-center gap-3">
                     <button
                         type="button"
                         onClick={goToPreviousProject}
@@ -491,6 +507,17 @@ export function FeaturedProjectsSection() {
                     >
                         <ChevronLeft size={18} />
                     </button>
+
+                    <span
+                        aria-live="polite"
+                        className="min-w-16 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-center text-xs font-semibold tabular-nums text-zinc-400"
+                    >
+                        <span className="text-white">{activeProjectNumber}</span>
+                        <span className="text-zinc-600">
+                            {" "}
+                            / {featuredProjects.length.toString().padStart(2, "0")}
+                        </span>
+                    </span>
 
                     <button
                         type="button"

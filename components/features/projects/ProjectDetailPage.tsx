@@ -480,11 +480,10 @@ export function ProjectDetailPage({
                                             {projectFilter}
                                             <ChevronDown
                                                 size={14}
-                                                className={`text-zinc-500 transition-transform ${
-                                                    isProjectFilterOpen
+                                                className={`text-zinc-500 transition-transform ${isProjectFilterOpen
                                                         ? "rotate-180"
                                                         : ""
-                                                }`}
+                                                    }`}
                                             />
                                         </button>
 
@@ -519,11 +518,10 @@ export function ProjectDetailPage({
                                                                             false,
                                                                         );
                                                                     }}
-                                                                    className={`block w-full cursor-pointer rounded-md px-3 py-2 text-left text-sm transition-colors ${
-                                                                        isActive
+                                                                    className={`block w-full cursor-pointer rounded-md px-3 py-2 text-left text-sm transition-colors ${isActive
                                                                             ? "bg-white/[0.09] text-white"
                                                                             : "text-zinc-400 hover:bg-white/[0.055] hover:text-white"
-                                                                    }`}
+                                                                        }`}
                                                                 >
                                                                     {option}
                                                                 </button>
@@ -552,12 +550,9 @@ export function ProjectDetailPage({
                                                     </div>
 
                                                     <div className="min-w-0">
-                                                        <h3 className="truncate text-sm font-semibold text-white">
+                                                        <h3 className="truncate text-[12px] font-semibold text-white sm:text-sm">
                                                             {item.title}
                                                         </h3>
-                                                        <p className="mt-1 line-clamp-2 text-xs leading-5 text-zinc-500">
-                                                            {item.subtitle}
-                                                        </p>
                                                         <span className="mt-2 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[0.68rem] font-semibold text-zinc-400">
                                                             {item.tag}
                                                         </span>

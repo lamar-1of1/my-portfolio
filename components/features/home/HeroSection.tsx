@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { LayoutGrid, UserRoundCheck, Zap } from "lucide-react";
+import {
+    LayoutGrid,
+    UserRoundCheck,
+    Zap,
+} from "lucide-react";
 
 import { socialLinks } from "./home-content";
 
@@ -19,37 +23,55 @@ export function HeroSection() {
                             </span>
                             Available for projects
                         </span>
-        
+
                         {/* <span className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-600">
                             Barbados / Remote
                         </span> */}
                     </div>
-        
+
                     <div className="grid min-h-[180px] sm:min-h-[210px] md:grid-cols-[minmax(0,1fr)_14rem] lg:grid-cols-[minmax(0,1fr)_16rem]">
                         <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-4 sm:p-5 md:border-b-0 md:border-r md:p-6">
                             <div>
                                 {/* <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">
                                     Who am I?
                                 </p> */}
-        
+
                                 <h1 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
-                                    Product designer and frontend developer.
+                                    Product designer and Full-stack Developer.
                                 </h1>
-        
+
                                 <p className="mt-4 max-w-xl text-sm leading-6 text-zinc-400">
                                     Building polished portfolio systems, product pages, and
                                     interactive web experiences with clean structure, motion,
                                     and responsive detail.
                                 </p>
+
+                                {/* <div className="mt-6 flex flex-wrap items-center gap-3">
+                                    <Link
+                                        href="#featured-projects"
+                                        className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                                    >
+                                        View projects
+                                        <ArrowUpRight size={15} />
+                                    </Link>
+
+                                    <Link
+                                        href="#contact"
+                                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:border-emerald-400/40 hover:bg-emerald-400/10 hover:text-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                                    >
+                                        Contact me
+                                        <Mail size={15} />
+                                    </Link>
+                                </div> */}
                             </div>
-        
+
                             <nav
                                 aria-label="Social links"
                                 className="mt-8 flex items-center gap-3"
                             >
                                 {socialLinks.map((social) => {
                                     const Icon = social.icon;
-        
+
                                     return (
                                         <Link
                                             key={social.label}
@@ -66,12 +88,12 @@ export function HeroSection() {
                                 })}
                             </nav>
                         </div>
-        
+
                         {/* <div className="flex flex-col justify-between p-4 sm:p-5 md:p-6">
                             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">
                                 Get in touch
                             </p>
-        
+
                             <div className="mt-4 flex flex-wrap items-start gap-3 md:mt-0 md:flex-col">
                                 <a
                                     href="/cv.pdf"
@@ -81,7 +103,7 @@ export function HeroSection() {
                                     Resume
                                     <Download size={15} />
                                 </a>
-        
+
                                 <Link
                                     href="#featured-projects"
                                     className="inline-flex min-w-[8.25rem] items-center justify-between gap-3 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 md:w-full"
@@ -93,7 +115,7 @@ export function HeroSection() {
                         </div> */}
                     </div>
                 </header>
-        
+
                 <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     <div className="flex min-h-[12rem] flex-col justify-between rounded-xl border border-white/10 bg-zinc-950/55 p-6">
                         <div className="flex items-center justify-between">
@@ -102,7 +124,7 @@ export function HeroSection() {
                             </span>
                             <LayoutGrid size={16} className="text-zinc-500" />
                         </div>
-        
+
                         <div className="mt-6">
                             <div className="text-4xl font-light tracking-tight text-white">
                                 50+ Projects
@@ -113,7 +135,7 @@ export function HeroSection() {
                             </p>
                         </div>
                     </div>
-        
+
                     <div className="flex min-h-[12rem] flex-col justify-between rounded-xl border border-white/10 bg-zinc-950/55 p-6">
                         <div className="flex items-center justify-between">
                             <span className="text-sm font-semibold text-zinc-500">
@@ -121,7 +143,7 @@ export function HeroSection() {
                             </span>
                             <UserRoundCheck size={16} className="text-zinc-500" />
                         </div>
-        
+
                         <div className="mt-6">
                             <div className="flex items-baseline gap-2 text-4xl font-light tracking-tight text-white">
                                 100%
@@ -135,7 +157,7 @@ export function HeroSection() {
                             </p>
                         </div>
                     </div>
-        
+
                     <div className="flex min-h-[12rem] flex-col justify-between rounded-xl border border-white/10 bg-zinc-950/55 p-6 md:col-span-2 lg:col-span-1">
                         <div className="flex items-center justify-between">
                             <span className="text-sm font-semibold text-zinc-500">
@@ -143,7 +165,7 @@ export function HeroSection() {
                             </span>
                             <Zap size={16} className="text-zinc-500" />
                         </div>
-        
+
                         <div className="mt-6">
                             <div className="text-4xl font-light tracking-tight text-white">
                                 Fast UI

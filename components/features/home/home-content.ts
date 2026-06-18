@@ -11,7 +11,7 @@ import {
     Palette,
     Wind,
 } from "lucide-react";
-import { GithubIcon, Linkedin02Icon, NewTwitterIcon } from "hugeicons-react";
+import { GithubIcon, NewTwitterIcon } from "hugeicons-react";
 
 import { cardData } from "@/lib/content/projects";
 
@@ -62,5 +62,5 @@ export const aboutJourney = [
 export const socialLinks = [
     { label: "GitHub", href: "#", icon: GithubIcon },
     { label: "Twitter", href: "#", icon: NewTwitterIcon },
-    { label: "LinkedIn", href: "#", icon: Linkedin02Icon },
+    // { label: "LinkedIn", href: "#", icon: Linkedin02Icon },
 ];

@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState, type MouseEvent } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import {
     Home,
@@ -296,9 +297,12 @@ export default function Navbar() {
                             onClick={(event) => handleNavClick(event, navItems[0])}
                             className="group/brand flex min-w-0 items-center gap-3 text-white transition-colors hover:text-white/85"
                         >
-                            <img
+                            <Image
                                 src="/icon-gif.gif"
                                 alt="Lamar logo"
+                                width={36}
+                                height={36}
+                                unoptimized
                                 className="h-9 w-9 shrink-0"
                             />
                         </Link>
@@ -342,7 +346,7 @@ export default function Navbar() {
                                     </motion.span>
                                     <span className="relative z-10 truncate">{item.label}</span>
                                     <kbd
-                                        className={`relative z-10 hidden h/-6 min-w-[24px] items-center justify-center rounded-[0.35rem] border p-1 font-sans text-[11px] font-semibold leading-none transition-colors lg:inline-flex ${isActive ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-white/10 bg-black/[0.055] text-white/35 group-hover:text-white/55'}`}
+                                        className={`relative z-10 hidden h-6 min-w-[24px] items-center justify-center rounded-[0.35rem] border p-1 font-sans text-[11px] font-semibold leading-none transition-colors lg:inline-flex ${isActive ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-white/10 bg-black/[0.055] text-white/35 group-hover:text-white/55'}`}
                                     >
                                         {item.keybind}
                                     </kbd>

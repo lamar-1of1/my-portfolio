@@ -18,6 +18,9 @@ const interSans = Inter({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL(
+        process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+    ),
     title: "Lamar | Portfolio",
     description:
         "Developer and designer crafting focused digital experiences.",
@@ -31,7 +34,7 @@ export const metadata: Metadata = {
         type: "website",
         images: [
             {
-                url: "/brand-social-preview-Photoroom.png",
+                url: "/assets/brand-social-preview-Photoroom.png",
                 width: 1200,
                 height: 630,
                 alt: "Lamar portfolio brand mark",

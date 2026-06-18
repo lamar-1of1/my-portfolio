@@ -161,26 +161,28 @@
     background: rgba(113, 113, 122, 0.95);
 }
 
-@media (min-width: 768px) and (max-width: 1023px) and (max-height: 520px) and (orientation: landscape) {
+@media (min-width: 768px) and (max-width: 1279px) and (max-height: 520px) and (orientation: landscape) {
     .featured-projects-section {
         padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+        padding-bottom: 1rem;
     }
 
     .featured-projects-shell-header {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
     }
 
     .featured-projects-desktop {
-        padding-top: 0.25rem;
+        --featured-stack-x-step: 0.85rem;
+        --featured-stack-y-step: -0.32rem;
+        padding-top: 0.95rem;
     }
 
     .featured-card-backdrop,
     .featured-card-backdrop-card,
     .featured-project-card {
-        height: calc(100dvh - 4rem);
+        height: clamp(15.75rem, calc(100dvh - 3.5rem), 27rem);
         min-height: 0;
     }
 
@@ -239,11 +241,13 @@
 
     .featured-project-detail-grid {
         grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-        grid-template-rows: auto auto;
+        grid-template-rows: minmax(0, 1fr);
         gap: 0.5rem;
     }
 
     .featured-project-detail-card {
+        justify-content: flex-start;
+        overflow: hidden;
         padding: 0.625rem;
         border-radius: 0.5rem;
     }
@@ -252,9 +256,33 @@
         font-size: 0.75rem;
     }
 
+    .featured-project-detail-card dl {
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .featured-project-detail-card dt {
+        font-size: 0.72rem;
+        line-height: 1rem;
+    }
+
+    .featured-project-detail-card dd {
+        display: -webkit-box;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+        font-size: 0.78rem;
+        line-height: 1rem;
+        -webkit-box-orient: vertical;
+        /* -webkit-line-clamp: 1; */
+    }
+
     .featured-project-summary-card {
         grid-column: 1;
-        grid-row: 1 / span 2;
+        grid-row: 1;
+    }
+
+    .featured-project-summary-card dl {
+        display: none;
     }
 
     .featured-project-summary-text {
@@ -275,8 +303,10 @@
     }
 
     .featured-project-links {
+        display: flex;
         gap: 0.5rem;
-        margin-top: 0.5rem;
+        margin-top: auto;
+        padding-top: 0.55rem;
     }
 
     .featured-project-link-primary {
