@@ -5,6 +5,43 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+html {
+    scrollbar-color: rgba(82, 82, 91, 0.86) rgba(24, 24, 27, 0.48);
+    scrollbar-width: thin;
+}
+
+* {
+    scrollbar-color: rgba(82, 82, 91, 0.86) rgba(24, 24, 27, 0.48);
+    scrollbar-width: thin;
+}
+
+body {
+    scrollbar-gutter: stable;
+}
+
+*::-webkit-scrollbar {
+    width: 0.55rem;
+    height: 0.55rem;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(24, 24, 27, 0.48);
+}
+
+*::-webkit-scrollbar-thumb {
+    border: 2px solid rgba(24, 24, 27, 0.48);
+    border-radius: 999px;
+    background: rgba(82, 82, 91, 0.86);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(113, 113, 122, 0.95);
+}
+
+*::-webkit-scrollbar-corner {
+    background: rgba(24, 24, 27, 0.48);
+}
+
 .font-inter {
     font-family: "Inter", var(--font-sans), Arial, sans-serif;
 }
