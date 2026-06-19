@@ -5,6 +5,9 @@ import { useRef, useState, type FormEvent } from "react";
 import { ArrowUpRight, MessageSquare } from "lucide-react";
 
 const hCaptchaSiteKey = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
+const web3FormsAccessKey =
+    process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ||
+    "88e57f5e-615d-45a0-89db-0c2f9aac8c07";
 // Block links, scripts, and HTML before sending form content.
 const blockedContactContentPattern =
     /(<\s*\/?\s*script\b|<\/?[a-z][\s\S]*>|javascript\s*:|data\s*:|vbscript\s*:|https?:\/\/|www\.|[a-z0-9-]+\.[a-z]{2,}(?:\/|\b))/i;
@@ -77,7 +80,6 @@ export function ContactSection() {
     const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
         // Re-check validation before sending anything to Web3Forms.
         const hasInvalidName = !isValidContactName(contactForm.name);
         const hasInvalidEmail = !isValidEmailInput(contactForm.email);
@@ -86,7 +88,7 @@ export function ContactSection() {
             hasBlockedContactContent(contactForm.email, "email") ||
             hasBlockedContactContent(contactForm.message, "message");
 
-        if (!accessKey) {
+        if (!web3FormsAccessKey) {
             setContactFormStatus("error");
             return;
         }
@@ -121,7 +123,7 @@ export function ContactSection() {
                     Accept: "application/json",
                 },
                 body: JSON.stringify({
-                    access_key: accessKey,
+                    access_key: web3FormsAccessKey,
                     subject: "Project inquiry from " + contactForm.name,
                     from_name: "Portfolio Contact Form",
                     name: contactForm.name,
