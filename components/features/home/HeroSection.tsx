@@ -120,18 +120,19 @@ export function HeroSection() {
                     <div className="flex min-h-[12rem] flex-col justify-between rounded-xl border border-white/10 bg-zinc-950/55 p-6">
                         <div className="flex items-center justify-between">
                             <span className="text-sm font-semibold text-zinc-500">
-                                Volume
+                                Selected Work
                             </span>
                             <LayoutGrid size={16} className="text-zinc-500" />
                         </div>
 
                         <div className="mt-6">
                             <div className="text-4xl font-light tracking-tight text-white">
-                                50+ Projects
+                                1 Project
                             </div>
                             <p className="mt-2 text-xs leading-normal text-zinc-500">
-                                Shipped across product pages, portfolio systems, custom
-                                interfaces, and standalone web builds.
+                                Portfolio and product-style builds covering responsive
+                                layouts, project detail pages, and polished interaction
+                                states.
                             </p>
                         </div>
                     </div>
@@ -139,21 +140,21 @@ export function HeroSection() {
                     <div className="flex min-h-[12rem] flex-col justify-between rounded-xl border border-white/10 bg-zinc-950/55 p-6">
                         <div className="flex items-center justify-between">
                             <span className="text-sm font-semibold text-zinc-500">
-                                Retention
+                                Current Role
                             </span>
                             <UserRoundCheck size={16} className="text-zinc-500" />
                         </div>
 
                         <div className="mt-6">
                             <div className="flex items-baseline gap-2 text-4xl font-light tracking-tight text-white">
-                                100%
+                                2025
                                 <span className="rounded border border-emerald-900/60 bg-emerald-950/50 px-1.5 py-0.5 font-mono text-xs text-emerald-500">
-                                    PASSED
+                                    ACTIVE
                                 </span>
                             </div>
                             <p className="mt-2 text-xs leading-normal text-zinc-500">
-                                Clear client handoff, responsive polish, and detail-focused
-                                production support.
+                                Supporting a public-facing DEO website with frontend
+                                development, content structure, and production upkeep.
                             </p>
                         </div>
                     </div>
@@ -168,11 +169,11 @@ export function HeroSection() {
 
                         <div className="mt-6">
                             <div className="text-4xl font-light tracking-tight text-white">
-                                Fast UI
+                                Responsive UI
                             </div>
                             <p className="mt-2 text-xs leading-normal text-zinc-500">
-                                Interfaces built around speed, hierarchy, accessibility, and
-                                clean interaction moments.
+                                Clean layouts, accessible interaction states, mobile-first
+                                structure, and performance-conscious frontend work.
                             </p>
                         </div>
                     </div>

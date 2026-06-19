@@ -11,6 +11,7 @@ const blockedContactContentPattern =
 const blockedEmailContentPattern =
     /(<\s*\/?\s*script\b|<\/?[a-z][\s\S]*>|javascript\s*:|data\s*:|vbscript\s*:|https?:\/\/|www\.)/i;
 const validNamePattern = /^[\p{L}\s-]*$/u;
+const validEmailInputPattern = /^[a-z0-9@.-]*$/i;
 
 type ContactFormField = "name" | "email" | "message";
 
@@ -24,6 +25,7 @@ export function ContactSection() {
         | "captcha"
         | "blocked"
         | "name"
+        | "email"
     >("idle");
     const [hCaptchaToken, setHCaptchaToken] = useState("");
     const [contactForm, setContactForm] = useState({
@@ -42,6 +44,9 @@ export function ContactSection() {
 
     const isValidContactName = (value: string) => validNamePattern.test(value);
 
+    const isValidEmailInput = (value: string) =>
+        validEmailInputPattern.test(value);
+
     // Reject invalid field content before it reaches form state.
     const updateContactFormField = (
         field: ContactFormField,
@@ -49,6 +54,11 @@ export function ContactSection() {
     ) => {
         if (field === "name" && !isValidContactName(value)) {
             setContactFormStatus("name");
+            return;
+        }
+
+        if (field === "email" && !isValidEmailInput(value)) {
+            setContactFormStatus("email");
             return;
         }
 
@@ -70,6 +80,7 @@ export function ContactSection() {
         const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
         // Re-check validation before sending anything to Web3Forms.
         const hasInvalidName = !isValidContactName(contactForm.name);
+        const hasInvalidEmail = !isValidEmailInput(contactForm.email);
         const hasBlockedContent =
             hasBlockedContactContent(contactForm.name, "name") ||
             hasBlockedContactContent(contactForm.email, "email") ||
@@ -82,6 +93,11 @@ export function ContactSection() {
 
         if (hasInvalidName) {
             setContactFormStatus("name");
+            return;
+        }
+
+        if (hasInvalidEmail) {
+            setContactFormStatus("email");
             return;
         }
 
@@ -300,6 +316,12 @@ export function ContactSection() {
                         {contactFormStatus === "name" && (
                             <p className="text-xs font-medium text-amber-200">
                                 Names can only include letters, spaces, and hyphens.
+                            </p>
+                        )}
+
+                        {contactFormStatus === "email" && (
+                            <p className="text-xs font-medium text-amber-200">
+                                Email can only include letters, numbers, @, ., and -.
                             </p>
                         )}
                     </form>

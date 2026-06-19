@@ -1,17 +1,18 @@
 import {
     Atom,
-    Award,
     Box,
-    Boxes,
     BriefcaseBusiness,
     Braces,
     Code,
     GraduationCap,
-    LayoutGrid,
     Palette,
     Wind,
 } from "lucide-react";
-import { GithubIcon, NewTwitterIcon } from "hugeicons-react";
+import {
+    GithubIcon,
+    NewTwitterIcon,
+    VisualStudioCodeIcon,
+} from "hugeicons-react";
 
 import { cardData } from "@/lib/content/projects";
 
@@ -32,30 +33,32 @@ export const aboutToolkit = [
     { label: "React", icon: Atom },
     { label: "TypeScript", icon: Braces },
     { label: "Tailwind CSS", icon: Wind },
-    { label: "Framer Motion", icon: Boxes },
     { label: "Figma", icon: Palette },
     { label: "Node.js", icon: Code },
-    { label: "Design Systems", icon: LayoutGrid },
+    { label: "GitHub", icon: GithubIcon },
+    { label: "VS Code", icon: VisualStudioCodeIcon },
 ];
 
 export const aboutJourney = [
     {
-        icon: BriefcaseBusiness,
-        period: "2023 - Present",
-        title: "Product Designer / Frontend Developer",
-        copy: "Shaping intuitive digital products from wireframe to launch, with a focus on structure, motion, and responsive craft.",
-    },
-    {
         icon: GraduationCap,
-        period: "2021 - 2024",
-        title: "UX/UI Design Foundation",
-        copy: "Deepened my foundation in user-centered design, interface systems, and interaction principles.",
+        period: "2020 - 2020",
+        title: "Web Development Summer Workshop",
+        copy: "Gained a practical introduction to frontend development, covering HTML, CSS, JavaScript, and the basics of building and deploying websites.",
+        via: "Caribbean Science Foundation (CSF).",
+        href: "https://caribbeanscience.org/",
     },
+    // {
+    //     icon: Award,
+    //     period: "2020",
+    //     title: "Graphic Design Graduate",
+    //     copy: "Built an early creative foundation through visual systems, brand work, layout, and digital storytelling.",
+    // },
     {
-        icon: Award,
-        period: "2020",
-        title: "Graphic Design Graduate",
-        copy: "Built an early creative foundation through visual systems, brand work, layout, and digital storytelling.",
+        icon: BriefcaseBusiness,
+        period: "2025 - Present",
+        title: "Web Coordinator & Fullstack Developer",
+        copy: "Assisted with the design and development of a new public-facing website for the District Emergency Organisation (DEO), focused on community engagement, disaster preparedness, and cultural preservation.",
     },
 ];
 
