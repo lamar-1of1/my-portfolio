@@ -1,13 +1,4 @@
-import {
-    Atom,
-    Box,
-    BriefcaseBusiness,
-    Braces,
-    Code,
-    GraduationCap,
-    Palette,
-    Wind,
-} from "lucide-react";
+import { Atom, BriefcaseBusiness, GraduationCap } from "lucide-react";
 import {
     GithubIcon,
     NewTwitterIcon,
@@ -15,6 +6,13 @@ import {
 } from "hugeicons-react";
 
 import { cardData } from "@/lib/content/projects";
+import {
+    FigmaIcon,
+    NextJsIcon,
+    NodeJsIcon,
+    TailwindCssIcon,
+    TypeScriptIcon,
+} from "./brand-icons";
 
 export const featuredProjects = cardData.slice(0, 4).map((project, index) => ({
     ...project,
@@ -29,12 +27,12 @@ export const featuredProjects = cardData.slice(0, 4).map((project, index) => ({
 }));
 
 export const aboutToolkit = [
-    { label: "Next.js", icon: Box },
+    { label: "Next.js", icon: NextJsIcon },
     { label: "React", icon: Atom },
-    { label: "TypeScript", icon: Braces },
-    { label: "Tailwind CSS", icon: Wind },
-    { label: "Figma", icon: Palette },
-    { label: "Node.js", icon: Code },
+    { label: "TypeScript", icon: TypeScriptIcon },
+    { label: "Tailwind CSS", icon: TailwindCssIcon },
+    { label: "Figma", icon: FigmaIcon },
+    { label: "Node.js", icon: NodeJsIcon },
     { label: "GitHub", icon: GithubIcon },
     { label: "VS Code", icon: VisualStudioCodeIcon },
 ];

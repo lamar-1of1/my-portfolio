@@ -276,7 +276,7 @@ export function ProjectDetailPage({
                                 ["Year", project.year],
                                 ["Client", project.client],
                                 ["Industry", project.industry],
-                                ["Timeline", project.timeline],
+                                // ["Timeline", project.timeline],
                             ].map(([label, value]) => (
                                 <div key={label}>
                                     <dt className="mb-1 font-semibold text-zinc-600">
