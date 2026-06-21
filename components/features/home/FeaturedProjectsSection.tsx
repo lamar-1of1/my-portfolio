@@ -44,6 +44,13 @@ export function FeaturedProjectsSection() {
         );
     };
 
+    const goToProjectIndex = (index: number) => {
+        if (index === activeProjectIndex) return;
+
+        setDirection(index > activeProjectIndex ? 1 : -1);
+        setActiveProjectIndex(index);
+    };
+
     const goToMobileProject = (step: -1 | 1) => {
         setMobileDirection(step);
         setMobileProjectIndex(
@@ -51,6 +58,13 @@ export function FeaturedProjectsSection() {
                 (current + step + featuredProjects.length) %
                 featuredProjects.length,
         );
+    };
+
+    const goToMobileProjectIndex = (index: number) => {
+        if (index === mobileProjectIndex) return;
+
+        setMobileDirection(index > mobileProjectIndex ? 1 : -1);
+        setMobileProjectIndex(index);
     };
 
     const resetMobilePointer = () => {
@@ -93,7 +107,7 @@ export function FeaturedProjectsSection() {
             id="featured-projects"
             className="featured-projects-section relative z-20 mx-auto max-w-7xl bg-black px-0 py-14 md:px-8 md:py-16 lg:px-12"
         >
-            <div className="featured-projects-shell-header mb-32 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-24 md:px-6">
+            <div className="featured-projects-shell-header mb-8 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-24 md:px-6">
                 <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                         <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
@@ -112,7 +126,7 @@ export function FeaturedProjectsSection() {
             <div className="relative md:hidden">
                 <div
                     aria-label="Featured project carousel"
-                    className="featured-mobile-carousel flex justify-center overflow-hidden px-5 pb-4"
+                    className="featured-mobile-carousel flex justify-center overflow-hidden px-0 pb-3"
                 >
                     <AnimatePresence mode="wait">
                         <motion.article
@@ -133,7 +147,7 @@ export function FeaturedProjectsSection() {
                             onPointerDown={handleMobilePointerStart}
                             onPointerUp={handleMobilePointerEnd}
                             onPointerCancel={resetMobilePointer}
-                            className="featured-mobile-card group w-[84vw] max-w-[23rem] shrink-0 cursor-default touch-pan-y overflow-hidden rounded-2xl border border-dashed border-white/10 bg-[#141414] shadow-[0_20px_60px_rgba(0,0,0,0.35)] transition-colors duration-300 hover:bg-[#1b1b1b]"
+                            className="featured-mobile-card group w-full max-w-none shrink-0 cursor-default touch-pan-y overflow-hidden rounded-2xl border border-dashed border-white/10 bg-[#141414] shadow-[0_20px_60px_rgba(0,0,0,0.35)] transition-colors duration-300 hover:bg-[#1b1b1b]"
                         >
                             <div className="featured-mobile-card-image relative aspect-[16/10] overflow-hidden bg-zinc-900">
                                 <MotionImage
@@ -153,12 +167,12 @@ export function FeaturedProjectsSection() {
                                 </div>
                             </div>
 
-                            <div className="featured-mobile-card-content p-4">
-                                <div className="featured-mobile-card-meta mb-3 flex items-center justify-between gap-4 text-xs font-semibold uppercase tracking-[0.08em] text-zinc-500">
+                            <div className="featured-mobile-card-content p-3.5">
+                                <div className="featured-mobile-card-meta mb-2.5 flex items-center justify-between gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-zinc-500">
                                     <span>{activeMobileProject.year}</span>
 
                                     <span
-                                        className={`rounded-full border px-2.5 py-1 text-[0.68rem] normal-case tracking-normal ${getProjectStatusClass(
+                                        className={`rounded-full border px-2.5 py-0.5 text-[0.68rem] normal-case tracking-normal ${getProjectStatusClass(
                                             activeMobileProject.projectStatus,
                                         )}`}
                                     >
@@ -166,15 +180,15 @@ export function FeaturedProjectsSection() {
                                     </span>
                                 </div>
 
-                                <h3 className="featured-mobile-card-title text-2xl font-semibold tracking-tight text-white">
+                                <h3 className="featured-mobile-card-title text-lg font-semibold leading-tight tracking-tight text-white">
                                     {activeMobileProject.title}
                                 </h3>
 
-                                <p className="featured-mobile-card-copy mt-2 line-clamp-3 text-sm leading-6 text-zinc-400">
+                                <p className="featured-mobile-card-copy mt-2 line-clamp-2 text-sm leading-5 text-zinc-400">
                                     {activeMobileProject.subtitle}
                                 </p>
 
-                                <div className="mt-4 grid gap-3 border-t border-dashed border-white/10 pt-4 text-sm">
+                                <div className="mt-3 grid gap-3 border-t border-dashed border-white/10 pt-3 text-sm sm:grid-cols-2">
                                     <div className="min-w-0">
                                         <p className="text-xs font-semibold text-zinc-600">
                                             Client
@@ -194,7 +208,7 @@ export function FeaturedProjectsSection() {
                                     </div>
                                 </div>
 
-                                <div className="featured-mobile-card-links mt-5 grid grid-cols-[1fr_auto] gap-3">
+                                <div className="featured-mobile-card-links mt-4 grid grid-cols-[1fr_auto] gap-3">
                                     <Link
                                         href={activeMobileProject.liveUrl}
                                         className="featured-mobile-card-link-primary inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
@@ -208,7 +222,12 @@ export function FeaturedProjectsSection() {
                     </AnimatePresence>
                 </div>
 
-                <div className="mt-3 flex items-center justify-center gap-3 px-5">
+                <div className="mt-3 flex items-center justify-center gap-3 px-0">
+                    <span aria-live="polite" className="sr-only">
+                        Project {activeMobileProjectNumber} of{" "}
+                        {featuredProjects.length.toString().padStart(2, "0")}
+                    </span>
+
                     <button
                         type="button"
                         onClick={() => goToMobileProject(-1)}
@@ -218,18 +237,28 @@ export function FeaturedProjectsSection() {
                         <ChevronLeft size={18} />
                     </button>
 
-                    <span
-                        aria-live="polite"
-                        className="min-w-16 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-center text-xs font-semibold tabular-nums text-zinc-500"
+                    <div
+                        aria-label="Choose featured project"
+                        className="flex min-w-16 items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2"
                     >
-                        <span className="text-white">
-                            {activeMobileProjectNumber}
-                        </span>
-                        <span>
-                            {" "}
-                            / {featuredProjects.length.toString().padStart(2, "0")}
-                        </span>
-                    </span>
+                        {featuredProjects.map((project, index) => {
+                            const isActive = index === mobileProjectIndex;
+
+                            return (
+                                <button
+                                    key={project.id}
+                                    type="button"
+                                    onClick={() => goToMobileProjectIndex(index)}
+                                    aria-label={`Show project ${index + 1}`}
+                                    aria-current={isActive ? "true" : undefined}
+                                    className={`h-1.5 rounded-full transition-all duration-300 ${isActive
+                                            ? "w-5 bg-white"
+                                            : "w-1.5 bg-white/25 hover:bg-white/50"
+                                        }`}
+                                />
+                            );
+                        })}
+                    </div>
 
                     <button
                         type="button"
@@ -427,61 +456,53 @@ export function FeaturedProjectsSection() {
                                             opacity: 0,
                                             transition: { duration: 0.18 },
                                         }}
-                                        className="featured-project-detail-grid grid min-h-0 min-w-0 flex-1 gap-3 md:grid-cols-[minmax(0,1.05fr)_minmax(14rem,0.95fr)] lg:grid-cols-[minmax(0,1.12fr)_minmax(15rem,0.88fr)]"
+                                        className="featured-project-detail-grid flex min-h-0 min-w-0 flex-1"
                                     >
                                         <motion.section
                                             variants={variants}
-                                            className="featured-project-detail-card featured-project-summary-card flex min-h-0 min-w-0 flex-col rounded-xl border border-dashed border-white/10 bg-[#111111] p-4 lg:p-5"
+                                            className="featured-project-detail-card flex min-h-0 min-w-0 flex-1 flex-col rounded-xl border border-dashed border-white/10 bg-[#111111] p-4 lg:p-5"
                                         >
-                                            <p className="text-sm font-semibold text-zinc-500">
-                                                Summary
-                                            </p>
-
-                                            <p className="featured-project-summary-text mt-4 text-sm leading-6 text-zinc-300">
-                                                {activeProject.subtitle}
-                                            </p>
-
-                                            <dl className="mt-auto grid border-t border-dashed border-white/10 pt-5 text-sm">
-                                                {[
-                                                    ["Client", activeProject.client],
-                                                ].map(([label, value]) => (
-                                                    <div key={label} className="min-w-0">
-                                                        <dt className="text-xs font-semibold text-zinc-600">
-                                                            {label}
-                                                        </dt>
-                                                        <dd className="mt-1 line-clamp-2 font-semibold leading-5 text-white">
-                                                            {value}
-                                                        </dd>
+                                            <div className="grid min-h-0 gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.85fr)]">
+                                                <div className="min-w-0">
+                                                    <div className="flex flex-wrap items-center gap-2">
+                                                        <p className="text-sm font-semibold text-zinc-500">
+                                                            Summary
+                                                        </p>
                                                     </div>
-                                                ))}
-                                            </dl>
-                                        </motion.section>
 
-                                        <motion.section
-                                            variants={variants}
-                                            className="featured-project-detail-card flex min-h-0 min-w-0 flex-col justify-between rounded-xl border border-dashed border-white/10 bg-[#111111] p-4 lg:p-5"
-                                        >
-                                            <p className="text-sm font-semibold text-zinc-500">
-                                                Project Details
-                                            </p>
+                                                    <p className="featured-project-summary-text mt-4 max-w-2xl text-sm leading-6 text-zinc-300">
+                                                        {activeProject.subtitle}
+                                                    </p>
+                                                </div>
 
-                                            <dl className="mt-4 grid gap-6 text-sm">
-                                                {[
-                                                    ["Role", activeProject.role],
-                                                    ["Industry", activeProject.industry],
-                                                ].map(([label, value]) => (
-                                                    <div key={label} className="min-w-0">
-                                                        <dt className="font-semibold text-zinc-600">
-                                                            {label}
-                                                        </dt>
-                                                        <dd className="mt-1 line-clamp-3 font-semibold leading-5 text-white">
-                                                            {value}
-                                                        </dd>
-                                                    </div>
-                                                ))}
-                                            </dl>
+                                                <div className="min-w-0 lg:border-l lg:border-dashed lg:border-white/10 lg:pl-5">
+                                                    <p className="text-sm font-semibold text-zinc-500">
+                                                        Project Details
+                                                    </p>
 
-                                            <div className="featured-project-links mt-4 flex flex-wrap items-center gap-3">
+                                                    <dl className="mt-4 grid gap-3 text-sm">
+                                                        {[
+                                                            ["Client", activeProject.client],
+                                                            ["Role", activeProject.role],
+                                                            ["Industry", activeProject.industry],
+                                                        ].map(([label, value]) => (
+                                                            <div
+                                                                key={label}
+                                                                className="grid min-w-0 gap-1 border-b border-dashed border-white/10 pb-3 last:border-b-0 last:pb-0"
+                                                            >
+                                                                <dt className="text-xs font-semibold text-zinc-600">
+                                                                    {label}
+                                                                </dt>
+                                                                <dd className="line-clamp-3 font-semibold leading-5 text-white">
+                                                                    {value}
+                                                                </dd>
+                                                            </div>
+                                                        ))}
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <div className="featured-project-links mt-5 flex flex-wrap items-center gap-3 border-t border-dashed border-white/10 pt-4">
                                                 <Link
                                                     href={activeProject.liveUrl}
                                                     className="featured-project-link-primary inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
@@ -499,6 +520,11 @@ export function FeaturedProjectsSection() {
                 </div>
 
                 <div className="relative z-20 mt-5 flex items-center justify-center gap-3">
+                    <span aria-live="polite" className="sr-only">
+                        Project {activeProjectNumber} of{" "}
+                        {featuredProjects.length.toString().padStart(2, "0")}
+                    </span>
+
                     <button
                         type="button"
                         onClick={goToPreviousProject}
@@ -508,16 +534,28 @@ export function FeaturedProjectsSection() {
                         <ChevronLeft size={18} />
                     </button>
 
-                    <span
-                        aria-live="polite"
-                        className="min-w-16 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-center text-xs font-semibold tabular-nums text-zinc-400"
+                    <div
+                        aria-label="Choose featured project"
+                        className="flex min-w-16 items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2"
                     >
-                        <span className="text-white">{activeProjectNumber}</span>
-                        <span className="text-zinc-600">
-                            {" "}
-                            / {featuredProjects.length.toString().padStart(2, "0")}
-                        </span>
-                    </span>
+                        {featuredProjects.map((project, index) => {
+                            const isActive = index === activeProjectIndex;
+
+                            return (
+                                <button
+                                    key={project.id}
+                                    type="button"
+                                    onClick={() => goToProjectIndex(index)}
+                                    aria-label={`Show project ${index + 1}`}
+                                    aria-current={isActive ? "true" : undefined}
+                                    className={`h-1.5 rounded-full transition-all duration-300 ${isActive
+                                            ? "w-5 bg-white"
+                                            : "w-1.5 bg-white/25 hover:bg-white/50"
+                                        }`}
+                                />
+                            );
+                        })}
+                    </div>
 
                     <button
                         type="button"

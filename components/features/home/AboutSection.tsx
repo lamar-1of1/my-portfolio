@@ -49,15 +49,6 @@ export function AboutSection() {
                                 </p>
                             </div>
 
-                            {/* <div className="rounded-xl border border-dashed border-white/10 bg-white/[0.025] p-4">
-                                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">
-                                    Current focus
-                                </p>
-                                <p className="mt-2 text-sm leading-6 text-zinc-300">
-                                    Clean interfaces, responsive systems, and product pages
-                                    that feel polished without feeling heavy.
-                                </p>
-                            </div> */}
                         </div>
                     </aside>
 
@@ -125,9 +116,6 @@ export function AboutSection() {
                             <p className="text-sm font-semibold text-white">
                                 Experience Timeline
                             </p>
-                            {/* <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-600">
-                                Tap any row to expand
-                            </p> */}
                         </div>
                     </div>
 
@@ -149,12 +137,12 @@ export function AboutSection() {
                                         type="button"
                                         aria-expanded={isOpen}
                                         onClick={() => toggleJourney(index)}
-                                        className="relative z-10 grid w-full min-w-0 cursor-pointer grid-cols-[4rem_minmax(0,1fr)_1.25rem] gap-x-4 px-5 py-5 text-left sm:grid-cols-[5rem_minmax(0,1fr)_auto] sm:items-center sm:gap-5 sm:px-6"
+                                        className="relative z-10 grid w-full min-w-0 cursor-pointer grid-cols-[3.5rem_minmax(0,1fr)_1.25rem] gap-x-3 px-5 py-4 text-left sm:grid-cols-[5rem_minmax(0,1fr)_auto] sm:items-center sm:gap-5 sm:px-6 sm:py-5"
                                     >
-                                        <span className="col-span-2 col-start-1 row-start-1 flex min-w-0 items-start gap-4 sm:col-span-2 sm:col-start-1 sm:row-start-auto sm:items-center">
+                                        <span className="col-span-2 col-start-1 row-start-1 flex min-w-0 items-start gap-3 sm:col-span-2 sm:col-start-1 sm:row-start-auto sm:items-center sm:gap-4">
                                             <span
                                                 aria-hidden="true"
-                                                className={`relative flex h-12 w-16 shrink-0 items-center justify-center transition-colors duration-300 sm:h-14 sm:w-20 ${
+                                                className={`relative flex h-11 w-14 shrink-0 items-center justify-center transition-colors duration-300 sm:h-14 sm:w-20 ${
                                                     isOpen
                                                         ? "text-emerald-300"
                                                         : "text-zinc-500 group-hover:text-zinc-300"
@@ -166,11 +154,11 @@ export function AboutSection() {
                                                         alt={`${item.company} logo`}
                                                         width={56}
                                                         height={56}
-                                                        className="h-12 w-12 object-contain sm:h-14 sm:w-14"
+                                                        className="h-11 w-11 object-contain sm:h-14 sm:w-14"
                                                     />
                                                 ) : (
                                                     <Icon
-                                                        size={30}
+                                                        size={26}
                                                         strokeWidth={1.8}
                                                         className="sm:h-[34px] sm:w-[34px]"
                                                     />
@@ -179,7 +167,7 @@ export function AboutSection() {
 
                                             <span className="min-w-0">
                                                 {"status" in item && item.status && (
-                                                    <span className="mb-2 inline-flex rounded-full bg-white px-3 py-1 text-xs font-bold text-black">
+                                                    <span className="mb-1.5 inline-flex rounded-full bg-white px-2.5 py-0.5 text-[11px] font-bold leading-5 text-black sm:mb-2 sm:px-3 sm:py-1 sm:text-xs">
                                                         {item.status}
                                                     </span>
                                                 )}
@@ -188,22 +176,13 @@ export function AboutSection() {
                                                     {item.company}
                                                 </span> */}
                                                 <span
-                                                    className={`block text-lg font-semibold tracking-tight transition-colors duration-300 ${
+                                                    className={`block text-base font-semibold leading-6 tracking-tight transition-colors duration-300 sm:text-lg sm:leading-normal ${
                                                         isOpen
                                                             ? "text-white"
                                                             : "text-zinc-300 group-hover:text-white"
                                                     }`}
                                                 >
                                                     {item.title}
-                                                </span>
-                                                <span className="mt-1 block text-sm font-medium leading-5 text-zinc-500">
-                                                    {item.period}
-                                                    <span className="px-1.5 text-zinc-700">
-                                                        /
-                                                    </span>
-                                                    {"location" in item && item.location
-                                                        ? item.location
-                                                        : "Barbados"}
                                                 </span>
                                             </span>
                                         </span>
@@ -225,6 +204,16 @@ export function AboutSection() {
                                     >
                                         <div className="overflow-hidden">
                                             <div className="px-5 pb-5 sm:px-6">
+                                                <p className="mb-3 text-sm font-medium leading-5 text-zinc-500">
+                                                    {item.period}
+                                                    <span className="px-1.5 text-zinc-700">
+                                                        /
+                                                    </span>
+                                                    {"location" in item && item.location
+                                                        ? item.location
+                                                        : "Barbados"}
+                                                </p>
+
                                                 <p className="text-sm font-medium leading-6 text-zinc-500">
                                                     {item.copy}
                                                 </p>

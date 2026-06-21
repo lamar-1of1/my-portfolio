@@ -45,24 +45,6 @@ export function HeroSection() {
                                     interactive web experiences with clean structure, motion,
                                     and responsive detail.
                                 </p>
-
-                                {/* <div className="mt-6 flex flex-wrap items-center gap-3">
-                                    <Link
-                                        href="#featured-projects"
-                                        className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                                    >
-                                        View projects
-                                        <ArrowUpRight size={15} />
-                                    </Link>
-
-                                    <Link
-                                        href="#contact"
-                                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:border-emerald-400/40 hover:bg-emerald-400/10 hover:text-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                                    >
-                                        Contact me
-                                        <Mail size={15} />
-                                    </Link>
-                                </div> */}
                             </div>
 
                             <nav
@@ -89,47 +71,32 @@ export function HeroSection() {
                             </nav>
                         </div>
 
-                        {/* <div className="flex flex-col justify-between p-4 sm:p-5 md:p-6">
-                            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-500">
-                                Get in touch
-                            </p>
-
-                            <div className="mt-4 flex flex-wrap items-start gap-3 md:mt-0 md:flex-col">
-                                <a
-                                    href="/cv.pdf"
-                                    download
-                                    className="inline-flex min-w-[7.75rem] items-center justify-between gap-3 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.08] md:w-full"
-                                >
-                                    Resume
-                                    <Download size={15} />
-                                </a>
-
-                                <Link
-                                    href="#featured-projects"
-                                    className="inline-flex min-w-[8.25rem] items-center justify-between gap-3 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 md:w-full"
-                                >
-                                    View work
-                                    <ArrowUpRight size={15} />
-                                </Link>
-                            </div>
-                        </div> */}
                     </div>
                 </header>
 
-                <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    <div className="flex min-h-[12rem] flex-col justify-between rounded-xl border border-white/10 bg-zinc-950/55 p-6">
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm font-semibold text-zinc-500">
-                                Selected Work
-                            </span>
-                            <LayoutGrid size={16} className="text-zinc-500" />
+                <div className="mt-6 grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="relative flex min-h-[9.5rem] flex-col overflow-hidden rounded-lg border border-white/10 bg-zinc-950/55 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] sm:min-h-[10rem] sm:p-5">
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex min-w-0 items-center gap-2.5">
+                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-300">
+                                    <LayoutGrid size={15} />
+                                </span>
+                                <span className="text-sm font-semibold text-zinc-400">
+                                    Selected Work
+                                </span>
+                            </div>
                         </div>
 
-                        <div className="mt-6">
-                            <div className="text-3xl font-medium tracking-tight text-white">
-                                1 Project
+                        <div className="mt-5">
+                            <div className="flex items-end gap-2 tracking-tight text-white">
+                                <span className="text-4xl font-semibold leading-none">
+                                    01
+                                </span>
+                                <span className="pb-0.5 text-4xl font-semibold leading-none">
+                                    Project
+                                </span>
                             </div>
-                            <p className="mt-2 text-xs leading-normal text-zinc-500">
+                            <p className="mt-2 text-xs leading-5 text-zinc-500">
                                 Product-style builds covering responsive
                                 layouts, project detail pages, and polished interaction
                                 states.
@@ -137,41 +104,49 @@ export function HeroSection() {
                         </div>
                     </div>
 
-                    <div className="flex min-h-[12rem] flex-col justify-between rounded-xl border border-white/10 bg-zinc-950/55 p-6">
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm font-semibold text-zinc-500">
-                                Current Role
-                            </span>
-                            <UserRoundCheck size={16} className="text-zinc-500" />
+                    <div className="relative flex min-h-[9.5rem] flex-col overflow-hidden rounded-lg border border-white/10 bg-zinc-950/55 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] sm:min-h-[10rem] sm:p-5">
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex min-w-0 items-center gap-2.5">
+                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-300">
+                                    <UserRoundCheck size={15} />
+                                </span>
+                                <span className="text-sm font-semibold text-zinc-400">
+                                    Current Role
+                                </span>
+                            </div>
                         </div>
 
-                        <div className="mt-6">
-                            <div className="flex items-baseline gap-2 text-3xl font-medium tracking-tight text-white">
+                        <div className="mt-5">
+                            <div className="flex items-baseline gap-2 text-3xl font-semibold leading-none tracking-tight text-white">
                                 2025 - Present
                                 {/* <span className="rounded border border-emerald-900/60 bg-emerald-950/50 px-1.5 py-0.5 font-mono text-xs text-emerald-500">
                                     ACTIVE
                                 </span> */}
                             </div>
-                            <p className="mt-2 text-xs leading-normal text-zinc-500">
+                            <p className="mt-2 text-xs leading-5 text-zinc-500">
                                 Supporting a public-facing DEO website with frontend
                                 development, content structure, and production upkeep.
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex min-h-[12rem] flex-col justify-between rounded-xl border border-white/10 bg-zinc-950/55 p-6 md:col-span-2 lg:col-span-1">
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm font-semibold text-zinc-500">
-                                Focus
-                            </span>
-                            <Zap size={16} className="text-zinc-500" />
+                    <div className="relative flex min-h-[9.5rem] flex-col overflow-hidden rounded-lg border border-white/10 bg-zinc-950/55 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] sm:min-h-[10rem] sm:p-5 md:col-span-2 lg:col-span-1">
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex min-w-0 items-center gap-2.5">
+                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-emerald-300/15 bg-emerald-300/[0.06] text-emerald-300">
+                                    <Zap size={15} />
+                                </span>
+                                <span className="text-sm font-semibold text-zinc-400">
+                                    Focus
+                                </span>
+                            </div>
                         </div>
 
-                        <div className="mt-6">
-                            <div className="text-3xl font-medium tracking-tight text-white">
+                        <div className="mt-5">
+                            <div className="text-3xl font-semibold leading-none tracking-tight text-white">
                                 Responsive UI
                             </div>
-                            <p className="mt-2 text-xs leading-normal text-zinc-500">
+                            <p className="mt-2 text-xs leading-5 text-zinc-500">
                                 Clean layouts, accessible interaction states, mobile-first
                                 structure, and performance-conscious frontend work.
                             </p>
