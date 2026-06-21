@@ -550,7 +550,7 @@ export function ProjectDetailPage({
                                                     </div>
 
                                                     <div className="min-w-0">
-                                                        <h3 className="truncate text-[12px] font-semibold text-white sm:text-sm">
+                                                        <h3 className="text-[12px] font-semibold text-white sm:text-sm">
                                                             {item.title}
                                                         </h3>
                                                         <span className="mt-2 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[0.68rem] font-semibold text-zinc-400">

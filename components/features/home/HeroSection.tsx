@@ -130,7 +130,7 @@ export function HeroSection() {
                                 1 Project
                             </div>
                             <p className="mt-2 text-xs leading-normal text-zinc-500">
-                                Portfolio and product-style builds covering responsive
+                                Product-style builds covering responsive
                                 layouts, project detail pages, and polished interaction
                                 states.
                             </p>

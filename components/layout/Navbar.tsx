@@ -8,7 +8,6 @@ import {
     User,
     FolderKanban,
     Mail,
-    MapPin,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { TopBlur } from '@/components/shared/TopBlur'
@@ -108,7 +107,13 @@ function NavbarMetaBadge() {
             aria-label={`Location Barbados and local time ${formattedTime}`}
             className="flex h-full min-w-0 items-center justify-center gap-1.5 whitespace-nowrap text-xs font-medium text-white/65"
         >
-            <MapPin size={14} className="shrink-0 text-white/55" />
+            <Image
+                src="/flag_bb.svg.png"
+                alt=""
+                width={18}
+                height={12}
+                className="h-3 w-[18px] shrink-0 rounded-[2px] object-cover"
+            />
             <span className="font-medium text-white/75">Barbados</span>
             <span className="font-bold text-white/20">{'//'}</span>
             <time className="tabular-nums text-white/60">{formattedTime}</time>
@@ -326,16 +331,12 @@ export default function Navbar() {
                                     {isHighlighted && (
                                         <motion.span
                                             layoutId="desktop-nav-highlight"
-                                            className="absolute inset-x-0 inset-y-3 rounded-full border border-white/10 bg-white/[0.055] shadow-[inset_0_1px_0_rgba(255,255,255,0.055)]"
+                                            className="absolute inset-x-0 inset-y-3 rounded-3xl border border-white/10 bg-white/[0.03]"
                                             transition={selectionSpring}
                                         />
                                     )}
                                     <motion.span
                                         className="relative z-10 flex shrink-0"
-                                        animate={{
-                                            y: isActive ? -1 : 0,
-                                            scale: isActive ? 1.08 : 1,
-                                        }}
                                         whileTap={{ scale: 0.94 }}
                                         transition={iconSpring}
                                     >
@@ -346,7 +347,7 @@ export default function Navbar() {
                                     </motion.span>
                                     <span className="relative z-10 truncate">{item.label}</span>
                                     <kbd
-                                        className={`relative z-10 hidden h-6 min-w-[24px] items-center justify-center rounded-[0.35rem] border p-1 font-sans text-[11px] font-semibold leading-none transition-colors lg:inline-flex ${isActive ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-white/10 bg-black/[0.055] text-white/35 group-hover:text-white/55'}`}
+                                        className={`relative z-10 hidden h-6 min-w-[24px] items-center justify-center rounded-full border p-1 font-sans text-[11px] font-semibold leading-none transition-colors lg:inline-flex ${isActive ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-400' : 'border-white/10 bg-black/[0.055] text-white/35 group-hover:text-white/55'}`}
                                     >
                                         {item.keybind}
                                     </kbd>
