@@ -1,8 +1,22 @@
-import { Link as LinkIcon } from "lucide-react";
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { ChevronDown, Link as LinkIcon } from "lucide-react";
 
 import { aboutJourney, aboutToolkit } from "./home-content";
 
 export function AboutSection() {
+    const [openJourneyIndexes, setOpenJourneyIndexes] = useState<number[]>([]);
+
+    const toggleJourney = (index: number) => {
+        setOpenJourneyIndexes((current) =>
+            current.includes(index)
+                ? current.filter((openIndex) => openIndex !== index)
+                : [...current, index],
+        );
+    };
+
     return (
         <section
             id="about"
@@ -52,7 +66,7 @@ export function AboutSection() {
                             <p>
                                 I&apos;m a designer and developer based in Barbados with a
                                 passion for creating digital experiences that are clear,
-                                functional, and driven by impact. 
+                                functional, and driven by impact.
                             </p>
 
                             <p>
@@ -63,7 +77,7 @@ export function AboutSection() {
                         </div>
 
                         <div className="pt-6">
-                            <div className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-wide">
+                            <div className="mb-4 flex items-center gap-3 text-sm font-semibold tracking-wide">
                                 <span className="text-white">Tech Stack</span>
                             </div>
 
@@ -101,58 +115,144 @@ export function AboutSection() {
             </div>
 
             <div className="mt-7">
-                <div className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-wide">
+                {/* <div className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-wide">
                     <span className="text-white">My Journey</span>
-                </div>
+                </div> */}
 
-                <div className="grid overflow-hidden rounded-lg border border-dashed border-white/10 bg-[#0f0f0f] md:grid-cols-2">
-                    {aboutJourney.map((item) => {
-                        const Icon = item.icon;
+                <div className="overflow-hidden border-b border-dashed border-white/10 bg-[#050505]">
+                    <div className="border-b border-dashed border-white/10 px-5 py-4 sm:px-6">
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                            <p className="text-sm font-semibold text-white">
+                                Experience Timeline
+                            </p>
+                            {/* <p className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-600">
+                                Tap any row to expand
+                            </p> */}
+                        </div>
+                    </div>
 
-                        return (
-                            <article
-                                key={item.title}
-                                className="group relative min-h-[11rem] overflow-hidden border-b border-dashed border-white/10 p-5 transition-all duration-500 last:border-b-0 hover:bg-white/[0.025] md:border-b-0 md:border-r md:last:border-r-0"
-                            >
-                                <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-400/[0.03] blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="min-w-0">
+                        {aboutJourney.map((item, index) => {
+                            const Icon = item.icon;
+                            const isOpen = openJourneyIndexes.includes(index);
 
-                                <div className="relative z-10 flex items-center justify-between gap-4">
-                                    <span className="flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-black/30 text-zinc-400 transition-all duration-500 group-hover:border-emerald-500/30 group-hover:text-emerald-300">
-                                        <Icon size={15} />
-                                    </span>
-
-                                    <span className="text-sm font-bold text-zinc-600">
-                                        {item.period}
-                                    </span>
-                                </div>
-
-                                <h3 className="relative z-10 mt-5 text-sm font-medium text-white transition-colors duration-500">
-                                    {item.title}
-                                </h3>
-
-                                <p className="relative z-10 mt-3 text-sm font-medium leading-6 text-zinc-500 transition-colors duration-500 group-hover:text-zinc-400">
-                                    {item.copy}
-                                    {"via" in item && item.via && (
-                                        "href" in item && item.href ? (
-                                            <a
-                                                href={item.href}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="mt-2 inline-flex items-center gap-1.5 text-white transition-colors hover:text-emerald-300"
+                            return (
+                                <article
+                                    key={item.title}
+                                    className={`group relative overflow-hidden border-b border-dashed border-white/10 transition-colors duration-300 last:border-b-0 ${
+                                        isOpen
+                                            ? "bg-white/[0.025]"
+                                            : "hover:bg-white/[0.015]"
+                                    }`}
+                                >
+                                    <button
+                                        type="button"
+                                        aria-expanded={isOpen}
+                                        onClick={() => toggleJourney(index)}
+                                        className="relative z-10 grid w-full min-w-0 cursor-pointer grid-cols-[4rem_minmax(0,1fr)_1.25rem] gap-x-4 px-5 py-5 text-left sm:grid-cols-[5rem_minmax(0,1fr)_auto] sm:items-center sm:gap-5 sm:px-6"
+                                    >
+                                        <span className="col-span-2 col-start-1 row-start-1 flex min-w-0 items-start gap-4 sm:col-span-2 sm:col-start-1 sm:row-start-auto sm:items-center">
+                                            <span
+                                                aria-hidden="true"
+                                                className={`relative flex h-12 w-16 shrink-0 items-center justify-center transition-colors duration-300 sm:h-14 sm:w-20 ${
+                                                    isOpen
+                                                        ? "text-emerald-300"
+                                                        : "text-zinc-500 group-hover:text-zinc-300"
+                                                }`}
                                             >
-                                                <LinkIcon size={14} />
-                                                {item.via}
-                                            </a>
-                                        ) : (
-                                            <span className="mt-2 block text-white">
-                                                {item.via}
+                                                {"logoSrc" in item && item.logoSrc ? (
+                                                    <Image
+                                                        src={item.logoSrc}
+                                                        alt={`${item.company} logo`}
+                                                        width={56}
+                                                        height={56}
+                                                        className="h-12 w-12 object-contain sm:h-14 sm:w-14"
+                                                    />
+                                                ) : (
+                                                    <Icon
+                                                        size={30}
+                                                        strokeWidth={1.8}
+                                                        className="sm:h-[34px] sm:w-[34px]"
+                                                    />
+                                                )}
                                             </span>
-                                        )
-                                    )}
-                                </p>
-                            </article>
-                        );
-                    })}
+
+                                            <span className="min-w-0">
+                                                {"status" in item && item.status && (
+                                                    <span className="mb-2 inline-flex rounded-full bg-white px-3 py-1 text-xs font-bold text-black">
+                                                        {item.status}
+                                                    </span>
+                                                )}
+                                                {/* <span className="mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-zinc-600">
+                                                    <Icon size={13} />
+                                                    {item.company}
+                                                </span> */}
+                                                <span
+                                                    className={`block text-lg font-semibold tracking-tight transition-colors duration-300 ${
+                                                        isOpen
+                                                            ? "text-white"
+                                                            : "text-zinc-300 group-hover:text-white"
+                                                    }`}
+                                                >
+                                                    {item.title}
+                                                </span>
+                                                <span className="mt-1 block text-sm font-medium leading-5 text-zinc-500">
+                                                    {item.period}
+                                                    <span className="px-1.5 text-zinc-700">
+                                                        /
+                                                    </span>
+                                                    {"location" in item && item.location
+                                                        ? item.location
+                                                        : "Barbados"}
+                                                </span>
+                                            </span>
+                                        </span>
+
+                                        <ChevronDown
+                                            size={18}
+                                            className={`col-start-3 row-start-1 mt-1 shrink-0 justify-self-end text-white transition-transform duration-300 sm:col-start-3 sm:row-start-auto sm:mt-0.5 ${
+                                                isOpen ? "rotate-180" : ""
+                                            }`}
+                                        />
+                                    </button>
+
+                                    <div
+                                        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${
+                                            isOpen
+                                                ? "grid-rows-[1fr] opacity-100"
+                                                : "grid-rows-[0fr] opacity-0"
+                                        }`}
+                                    >
+                                        <div className="overflow-hidden">
+                                            <div className="px-5 pb-5 sm:px-6">
+                                                <p className="text-sm font-medium leading-6 text-zinc-500">
+                                                    {item.copy}
+                                                </p>
+
+                                                {"via" in item && item.via && (
+                                                    "href" in item && item.href ? (
+                                                        <a
+                                                            href={item.href}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-colors hover:text-emerald-300"
+                                                        >
+                                                            <LinkIcon size={14} />
+                                                            {item.via}
+                                                        </a>
+                                                    ) : (
+                                                        <span className="mt-3 block text-sm font-semibold text-white">
+                                                            {item.via}
+                                                        </span>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </section>
