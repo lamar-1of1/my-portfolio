@@ -126,7 +126,7 @@ export function HeroSection() {
                         </div>
 
                         <div className="mt-6">
-                            <div className="text-4xl font-light tracking-tight text-white">
+                            <div className="text-3xl font-medium tracking-tight text-white">
                                 1 Project
                             </div>
                             <p className="mt-2 text-xs leading-normal text-zinc-500">
@@ -146,7 +146,7 @@ export function HeroSection() {
                         </div>
 
                         <div className="mt-6">
-                            <div className="flex items-baseline gap-2 text-4xl font-light tracking-tight text-white">
+                            <div className="flex items-baseline gap-2 text-3xl font-medium tracking-tight text-white">
                                 2025 - Present
                                 {/* <span className="rounded border border-emerald-900/60 bg-emerald-950/50 px-1.5 py-0.5 font-mono text-xs text-emerald-500">
                                     ACTIVE
@@ -168,7 +168,7 @@ export function HeroSection() {
                         </div>
 
                         <div className="mt-6">
-                            <div className="text-4xl font-light tracking-tight text-white">
+                            <div className="text-3xl font-medium tracking-tight text-white">
                                 Responsive UI
                             </div>
                             <p className="mt-2 text-xs leading-normal text-zinc-500">
