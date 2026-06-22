@@ -13,6 +13,14 @@ export function HeroSection() {
             id="home"
             className="relative z-[45] -mx-8 -mt-24 min-h-dvh overflow-hidden bg-black md:-mt-28"
         >
+            <div
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 z-0 h-[34rem] bg-[url('/assets/header-image.jpg')] bg-cover bg-center opacity-100 saturate-150"
+            />
+            <div
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 z-0 h-[34rem] bg-[linear-gradient(to_bottom,rgba(0,0,0,0.02),rgba(0,0,0,0.18)_58%,#000_100%)]"
+            />
             <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-7xl flex-col justify-center px-8 pb-12 pt-28 md:px-12 md:pb-16 md:pt-36 lg:px-16">
                 <header className="relative overflow-hidden rounded-none border-y border-dashed border-white/10 bg-zinc-950/40 shadow-[0_1px_0_rgba(255,255,255,0.04)]">
                     <div className="flex min-h-14 flex-col items-start justify-between gap-5 border-b border-dashed border-white/10 px-4 py-6 text-sm font-medium text-zinc-400 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 sm:px-7">
@@ -88,11 +96,11 @@ export function HeroSection() {
                         </div>
 
                         <div className="mt-5">
-                            <div className="flex items-end gap-2 tracking-tight text-white">
-                                <span className="text-4xl font-semibold leading-none">
+                            <div className="flex items-end gap-2 text-3xl font-semibold leading-none tracking-tight text-white">
+                                <span>
                                     01
                                 </span>
-                                <span className="pb-0.5 text-4xl font-semibold leading-none">
+                                <span>
                                     Project
                                 </span>
                             </div>

@@ -166,34 +166,36 @@ export function ContactSection() {
             <div className="mb-8 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-12 md:px-6">
                 <div className="flex min-w-0 items-center justify-between gap-4">
                     <div className="flex min-w-0 items-center gap-3">
-                        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-emerald-400/30 bg-emerald-400/[0.08] text-xs font-semibold text-emerald-300">
+                            3
+                        </span>
                         <p className="text-sm font-medium text-white">Contact</p>
                     </div>
-        
+
                     <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.02em] text-zinc-500">
                         Let&apos;s build
                     </span>
                 </div>
             </div>
-        
+
             <div className="grid overflow-hidden border-y border-dashed border-white/10 lg:grid-cols-[minmax(0,1fr)_24rem]">
                 <aside className="border-b border-dashed border-white/10 p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-8">
                     <div className="max-w-xl">
                         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-300">
                             Start a project
                         </p>
-        
+
                         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
                             Have an idea that needs a sharper interface?
                         </h2>
-        
+
                         <p className="mt-4 text-sm leading-6 text-zinc-400">
                             Send the details and I&apos;ll get your message directly
                             in my inbox.
                         </p>
                     </div>
                 </aside>
-        
+
                 <aside className="p-5 sm:p-6 lg:p-8">
                     <form onSubmit={handleContactSubmit} className="grid gap-4">
                         <div className="flex items-center gap-3 text-sm font-semibold text-white">
@@ -203,7 +205,7 @@ export function ContactSection() {
                             />
                             Send me a message
                         </div>
-        
+
                         <label className="grid gap-2 text-sm font-medium text-zinc-300">
                             Name
                             <input
@@ -222,7 +224,7 @@ export function ContactSection() {
                                 placeholder="Your name"
                             />
                         </label>
-        
+
                         <label className="grid gap-2 text-sm font-medium text-zinc-300">
                             Email
                             <input
@@ -241,7 +243,7 @@ export function ContactSection() {
                                 placeholder="you@example.com"
                             />
                         </label>
-        
+
                         <label className="grid gap-2 text-sm font-medium text-zinc-300">
                             What are we building?
                             <textarea
@@ -259,7 +261,7 @@ export function ContactSection() {
                                 placeholder="Share the idea, timeline, or what feels stuck."
                             />
                         </label>
-        
+
                         <div className="max-w-full overflow-hidden">
                             <HCaptcha
                                 ref={hCaptchaRef}
@@ -279,7 +281,7 @@ export function ContactSection() {
                                 }}
                             />
                         </div>
-        
+
                         <button
                             type="submit"
                             disabled={contactFormStatus === "submitting"}
@@ -290,31 +292,31 @@ export function ContactSection() {
                                 : "Send message"}
                             <ArrowUpRight size={15} />
                         </button>
-        
+
                         {contactFormStatus === "success" && (
                             <p className="text-xs font-medium text-emerald-300">
                                 Message sent. I&apos;ll get back to you soon.
                             </p>
                         )}
-        
+
                         {contactFormStatus === "error" && (
                             <p className="text-xs font-medium text-red-300">
                                 Something went wrong. Please try again.
                             </p>
                         )}
-        
+
                         {contactFormStatus === "captcha" && (
                             <p className="text-xs font-medium text-amber-200">
                                 Please complete the captcha before sending.
                             </p>
                         )}
-        
+
                         {contactFormStatus === "blocked" && (
                             <p className="text-xs font-medium text-amber-200">
                                 Links and scripts are not allowed in this form.
                             </p>
                         )}
-        
+
                         {contactFormStatus === "name" && (
                             <p className="text-xs font-medium text-amber-200">
                                 Names can only include letters, spaces, and hyphens.

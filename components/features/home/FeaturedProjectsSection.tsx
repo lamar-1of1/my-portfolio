@@ -110,7 +110,9 @@ export function FeaturedProjectsSection() {
             <div className="featured-projects-shell-header mb-8 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-24 md:px-6">
                 <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-emerald-400/30 bg-emerald-400/[0.08] text-xs font-semibold text-emerald-300">
+                            2
+                        </span>
                         <p className="text-sm font-medium text-white">
                             Featured Projects
                         </p>
@@ -252,8 +254,8 @@ export function FeaturedProjectsSection() {
                                     aria-label={`Show project ${index + 1}`}
                                     aria-current={isActive ? "true" : undefined}
                                     className={`h-1.5 rounded-full transition-all duration-300 ${isActive
-                                            ? "w-5 bg-white"
-                                            : "w-1.5 bg-white/25 hover:bg-white/50"
+                                        ? "w-5 bg-white"
+                                        : "w-1.5 bg-white/25 hover:bg-white/50"
                                         }`}
                                 />
                             );
@@ -549,8 +551,8 @@ export function FeaturedProjectsSection() {
                                     aria-label={`Show project ${index + 1}`}
                                     aria-current={isActive ? "true" : undefined}
                                     className={`h-1.5 rounded-full transition-all duration-300 ${isActive
-                                            ? "w-5 bg-white"
-                                            : "w-1.5 bg-white/25 hover:bg-white/50"
+                                        ? "w-5 bg-white"
+                                        : "w-1.5 bg-white/25 hover:bg-white/50"
                                         }`}
                                 />
                             );

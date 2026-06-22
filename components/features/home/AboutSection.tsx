@@ -25,10 +25,11 @@ export function AboutSection() {
             <div className="mb-8 border-y border-dashed border-white/10 bg-zinc-950 px-5 py-4 md:mb-12 md:px-6">
                 <div className="flex min-w-0 items-center justify-between gap-4">
                     <div className="flex min-w-0 items-center gap-3">
-                        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                        <p className="text-sm font-medium text-white">About</p>
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-emerald-400/30 bg-emerald-400/[0.08] text-xs font-semibold text-emerald-300">
+                            1
+                        </span>
+                        <p className="text-sm font-medium text-zinc-100">About</p>
                     </div>
-
                     <span className="inline shrink-0 text-xs font-semibold uppercase tracking-[0.02em] text-zinc-500">
                         Who am I?
                     </span>
@@ -127,11 +128,10 @@ export function AboutSection() {
                             return (
                                 <article
                                     key={item.title}
-                                    className={`group relative overflow-hidden border-b border-dashed border-white/10 transition-colors duration-300 last:border-b-0 ${
-                                        isOpen
-                                            ? "bg-white/[0.025]"
-                                            : "hover:bg-white/[0.015]"
-                                    }`}
+                                    className={`group relative overflow-hidden border-b border-dashed border-white/10 transition-colors duration-300 last:border-b-0 ${isOpen
+                                        ? "bg-white/[0.025]"
+                                        : "hover:bg-white/[0.015]"
+                                        }`}
                                 >
                                     <button
                                         type="button"
@@ -142,11 +142,10 @@ export function AboutSection() {
                                         <span className="col-span-2 col-start-1 row-start-1 flex min-w-0 items-start gap-3 sm:col-span-2 sm:col-start-1 sm:row-start-auto sm:items-center sm:gap-4">
                                             <span
                                                 aria-hidden="true"
-                                                className={`relative flex h-11 w-14 shrink-0 items-center justify-center transition-colors duration-300 sm:h-14 sm:w-20 ${
-                                                    isOpen
-                                                        ? "text-emerald-300"
-                                                        : "text-zinc-500 group-hover:text-zinc-300"
-                                                }`}
+                                                className={`relative flex h-11 w-14 shrink-0 items-center justify-center transition-colors duration-300 sm:h-14 sm:w-20 ${isOpen
+                                                    ? "text-emerald-300"
+                                                    : "text-zinc-500 group-hover:text-zinc-300"
+                                                    }`}
                                             >
                                                 {"logoSrc" in item && item.logoSrc ? (
                                                     <Image
@@ -176,11 +175,10 @@ export function AboutSection() {
                                                     {item.company}
                                                 </span> */}
                                                 <span
-                                                    className={`block text-base font-semibold leading-6 tracking-tight transition-colors duration-300 sm:text-lg sm:leading-normal ${
-                                                        isOpen
-                                                            ? "text-white"
-                                                            : "text-zinc-300 group-hover:text-white"
-                                                    }`}
+                                                    className={`block text-base font-semibold leading-6 tracking-tight transition-colors duration-300 sm:text-lg sm:leading-normal ${isOpen
+                                                        ? "text-white"
+                                                        : "text-zinc-300 group-hover:text-white"
+                                                        }`}
                                                 >
                                                     {item.title}
                                                 </span>
@@ -189,18 +187,16 @@ export function AboutSection() {
 
                                         <ChevronDown
                                             size={18}
-                                            className={`col-start-3 row-start-1 mt-1 shrink-0 justify-self-end text-white transition-transform duration-300 sm:col-start-3 sm:row-start-auto sm:mt-0.5 ${
-                                                isOpen ? "rotate-180" : ""
-                                            }`}
+                                            className={`col-start-3 row-start-1 mt-1 shrink-0 justify-self-end text-white transition-transform duration-300 sm:col-start-3 sm:row-start-auto sm:mt-0.5 ${isOpen ? "rotate-180" : ""
+                                                }`}
                                         />
                                     </button>
 
                                     <div
-                                        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${
-                                            isOpen
-                                                ? "grid-rows-[1fr] opacity-100"
-                                                : "grid-rows-[0fr] opacity-0"
-                                        }`}
+                                        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${isOpen
+                                            ? "grid-rows-[1fr] opacity-100"
+                                            : "grid-rows-[0fr] opacity-0"
+                                            }`}
                                     >
                                         <div className="overflow-hidden">
                                             <div className="px-5 pb-5 sm:px-6">
