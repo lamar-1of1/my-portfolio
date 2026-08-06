@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useRef, useState, type PointerEvent } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 
-import { MotionImage } from "@/components/shared/MotionImage";
+import { ProjectMedia } from "@/components/shared/ProjectMedia";
 import { contentStagger, easeCurve, fadeOnly, slideUp } from "@/lib/motion";
 import { featuredProjects } from "./home-content";
 import { getProjectStatusClass } from "./project-status";
@@ -152,10 +152,10 @@ export function FeaturedProjectsSection() {
                             className="featured-mobile-card group w-full max-w-none shrink-0 cursor-default touch-pan-y overflow-hidden rounded-2xl border border-dashed border-white/10 bg-[#141414] shadow-[0_20px_60px_rgba(0,0,0,0.35)] transition-colors duration-300 hover:bg-[#1b1b1b]"
                         >
                             <div className="featured-mobile-card-image relative aspect-[16/10] overflow-hidden bg-zinc-900">
-                                <MotionImage
-                                    src={activeMobileProject.image}
-                                    alt={activeMobileProject.title}
+                                <ProjectMedia
+                                    project={activeMobileProject}
                                     className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                                    videoClassName="absolute inset-0 h-full w-full object-cover"
                                 />
 
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
@@ -360,9 +360,8 @@ export function FeaturedProjectsSection() {
                             <aside className="featured-project-card-aside flex min-h-0 min-w-0 flex-col gap-5 border-b border-dashed border-white/10 bg-[#111111] p-4 lg:border-b-0 lg:border-r lg:p-5">
                                 <div className="min-w-0">
                                     <div className="featured-project-image-frame relative mb-3 aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-zinc-950 md:aspect-[16/7] lg:aspect-[16/9] xl:aspect-[16/10]">
-                                        <MotionImage
-                                            src={activeProject.image}
-                                            alt={activeProject.title}
+                                        <ProjectMedia
+                                            project={activeProject}
                                             className="absolute inset-0 h-full w-full object-cover"
                                         />
 

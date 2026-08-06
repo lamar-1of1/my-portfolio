@@ -11,6 +11,7 @@ export interface ProjectItem {
   title: string
   subtitle: string
   image: string
+  video?: string
   year: string
   client: string
   role: string
@@ -43,6 +44,7 @@ export const cardData: ProjectItem[] = [
       '"Unveiling Our Legacy" is a community initiative led by the St. Joseph District Emergency Organisation (DEO).',
     image:
       'https://i.postimg.cc/C5mPcMwV/Screenshot-2026-06-16-224104.png',
+    video: 'https://api-f.streamable.com/api/v1/videos/fs0u3o/mp4',
     techStack: ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'TypeScript', 'Google Auth', 'Supabase Auth', 'AWS', 'Vercel', 'Resend', 'MapBox', 'Bunny.net'],
     overview:
       '"Unveiling Our Legacy" is a community initiative led by the St. Joseph District Emergency Organisation (DEO). We have mapped key landmarks across the parish, from the Parris Hill Mural to historic churches and natural wonders. ',
@@ -94,19 +96,19 @@ export const cardData: ProjectItem[] = [
   },
   {
     id: 3,
-    slug: 'the-power-of-data-driven-consulting',
-    tag: 'Management',
+    slug: 'taste-barbados',
+    tag: 'Cuisine',
     projectStatus: 'In Progress',
-    year: '2024',
-    client: 'Signal Partners',
-    role: 'Product interface, data storytelling',
-    industry: 'Analytics consulting',
-    timeline: '10 weeks',
-    title: 'The power of data-driven consulting',
+    year: '2026',
+    client: '',
+    role: 'Product Design & Coder',
+    industry: 'Community, Cuisine, Tourism',
+    timeline: '5 weeks',
+    title: 'Taste Barbados',
     subtitle:
       'Why data is reshaping how consulting firms deliver value over time. Leveraging analytics for actionable insights.',
-    image:
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2664&auto=format&fit=crop',
+    image: '/assets/taste-barbados-poster.jpg',
+    video: '/assets/Recording 2026-08-05 113639.mp4',
     techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'REST API'],
     overview:
       'A data-led consulting experience designed to make insight feel useful instead of overwhelming. The interface frames analytics as a practical decision tool through simple content modules and measured visual density.',
@@ -118,8 +120,14 @@ export const cardData: ProjectItem[] = [
       'I created a cleaner hierarchy for insights, built compact evidence blocks, and used accessible contrast and spacing so the page could carry detail while remaining readable.',
     outcome:
       'The work creates a stronger bridge between analytics and business value, giving the consulting offer a sharper and more credible presentation.',
-    liveUrl: '/projects/the-power-of-data-driven-consulting',
+    liveUrl: 'https://taste-barbados.vercel.app/',
     githubUrl: 'https://github.com/',
+     credits: [
+      {
+        name: 'Shaquon Hamilton',
+        url: 'https://www.shaquonhamilton.com',
+      },
+    ],
   },
   {
     id: 4,

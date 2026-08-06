@@ -18,6 +18,7 @@ import {
 } from "react";
 
 import { MotionImage } from "@/components/shared/MotionImage";
+import { ProjectMedia } from "@/components/shared/ProjectMedia";
 import type { ProjectItem } from "@/lib/content/projects";
 import {
     contentStagger,
@@ -206,9 +207,8 @@ export function ProjectDetailPage({
                     className="relative overflow-hidden rounded-xl border border-white/10 bg-zinc-950"
                 >
                     <div className="relative aspect-[16/10] md:aspect-[16/7]">
-                        <MotionImage
-                            src={project.image}
-                            alt={project.title}
+                        <ProjectMedia
+                            project={project}
                             className="absolute inset-0 h-full w-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
@@ -583,10 +583,10 @@ export function ProjectDetailPage({
                                 className="group block overflow-hidden rounded-lg border border-white/10 bg-zinc-950/60 transition-colors hover:border-emerald-500/35 hover:bg-zinc-900/70"
                             >
                                 <div className="relative aspect-[16/9] overflow-hidden bg-zinc-900">
-                                    <MotionImage
-                                        src={otherProject.image}
-                                        alt={otherProject.title}
+                                    <ProjectMedia
+                                        project={otherProject}
                                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                                        videoClassName="absolute inset-0 h-full w-full object-cover"
                                     />
                                     <div className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[0.68rem] font-semibold text-zinc-950">
                                         {otherProject.tag}
